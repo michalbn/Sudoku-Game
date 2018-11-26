@@ -2,9 +2,8 @@
 
 
 הסבר.....
-
-תמונה......
-![project logo (this one for is taken from basecamp - a project management service)](https://i.imgur.com/0zowoQW.png)
+![project logo (this one for is taken from basecamp - a project management service)]
+(https://i.imgur.com/0zowoQW.png)
 
 
 ## Tools & Practices
