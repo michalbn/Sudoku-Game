@@ -17,7 +17,7 @@ My role as application developer is to implement a client side that is convenien
 |Category|Status|
 |---|---|
 | Version Control System| git & github |
-| Issues | [![GitHub issues](https://img.shields.io/github/issues/michalbn/Sudoku-Game/project-template.svg?style=flat)(https://github.com/michalbn/Sudoku-Game/issues) |
+| Issues | [![GitHub issues](https://img.shields.io/github/issues/jce-il/project-template.svg?style=flat)](https://github.com/michalbn/Sudoku-Game/issues) |
 |Project Management Board | Project Board|
 | Project report| Final report|
 |Project Status | start|
