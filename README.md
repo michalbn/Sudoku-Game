@@ -19,7 +19,7 @@ We're trying to use the best tools and practices in order to produce a quality e
 |Category|Status|
 |---|---|
 | Version Control System| git & github |
-| Issues | [![GitHub issues](https://img.shields.io/github/issues/jce-il/project-template.svg?style=flat)](https://github.com/esty6u/STORY-OF-LIFE/issues) |
+| Issues | [![GitHub issues](https://img.shields.io/github/issues/jce-il/project-template.svg?style=flat)](https://github.com/michalbn/Sudoku-Game/issues) |
 |Project Management Board | Project Board|
 | Project report| Final report|
 |Project Status | start|
