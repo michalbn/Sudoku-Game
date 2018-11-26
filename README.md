@@ -33,7 +33,7 @@ This appliction is being developed as part of 4th year final project at the soft
 
 Please visit our wiki for furthur project info:
 
-- [Diary](https://github.com/esty6u/STORY-OF-LIFE/wiki/User-Manual)
+- [Diary](https://github.com/michalbn/Sudoku-Game/wiki/Diary)
 
 
 
