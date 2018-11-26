@@ -13,8 +13,6 @@ My role as application developer is to implement a client side that is convenien
 
 
 ## Tools & Practices
-לשנותת...
-We're trying to use the best tools and practices in order to produce a quality enginneered product.
 
 |Category|Status|
 |---|---|
