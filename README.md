@@ -1,14 +1,17 @@
 # Sudoku-Game
 
-As part of this project I am developing a 9x9 sudoku game called "Graphic Sudoku Game". This game allows Sudoku fans to solve puzzles at various difficulty levels - easy, medium and hard and use the help button if there is difficulty solving the game board. The help will be done using the Backtracking algorithm.
+For my project I have decided to develop a 9x9 Sudoku game.  "Graphic Sudoku Game".
+My game allows Sudoku fans to solve puzzles at various difficulty levels - easy, medium and hard. If they struggle solving the game board; they will be able to utilize the help button. This will be done using the Backtracking algorithm.
 
-When registering for a game the player creates a user. In this procedure the player selects a specific nickname and under this nickname the results and times of each game board will be saved on the server.
+When a player registers for a game, a user is created. During this process the player selects a name. The results and times of each game board will be saved on the server under the selected name.
 
-The players can add their friends to the "My Friends" list by clicking the "Add Friends" button. If the other player has approved the companies, the two players will be able to compete between them -The fastest player is the winner. In addition, the two players will be able to play on a common board for collaboration in Sudoku's solution.
+The players can add their friends to the "My Friends" list by clicking the "Add Friends" button. Once the player approves the request, they will be able to compete against each other. The one who finishes the puzzle first is the winner. Furthermore, the two players will be able to play on a common board and cooperate in solving the puzzle.
 
-A two-player sudoku game will contain a chat so the two players will talk to each other and share ideas for solving the board.
-My role as application developer is to implement a client side that is convenient, easy and simple and implement server side that requires access to each user's database.
+In addition, a two-player Sudoku game will contain a chat which will enable the players to talk and share their ideas on how to solve the board.
 
+My role as application developer, is to create a convenient, easy and simple environment for the client and implement a server that requires access to each user's database.
+
+ 
 ![project logo (this one for is taken from basecamp - a project management service)](https://i.imgur.com/0zowoQW.png)
 
 
