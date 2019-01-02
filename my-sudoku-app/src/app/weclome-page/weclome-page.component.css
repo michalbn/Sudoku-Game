@@ -1,0 +1,55 @@
+
+
+h1
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 15%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size : 500%; 
+    text-shadow: 2px 2px gray;
+    color: #87CEFA;
+}
+
+.logoimg{
+    width: 20%;
+    height: 30%;
+    -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(20deg); /* Safari 3-8 */
+    transform: rotate(15deg);
+   position: absolute;
+   /* left: 0; bottom: 0;*/
+    top: 0px;
+    right: 0px;
+   /* position: relative;*/
+}
+
+.form-group label
+{
+    float: right;
+}
+
+::-webkit-input-placeholder { text-align:right; }
+
+.form-group
+{
+    margin-top: 5%;
+    margin-right: 30px;
+    font-size: 140%
+}
+
+.pos
+{
+    display: flex;
+    justify-content: center; 
+    vertical-align: middle;
+    text-align: center;
+}
+
+.size
+{
+    font-size: 140%
+}
+
+
+
