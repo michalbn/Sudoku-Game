@@ -17,10 +17,7 @@ a
     font-size : 140%; 
 }
 
-.friend
-{
-    color:#550a55d5;
-}
+
 
 .form-group
 {
@@ -54,4 +51,20 @@ h1
 .size
 {
     font-size: 120%
+}
+
+
+.glyphicon.glyphicon-education
+{
+    color:black;
+}
+
+.glyphicon.glyphicon-cog
+{
+    color: #5353db;
+}
+
+.glyphicon.glyphicon-align-justify
+{
+    color:#550a55d5;
 }

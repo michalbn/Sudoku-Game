@@ -1,0 +1,49 @@
+.logoimg{
+    width: 20%;
+    height: 30%;
+    -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(20deg); /* Safari 3-8 */
+    transform: rotate(15deg);
+   position: absolute;
+    left: 0; bottom: 0;
+ /*   top: 0px;
+    right: 0px;
+    position: relative;*/
+}
+
+a
+{
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size : 140%; 
+}
+
+.glyphicon.glyphicon-education
+{
+    color:black;
+}
+
+.glyphicon.glyphicon-cog
+{
+    color: #5353db;
+}
+
+h1
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 5%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size : 200%; 
+    text-shadow: 1px 1px gray;
+    color: #87CEFA;
+}
+
+p
+{
+    color: black;
+    text-shadow: 0px 0px gray;
+    font-size : 80%; 
+}
+
+
+
