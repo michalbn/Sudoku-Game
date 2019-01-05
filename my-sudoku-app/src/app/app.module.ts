@@ -10,8 +10,6 @@ import { SudokuClassicGameComponent } from './sudoku-classic-game/sudoku-classic
 import { FriendPageComponent } from './friend-page/friend-page.component';
 import { NewUserPageComponent } from './weclome-page/new-user-page/new-user-page.component';
 import { FriendsGamePageComponent } from './friends-game-page/friends-game-page.component';
-import { CompetitionGameComponent } from './friends-game-page/competition-game/competition-game.component';
-import { CollaborationGameComponent } from './friends-game-page/collaboration-game/collaboration-game.component';
 import { SudokuCompetitionGameComponent } from './sudoku-competition-game/sudoku-competition-game.component';
 import { SudokuCollaborationGameComponent } from './sudoku-collaboration-game/sudoku-collaboration-game.component';
 import { GradePageComponent } from './grade-page/grade-page.component';
@@ -27,8 +25,6 @@ import { SettingPageComponent } from './setting-page/setting-page.component';
     FriendPageComponent,
     NewUserPageComponent,
     FriendsGamePageComponent,
-    CompetitionGameComponent,
-    CollaborationGameComponent,
     SudokuCompetitionGameComponent,
     SudokuCollaborationGameComponent,
     GradePageComponent,
