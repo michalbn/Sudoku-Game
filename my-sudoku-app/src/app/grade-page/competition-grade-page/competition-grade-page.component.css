@@ -1,0 +1,100 @@
+.logoimg{
+    width: 20%;
+    height: 30%;
+    -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(20deg); /* Safari 3-8 */
+    transform: rotate(15deg);
+   position: absolute;
+    left: 0; bottom: 0;
+ /*   top: 0px;
+    right: 0px;
+    position: relative;*/
+}
+
+a
+{
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size : 140%; 
+}
+
+
+.form-group
+{
+    margin-top: 5%;
+}
+
+.form-control
+{
+    font-size : 170%;
+}
+
+h1
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 5%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size : 300%; 
+    text-shadow: 2px 2px gray;
+    color: #87CEFA;
+}
+
+.pos
+{
+    display: flex;
+    justify-content: center; 
+    vertical-align: middle;
+    text-align: center;
+}
+
+.size
+{
+    font-size: 120%
+}
+
+.glyphicon.glyphicon-star
+{
+    color:rgb(224, 247, 20);
+}
+
+
+.glyphicon.glyphicon-education
+{
+    color:black;
+}
+
+.glyphicon.glyphicon-cog
+{
+    color: #5353db;
+}
+
+.glyphicon.glyphicon-globe
+{
+    color: #37c40d;
+}
+
+.glyphicon.glyphicon-object-align-bottom
+{
+    color:#550a55d5;
+}
+
+
+table /*css on table*/
+ {
+    background: white;
+    margin-top: 3%;
+	max-width: 70%;
+	max-height: 50%;
+    margin-bottom: 3%;
+    margin-left:auto; 
+    margin-right:auto;
+    justify-content: center; 
+    vertical-align: middle;
+    text-align: center;
+    
+}
+
+th{
+    text-align:center;
+}
+
