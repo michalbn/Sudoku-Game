@@ -14,6 +14,8 @@ import { SudokuCompetitionGameComponent } from './sudoku-competition-game/sudoku
 import { SudokuCollaborationGameComponent } from './sudoku-collaboration-game/sudoku-collaboration-game.component';
 import { GradePageComponent } from './grade-page/grade-page.component';
 import { SettingPageComponent } from './setting-page/setting-page.component';
+import { CompetitionGradePageComponent } from './grade-page/competition-grade-page/competition-grade-page.component';
+import { CollaborationGradePageComponent } from './grade-page/collaboration-grade-page/collaboration-grade-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SettingPageComponent } from './setting-page/setting-page.component';
     SudokuCompetitionGameComponent,
     SudokuCollaborationGameComponent,
     GradePageComponent,
-    SettingPageComponent
+    SettingPageComponent,
+    CompetitionGradePageComponent,
+    CollaborationGradePageComponent
   ],
   imports: [
     BrowserModule,
