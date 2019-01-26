@@ -15,11 +15,12 @@
     </ul>
 
     <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"><a routerLink="/grade-page"><span class="glyphicon glyphicon-star"></span> הציונים שלי </a></li>
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"><a [routerLink]="['/grade-page']"><span class="glyphicon glyphicon-star"></span> הציונים שלי </a></li>
         <li role="presentation" routerLinkActive="active"><a [routerLink]="['/grade-page','competition']"><span class="glyphicon glyphicon-object-align-bottom"></span> ציוני תחרויות </a></li>
         <li role="presentation" routerLinkActive="active"><a [routerLink]="['/grade-page','collaboration']"><span class="glyphicon glyphicon-globe"></span> ציוני שיתופי פעולה </a></li>
       </ul>
       <router-outlet></router-outlet>
+      <div *ngIf = "gradePage" >
     <h1>הציונים שלי:</h1>
 
     <table class="table table-hover">
@@ -52,5 +53,6 @@
     <div class="logopart">
         <img class=logoimg src="assets\Sudoku.png"/>
     </div>
+  </div>
 </body>
 </html>
