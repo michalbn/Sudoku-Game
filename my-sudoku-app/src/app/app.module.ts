@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { WeclomePageComponent } from './weclome-page/weclome-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SingleGameComponent } from './single-game/single-game.component';
@@ -16,6 +17,8 @@ import { GradePageComponent } from './grade-page/grade-page.component';
 import { SettingPageComponent } from './setting-page/setting-page.component';
 import { CompetitionGradePageComponent } from './grade-page/competition-grade-page/competition-grade-page.component';
 import { CollaborationGradePageComponent } from './grade-page/collaboration-grade-page/collaboration-grade-page.component';
+
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,7 @@ import { CollaborationGradePageComponent } from './grade-page/collaboration-grad
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

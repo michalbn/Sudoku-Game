@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-weclome-page',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeclomePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
+
+  Continue_to_home_page()
+  {
+    //check user
+
+    this.router.navigate(['/home-page']);
+  }
+
+  create_new_user()
+  {
+    this.router.navigate(['/new-user']);
+  }
+
+
+
+  
 
 }

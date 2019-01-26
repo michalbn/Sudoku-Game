@@ -6,20 +6,20 @@
   </head>
   <body>
     <ul class="nav nav-tabs nav-justified">
-      <li role="presentation"><a href="#"><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
-      <li role="presentation"><a href="#"><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
-      <li role="presentation"><a href="#" class="glyphicon glyphicon-pencil"> לשחק עם חברים </a></li>
-      <li role="presentation" ><a href="#"><span class="glyphicon glyphicon-user"></span> החברים שלי </a></li>
-      <li role="presentation" class="active"><a href="#"><span  class="glyphicon glyphicon-education"></span> ציונים </a></li>
-      <li role="presentation" ><a href="#"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
+      <li role="presentation"><a routerLink="/home-page"><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
+      <li role="presentation"><a routerLink="/single-game"><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
+      <li role="presentation"><a routerLink="/friends-game-page" class="glyphicon glyphicon-pencil"> לשחק עם חברים </a></li>
+      <li role="presentation"><a routerLink="/friends-page"><span class="glyphicon glyphicon-user"></span> החברים שלי </a></li>
+      <li role="presentation" class="active"><a routerLink="/grade-page"><span  class="glyphicon glyphicon-education"></span> ציונים </a></li>
+      <li role="presentation" ><a routerLink="/setting"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
     </ul>
 
     <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-star"></span> הציונים שלי </a></li>
-        <li role="presentation"><a href="#"><span class="glyphicon glyphicon-object-align-bottom"></span> ציוני תחרויות </a></li>
-        <li role="presentation"><a href="#"><span class="glyphicon glyphicon-globe"></span> ציוני שיתופי פעולה </a></li>
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"><a routerLink="/grade-page"><span class="glyphicon glyphicon-star"></span> הציונים שלי </a></li>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="['/grade-page','competition']"><span class="glyphicon glyphicon-object-align-bottom"></span> ציוני תחרויות </a></li>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="['/grade-page','collaboration']"><span class="glyphicon glyphicon-globe"></span> ציוני שיתופי פעולה </a></li>
       </ul>
-
+      <router-outlet></router-outlet>
     <h1>הציונים שלי:</h1>
 
     <table class="table table-hover">
