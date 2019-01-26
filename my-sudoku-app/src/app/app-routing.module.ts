@@ -13,6 +13,7 @@ import { SudokuClassicGameComponent } from './sudoku-classic-game/sudoku-classic
 import { SingleGameComponent } from './single-game/single-game.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { WeclomePageComponent } from './weclome-page/weclome-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes=[
   {path: '', component: WeclomePageComponent},
@@ -29,8 +30,8 @@ const appRoutes: Routes=[
     {path: 'collaboration', component: CollaborationGradePageComponent},
   ]},
   {path: 'setting', component: SettingPageComponent},
-  //{path: 'not found', component: },
-
+  {path: 'not-found', component: PageNotFoundComponent},
+  {path: '**', redirectTo: '/not-found'},
   
 ];
 
