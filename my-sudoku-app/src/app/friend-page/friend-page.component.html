@@ -15,11 +15,12 @@
     </ul>
 
     <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-user "></span> הוספת חברים </a></li>
-        <li role="presentation"><a href="#"><span class="glyphicon glyphicon-align-justify"></span> צפייה בחברים  </a></li>
-        <li role="presentation"><a href="#"><span class="glyphicon glyphicon-info-sign "></span> מצב בקשות </a></li>
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"><a [routerLink]="['/friends-page']"><span class="glyphicon glyphicon-user "></span> הוספת חברים </a></li>
+        <li role="presentation"routerLinkActive="active"><a [routerLink]="['/friends-page','watch-friends']"><span class="glyphicon glyphicon-align-justify"></span> צפייה בחברים  </a></li>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="['/friends-page','status-friends']"><span class="glyphicon glyphicon-info-sign "></span> מצב בקשות </a></li>
       </ul>
-
+    <router-outlet></router-outlet>
+    <div *ngIf = "friendPage">
     <h1>להוספת החבר/ה הכנס/י את כינויו:</h1>
     <form method="post" role="form" class="form-horizontal">
       <div class="form-group">
@@ -36,5 +37,6 @@
     <div class="logopart">
         <img class=logoimg src="assets\Sudoku.png"/>
     </div>
+  </div>
 </body>
 </html>

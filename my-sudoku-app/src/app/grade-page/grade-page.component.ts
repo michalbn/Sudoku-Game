@@ -16,7 +16,7 @@ export class GradePageComponent implements OnInit,DoCheck {
   ngOnInit() {
   }
 
-  ngDoCheck()//after any change
+  ngDoCheck()//after any change meybe subscribe video 11
   {
     
     this.path = this.router.routerState.snapshot.url

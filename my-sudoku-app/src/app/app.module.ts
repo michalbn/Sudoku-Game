@@ -18,6 +18,8 @@ import { SettingPageComponent } from './setting-page/setting-page.component';
 import { CompetitionGradePageComponent } from './grade-page/competition-grade-page/competition-grade-page.component';
 import { CollaborationGradePageComponent } from './grade-page/collaboration-grade-page/collaboration-grade-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WatchFriendsComponent } from './friend-page/watch-friends/watch-friends.component';
+import { StatusFriendsComponent } from './friend-page/status-friends/status-friends.component';
 
 
 
@@ -37,7 +39,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SettingPageComponent,
     CompetitionGradePageComponent,
     CollaborationGradePageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    WatchFriendsComponent,
+    StatusFriendsComponent
   ],
   imports: [
     BrowserModule,

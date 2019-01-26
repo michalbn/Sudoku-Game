@@ -14,6 +14,8 @@ import { SingleGameComponent } from './single-game/single-game.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { WeclomePageComponent } from './weclome-page/weclome-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WatchFriendsComponent } from './friend-page/watch-friends/watch-friends.component';
+import { StatusFriendsComponent } from './friend-page/status-friends/status-friends.component';
 
 const appRoutes: Routes=[
   {path: '', component: WeclomePageComponent},
@@ -21,7 +23,10 @@ const appRoutes: Routes=[
   {path: 'single-game', component: SingleGameComponent},
   {path: 'classic-game', component: SudokuClassicGameComponent},
   {path: 'new-user', component: NewUserPageComponent},
-  {path: 'friends-page', component: FriendPageComponent},
+  {path: 'friends-page', component: FriendPageComponent,children:[
+    {path: 'watch-friends', component: WatchFriendsComponent},
+    {path: 'status-friends', component: StatusFriendsComponent},
+  ]},
   {path: 'friends-game-page', component: FriendsGamePageComponent},
   {path: 'competition-game', component: SudokuCompetitionGameComponent},
   {path: 'collaboration-game', component: SudokuCollaborationGameComponent},
