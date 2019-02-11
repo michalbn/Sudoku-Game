@@ -21,6 +21,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { WatchFriendsComponent } from './friend-page/watch-friends/watch-friends.component';
 import { StatusFriendsComponent } from './friend-page/status-friends/status-friends.component';
 
+//firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 
 
 @NgModule({
@@ -46,6 +51,8 @@ import { StatusFriendsComponent } from './friend-page/status-friends/status-frie
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'my-sudoku-app'), // Main Angular fire module 
+    AngularFireDatabaseModule,  // Firebase database module 
   ],
   providers: [],
   bootstrap: [AppComponent]
