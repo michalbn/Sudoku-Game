@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
   <head>
-      <meta charses="utf-8">
+      <meta charset="utf-8">
   </head>
   <body>
       <div class="container">
@@ -11,17 +11,23 @@
               </div>
           </div>
       </div>
-      <div class="container">
-          <form>
+        <!-- User form -->
+          <form [formGroup]="userForm" (ngSubmit)="submitUserData()" novalidate>
+              <div class="container">
             <div class="form-group size">
               <label>בחר כינוי</label>
-              <input type="text" placeholder="הכנס לכאן" class="form-control size" id="nickName">
+              <input type="text" placeholder="הכנס לכאן" class="form-control size" formControlName="nickName" required>
+              <!-- Showing errors using getter method -->
+              <p *ngIf="nickName.errors?.minlength" class="error"><sup>*</sup>הכינוי צריך להכיל לפחות 3 אותיות</p>
+              <p *ngIf="nickName.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 10 תווים</p>
             </div>
             <div class="form-group pos"> 
-                <button type="button" class="btn btn-info size"(click)="welcome_page()">אישור</button>
+                <button type="submit" class="btn btn-info size" [disabled]="!userForm.valid">אישור</button>
+                
                 </div>
+              </div>
           </form>
-        </div>
+      
 
       <div class="logopart">
           <img class=logoimg src="assets\Sudoku.png"/>

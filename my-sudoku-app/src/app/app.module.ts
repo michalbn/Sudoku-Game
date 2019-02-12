@@ -26,7 +26,15 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 
+// Reactive Form Module
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+// Import below modules for NGX Toastr
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
+// NGX Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -51,8 +59,13 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'my-sudoku-app'), // Main Angular fire module 
     AngularFireDatabaseModule,  // Firebase database module 
+    ReactiveFormsModule, // Reactive forms module,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() ,// ToastrModule added
+    NgxPaginationModule  // Include it in imports array
   ],
   providers: [],
   bootstrap: [AppComponent]
