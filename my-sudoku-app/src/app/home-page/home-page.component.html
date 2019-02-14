@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
   <head>
-      <meta charses="utf-8">
+      <meta charset="utf-8">
   </head>
   <body>
     <ul class="nav nav-tabs nav-justified">
@@ -11,7 +11,14 @@
       <li role="presentation"><a routerLink="/friends-page"><span class="glyphicon glyphicon-user"></span> החברים שלי </a></li>
       <li role="presentation"><a routerLink="/grade-page"><span  class="glyphicon glyphicon-education"></span> ציונים </a></li>
       <li role="presentation" ><a routerLink="/setting"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
+      <li role="presentation"><a (click)="logout()" class="btn btn-info"><span class="glyphicon glyphicon-log-out"></span>התנתק/י</a></li>
     </ul>
+
+    <h2> {{today|date: "dd.MM.y"}}</h2>     
+ 
+    <h1> ברוכים הבאים {{userName}} </h1>
+
+
 
 
 

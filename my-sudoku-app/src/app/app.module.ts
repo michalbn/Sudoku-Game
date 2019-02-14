@@ -36,6 +36,10 @@ import { ToastrModule } from 'ngx-toastr';
 // NGX Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
 
+
+//SessionStorage
+import {NgxWebstorageModule} from 'ngx-webstorage';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +69,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule, // Reactive forms module,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() ,// ToastrModule added
-    NgxPaginationModule  // Include it in imports array
+    NgxPaginationModule , // Include it in imports array
+    NgxWebstorageModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

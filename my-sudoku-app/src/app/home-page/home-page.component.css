@@ -28,3 +28,30 @@ a
 }
 
 
+h1
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 7%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size : 500%; 
+    text-shadow: 2px 2px gray;
+    color: #87CEFA;
+}
+
+h2
+{
+    vertical-align: middle;
+    text-align: left;
+    margin-top: 5%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size : 150%;
+    margin-left: 9%; 
+    text-shadow: 1px 1px gray;
+    color: #87CEFA;
+}
+
+.btn
+{
+    font-size: 105%
+}

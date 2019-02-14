@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-weclome-page',
   templateUrl: './weclome-page.component.html',
@@ -12,73 +13,77 @@ import { ToastrService } from 'ngx-toastr';
 export class WeclomePageComponent implements OnInit {
   public userForm: FormGroup;
   public count=0;
+ 
   
 
   constructor(private router: Router,
-              public authApi: AuthService,  // CRUD API services
+              public authApi: AuthService,  // AUTH API services
               public fb: FormBuilder,       // Form Builder service for Reactive forms
               public toastr: ToastrService,  // Toastr service for alert message
-    ) { }
+              ) { }
 
     ngOnInit() {
      // this.authApi.GetUsersList();  // Call GetStudentsList() before main form is being called
-      this.useForm();              // Call student form when component is ready
+      this.useForm();              // Call user form when component is ready
+      
     }
 
-    // Reactive student form
+    // Reactive user form
     useForm() {
       this.userForm = this.fb.group({
         nickName: ['', [Validators.required, Validators.minLength(3)]],
       })  
     }
 
-    get nickName() {
+    get nickName() {//get user nickName
       return this.userForm.get('nickName');
     }
 
-    ResetForm() {
+    ResetForm() {// reset input text
       this.userForm.reset();
     }  
 
-  Continue_to_home_page()
+  Continue_to_home_page()//when you click on the button
   {
     this.authApi.GetUsersList().valueChanges().subscribe(collection => {
       if(collection.length==0)//if nothing in the firebase
       {
-        this.ResetForm();  // Reset form when clicked on reset button
+        this.ResetForm();  // reset input text
         this.toastr.error('!לא קיימים משתמשים צור משתמש חדש', '!אופס');
         
       }
-      else{
-      for (var i = 0; i < collection.length; i++) 
+      else//if something in the firebase
       {
-        if(collection[i].nickName===this.userForm.value.nickName)
+        for (var i = 0; i < collection.length; i++) 
         {
-          this.ResetForm();  // Reset form when clicked on reset button
-          this.router.navigate(['/home-page']);
-          break;
+          if(collection[i].nickName===this.userForm.value.nickName)
+          {
+           this.authApi.userLogin=this.userForm.value.nickName//user exist
+           this.ResetForm();  // // reset input text
+           this.router.navigate(['/home-page']);//go to home-page
+           break;
+          }
+          else
+          {
+            this.count++;//invalid user name
+          }
         }
-        else{
-          this.count++;
+        if(this.count===collection.length && this.userForm.value.nickName!==null)//check validation
+        {
+          this.ResetForm();  // // reset input text
+          this.toastr.error('!משתמש זה לא קיים ', '!אופס');
+          this.count=0;
         }
       }
-      if(this.count===collection.length && this.userForm.value.nickName!==null)
-      {
-        this.ResetForm();  // Reset form when clicked on reset button
-       this.toastr.error('!משתמש זה לא קיים ', '!אופס');
-       this.count=0;
-       
-
-      }
-    }
-      })
+    })
   }
   
-
   create_new_user()
   {
-    this.router.navigate(['/new-user']);
+    this.router.navigate(['/new-user']);//go to new-user
   }
+
+
 
 
 
