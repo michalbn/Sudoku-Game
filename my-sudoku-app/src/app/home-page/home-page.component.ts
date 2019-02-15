@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user';
 import { AuthService } from '../shared/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-home-page',
@@ -11,10 +12,31 @@ import { Router } from '@angular/router';
 export class HomePageComponent implements OnInit {
 userName: string
 today: number = Date.now();
+User: User[];   
+id:string;
   constructor(public authApi: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private actRoute: ActivatedRoute, ) { }
 
-  ngOnInit() {
+  ngOnInit() {   
+    
+    let s = this.authApi.GetUsersList(); 
+    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+      this.User = [];
+      data.forEach(item => {
+        let a = item.payload.toJSON();
+        if(a["nickName"]===this.userName)
+        {
+          this.id=item.key 
+          a['$key'] = item.key;
+          this.User.push(a as User);
+          console.log(typeof(this.User[0]))
+         
+        }
+       // console.log(this.id);
+       // console.log(item.key)
+      })
+    })
     this.today = Date.now();//showing the date
     this.userName=this.authApi.userLogin;//enter the global nickName to variable
     if(this.userName!=null)//if global variable not null
@@ -33,8 +55,14 @@ today: number = Date.now();
     }
   }
 
+    // Contains Reactive Form logic
+
+
   logout()
   {
+    this.authApi.DeleteUser(this.id)
+    this.authApi.AddUser(this.User[0],false)
+    this.authApi.disconnect=0;
     this.authApi.delSessionStorage();
     this.userName=null;
     this.router.navigate(['/']);//go to new-user

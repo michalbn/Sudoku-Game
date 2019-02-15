@@ -13,6 +13,7 @@ export class AuthService {
   usersRef: AngularFireList<any>;    // Reference to Student data list, its an Observable
   userRef: AngularFireObject<any>;   // Reference to Student object, its an Observable too
   public userLogin: string;  
+  disconnect: number
 
   constructor(private db: AngularFireDatabase,
               private storage:LocalStorageService,
@@ -21,9 +22,11 @@ export class AuthService {
               ) { }
 
     // Create User
-    AddUser(user: User) {
+    AddUser(user: User,status:boolean) {
       this.usersRef.push({
-        nickName: user.nickName
+        nickName: user.nickName,
+        password: user.password,
+        login: status
       })
       
     }
@@ -39,39 +42,13 @@ export class AuthService {
     this.usersRef = this.db.list('users-list');
     return this.usersRef;
   }
-  
-    // Update User Object
-    UpdateStudent(user: User) {
-      this.userRef.update({
-        nickName: user.nickName
-      })
-    }
     
     // Delete User Object
     DeleteUser(id: string) { 
       this.userRef = this.db.object('users-list/'+id);
       this.userRef.remove();
     }
-
-    checkNickName(nickName:string)
-    {  
-        this.GetUsersList().valueChanges().subscribe(collection => {
-          for (var i = 0; i < collection.length; i++) 
-          {
-            if(collection[i].nickName==nickName)
-            {
-              console.log("collection[i].nickName" + collection[i].nickName)
-             this.valid =true;
-             break;
-            }
-            
-          }
-          this.valid =false;
-  
-          })
-    
-    }
-
+ 
     //session- get , set , delete
     setSessionStorage(nickName:string)
     {

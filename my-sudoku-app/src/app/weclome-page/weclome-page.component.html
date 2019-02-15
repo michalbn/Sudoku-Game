@@ -14,15 +14,24 @@
  
           <form [formGroup]="userForm" (ngSubmit)="Continue_to_home_page()" novalidate>
               <div class="container">
-            <div class="form-group size">
-              <label>הכנס כינויי:</label>
-              <input type="text" placeholder="הכנס לכאן"formControlName="nickName" class="form-control size" required>
-              <button type="button" class="btn btn-link" (click)= "create_new_user()">משתמש חדש? לחץ כאן.</button>
-            </div>
-            <div class="form-group pos"> 
-                <button type="submit" class="btn btn-info size" [disabled]="!userForm.valid">היכנס</button>
+                <div class="form-group size">
+                  <label>הכנס כינויי:</label>
+                  <input type="text" placeholder="הכנס לכאן"formControlName="nickName" class="form-control size" required>
+                  <p *ngIf="nickName.errors?.minlength" class="error"><sup>*</sup>הכינוי צריך להכיל לפחות 3 אותיות</p>
+                  <p *ngIf="nickName.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 10 תווים</p>
+                  <button type="button" class="btn btn-link" (click)= "create_new_user()">משתמש חדש? לחץ כאן.</button>
+                  <br>
+                  <br>
+                  <label>הכנס סיסמא:</label>
+                  <input type="text" placeholder="הכנס לכאן"formControlName="password" class="form-control size" required>
+                  <p *ngIf="password.errors?.pattern" class="error"><sup>*</sup>הכנס רק מספרים</p>
+                  <p *ngIf="password.errors?.minlength" class="error"><sup>*</sup>הסיסמא צריכה להכיל לפחות 4 מספרים</p>
+                  <p *ngIf="password.errors?.maxlength" class="error"><sup>*</sup>הסיסמא צריכה להכיל עד 6 מספרים</p>
                 </div>
+              <div class="form-group pos"> 
+              <button type="submit" class="btn btn-info size" [disabled]="!userForm.valid">היכנס</button>
               </div>
+            </div>
           </form>
        
 
