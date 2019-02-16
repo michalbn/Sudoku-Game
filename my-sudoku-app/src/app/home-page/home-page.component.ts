@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user';
 import { AuthService } from '../shared/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { database } from 'firebase';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Component({
@@ -16,7 +18,8 @@ User: User[];
 id:string;
   constructor(public authApi: AuthService,
               private router: Router,
-              private actRoute: ActivatedRoute, ) { }
+              private actRoute: ActivatedRoute,
+             ) { }
 
   ngOnInit() {   
     
@@ -30,18 +33,13 @@ id:string;
           this.id=item.key 
           a['$key'] = item.key;
           this.User.push(a as User);
-          console.log(typeof(this.User[0]))
-         
         }
-       // console.log(this.id);
-       // console.log(item.key)
       })
     })
     this.today = Date.now();//showing the date
     this.userName=this.authApi.userLogin;//enter the global nickName to variable
     if(this.userName!=null)//if global variable not null
     {
-          console.log("this.authApi.userLogin: "+ this.authApi.userLogin)
           this.authApi.setSessionStorage(this.authApi.userLogin);//setSessionStorage
     }
 
@@ -60,8 +58,8 @@ id:string;
 
   logout()
   {
-    this.authApi.DeleteUser(this.id)
-    this.authApi.AddUser(this.User[0],false)
+    console.log(this.User[0]);
+    this.authApi.UpdateUserLogin(this.id,this.User[0],false)
     this.authApi.disconnect=0;
     this.authApi.delSessionStorage();
     this.userName=null;

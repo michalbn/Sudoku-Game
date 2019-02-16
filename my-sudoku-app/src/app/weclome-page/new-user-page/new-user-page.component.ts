@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class NewUserPageComponent implements OnInit {
   public userForm: FormGroup;
   count=0;
+  friendName='';
+  status='';
   
   
   constructor(private router: Router,
@@ -67,7 +69,8 @@ export class NewUserPageComponent implements OnInit {
         if(this.count===collection.length && this.userForm.value.nickName!==null)//if user not exsit in the firebase
         {
           this.authApi.userLogin=this.userForm.value.nickName;//add nickName to global variable
-          this.authApi.AddUser(this.userForm.value,true); // Submit user data using auth service
+          console.log(this.userForm.value)
+          this.authApi.AddUser(this.userForm.value,true,this.friendName,this.status); // Submit user data using auth service
           this.ResetForm();  // reset input text
           this.router.navigate(['/home-page']);  
         }

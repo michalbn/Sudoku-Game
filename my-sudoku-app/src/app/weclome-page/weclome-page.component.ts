@@ -52,8 +52,6 @@ export class WeclomePageComponent implements OnInit {
   {
     console.log(this.authApi.GetUsersList())
     this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
-      console.log("collection.length "+ collection.length );
-      console.log("this.authApi.disconnect"+ this.authApi.disconnect);
       if(collection.length==0 && this.authApi.disconnect==undefined)//if nothing in the firebase
       {
         this.ResetForm();  // reset input text
@@ -72,18 +70,19 @@ export class WeclomePageComponent implements OnInit {
 
             console.log(JSON.stringify(collection[i]))
             this.authApi.userLogin=this.userForm.value.nickName//user exist
-            this.authApi.DeleteUser(collection[i].key)
-            this.authApi.AddUser(collection[i].payload.val(),true)
+           // this.authApi.DeleteUser(collection[i].key)
+            //this.authApi.AddUser(collection[i].payload.val(),true)
+            this.authApi.UpdateUserLogin(collection[i].key,collection[i].payload.val(),true)
             this.ResetForm();  // // reset input text
             this.router.navigate(['/home-page']);//go to home-page
             break;
           }
         
-          else
+        }
+                  else
           {
             this.count++;//invalid user name
           }
-        }
       
         }
         if(this.count===collection.length && this.userForm.value.nickName!==null && this.userForm.value.password!==null)//check validation

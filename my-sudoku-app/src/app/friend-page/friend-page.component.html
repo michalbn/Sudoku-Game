@@ -22,13 +22,13 @@
     <router-outlet></router-outlet>
     <div *ngIf = "friendPage">
     <h1>להוספת החבר/ה הכנס/י את כינויו:</h1>
-    <form method="post" role="form" class="form-horizontal">
+    <form method="post" role="form" class="form-horizontal" [formGroup]="friendForm" (ngSubmit)="addFriend()" novalidate>
       <div class="form-group">
         <div class="col-xs-6 col-xs-offset-3">
-          <input type="text" class="form-control" name="nickName" placeholder="הכנס לכאן">
+          <input type="text" formControlName="friendName" class="form-control"placeholder="הכנס לכאן">
         </div>
         <div class="form-group pos"> 
-            <button type="button" class="btn btn-info size">אישור</button>
+            <button type="submit" class="btn btn-info size" [disabled]="!friendForm.valid">אישור</button>
        </div>
       </div>
     </form>
