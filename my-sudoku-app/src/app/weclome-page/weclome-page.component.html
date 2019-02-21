@@ -15,7 +15,7 @@
           <form [formGroup]="userForm" (ngSubmit)="Continue_to_home_page()" novalidate>
               <div class="container">
                 <div class="form-group size">
-                  <label>הכנס כינויי:</label>
+                  <label>הכנס כינוי:</label>
                   <input type="text" placeholder="הכנס לכאן"formControlName="nickName" class="form-control size" required>
                   <p *ngIf="nickName.errors?.minlength" class="error"><sup>*</sup>הכינוי צריך להכיל לפחות 3 אותיות</p>
                   <p *ngIf="nickName.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 10 תווים</p>

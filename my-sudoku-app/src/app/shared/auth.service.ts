@@ -16,7 +16,6 @@ export class AuthService {
   userRef: AngularFireObject<any>;   // Reference to Student object, its an Observable too
   public userLogin: string;  
   disconnect: number
-  friend: Friend[]=[];
 
   constructor(private db: AngularFireDatabase,
               private storage:LocalStorageService,

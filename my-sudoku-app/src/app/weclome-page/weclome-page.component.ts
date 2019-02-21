@@ -58,6 +58,7 @@ export class WeclomePageComponent implements OnInit {
         this.toastr.error('!לא קיימים משתמשים צור משתמש חדש', '!אופס');
         
       }
+      
       else//if something in the firebase
       {
         for (var i = 0; i < collection.length; i++) 
@@ -68,7 +69,8 @@ export class WeclomePageComponent implements OnInit {
           {
             
 
-            console.log(JSON.stringify(collection[i]))
+           // console.log(JSON.stringify(collection[i]))
+           //this.db.database.ref("users-list/"+collection[i].key+"/login").set(true)
             this.authApi.userLogin=this.userForm.value.nickName//user exist
            // this.authApi.DeleteUser(collection[i].key)
             //this.authApi.AddUser(collection[i].payload.val(),true)

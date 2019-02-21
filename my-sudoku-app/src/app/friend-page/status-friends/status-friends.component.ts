@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/auth.service';
+import { User } from 'src/app/shared/user';
+
 
 @Component({
   selector: 'app-status-friends',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatusFriendsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authApi: AuthService) { }
 
   ngOnInit() {
+
   }
 
 }

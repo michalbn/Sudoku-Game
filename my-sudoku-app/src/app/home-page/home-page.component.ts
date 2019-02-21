@@ -49,7 +49,7 @@ id:string;
     }
     else
     {
-      this.router.navigate(['/not-found']);//go to new-user
+      this.router.navigate(['/']);//go to new-user
     }
   }
 
@@ -58,7 +58,7 @@ id:string;
 
   logout()
   {
-    console.log(this.User[0]);
+    //this.db.database.ref("users-list/"+this.id+"/login").set(false)
     this.authApi.UpdateUserLogin(this.id,this.User[0],false)
     this.authApi.disconnect=0;
     this.authApi.delSessionStorage();

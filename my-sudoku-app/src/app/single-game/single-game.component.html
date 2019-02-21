@@ -17,9 +17,9 @@
         <div class="form-row">
           <div class="form-group col-md-8">
             <label for="board">בחר לוח:</label>
-            <div class="card">
-                <div class="card-body">
-                  This is some text within a card body.  מידע נוסף...
+            <div class="card" >
+                <div class="card-body" id="demo" (click)= mark() >
+                  "test - Easy board" מידע נוסף...
                 </div>
               </div>
           </div>
@@ -35,7 +35,7 @@
       </form>
       <div class="form-group row">
           <div class="col-sm-7">
-            <button type="submit" class="btn btn-info size">התחל לשחק</button>
+            <button type="submit" class="btn btn-info size" (click)="play()" >התחל לשחק</button>
           </div>
       </div>
     <div class="logopart">
