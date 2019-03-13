@@ -79,12 +79,17 @@ export class WeclomePageComponent implements OnInit {
             this.router.navigate(['/home-page']);//go to home-page
             break;
           }
+          else
+          {
+            this.count=collection.length;
+            break;
+          }
         
         }
-                  else
-          {
-            this.count++;//invalid user name
-          }
+        else
+        {
+          this.count++;//invalid user name
+        }
       
         }
         if(this.count===collection.length && this.userForm.value.nickName!==null && this.userForm.value.password!==null)//check validation

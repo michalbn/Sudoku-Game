@@ -21,3 +21,17 @@ h1
     text-shadow: 2px 2px gray;
     color: #87CEFA;
 }
+
+.status
+{
+    text-align: center;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    margin-top: 3%;
+    font-size : 120%; 
+    
+}
+
+.space
+{
+    margin-bottom: 1.2%;
+}
