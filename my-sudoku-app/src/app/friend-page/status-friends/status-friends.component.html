@@ -16,6 +16,16 @@
        </div>
     </div>
 
+    <div class ="status">
+            <div *ngFor="let Request of friendRequest" >
+                    <div class ="space">
+                בקשת חברות נשלחה מ{{Request}}
+                 <button type="button" class="btn btn-success" (click)="confirm(Request)"> לאשר</button>
+                 <button type="button" class="btn btn-danger" (click)="cancel(Request)">לבטל</button>
+            </div>
+           </div>
+        </div>
+
 
     <div class="logopart">
         <img class=logoimg src="assets\Sudoku.png"/>
