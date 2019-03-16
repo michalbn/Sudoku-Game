@@ -108,9 +108,16 @@ export class FriendPageComponent implements OnInit,DoCheck {
               for(var i=0;i<this.friend.length;i++)
               {
                   console.log(this.friend[i]["friendName"])
-                  if(this.friend[i]["friendName"]===this.friendForm.value.friendName)
+                  if(this.friend[i]["friendName"]===this.friendForm.value.friendName && this.friend[i]["status"]==="hold" )
                     {
-                      this.toastr.error('כבר שלחת בקשה לחבר זה', '!אופס');
+                      this.toastr.error('כבר נשלחה בקשת חברות', '!אופס');
+                      this.exist=1;
+                      this.ResetForm();
+                      break;
+                    }
+                    else if(this.friend[i]["friendName"]===this.friendForm.value.friendName && this.friend[i]["status"]==="approved" )
+                    {
+                      this.toastr.error('אתם כבר חברים', '!אופס');
                       this.exist=1;
                       this.ResetForm();
                       break;

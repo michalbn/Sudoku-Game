@@ -8,7 +8,11 @@
 
 
     <h1>החברים שלי:</h1>
-
+    <div class ="status">
+            <div *ngFor="let friend_status of status_approved" >
+                <div class ="space">{{friend_status}}</div>
+           </div>
+    </div>
 
     <div class="logopart">
         <img class=logoimg src="assets\Sudoku.png"/>

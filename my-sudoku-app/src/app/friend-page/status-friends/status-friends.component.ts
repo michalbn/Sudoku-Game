@@ -4,7 +4,7 @@ import { User } from 'src/app/shared/user';
 import { Friend } from 'src/app/shared/friend';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Location } from '@angular/common';
+
 
 
 @Component({
@@ -18,10 +18,11 @@ export class StatusFriendsComponent implements OnInit {
   friend_status_hold: string[]=[];
   friendRequest: string[]=[];
   friendDetail: string[]=[];
+  id: string;
 
 
 
-  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase , private location: Location) { }
+  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase) { }
 
   ngOnInit() { 
     let s = this.authApi.GetUsersList(); 
@@ -31,9 +32,10 @@ export class StatusFriendsComponent implements OnInit {
         let a = item.payload.toJSON();
         if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
         {
-          //this.id=item.key ;
+          this.id=item.key ;
           a['$key'] = item.key;
           this.User.push(a as User);
+          
           this.friend = Object.assign(this.friend,this.User[0].friendList);
           this.friend_status_hold=[];
 
@@ -99,13 +101,27 @@ export class StatusFriendsComponent implements OnInit {
 
   confirm(Request)
   {
+    console.log(this.User)
     for (var i = 0; i < this.friendDetail.length; i++)
     {
       var res:string[]=[]
+      var addFriend:Friend[]=[]
       res= this.friendDetail[i].split(",");
       if(res[2]===Request)
       {
         this.db.database.ref("users-list/"+res[0]+"/friendList/"+res[1]+"/status").set("approved")
+        if(this.User[0].friendList[0]==null)
+        {
+          addFriend.push({friendName: Request, status:"approved"});
+          this.authApi.UpdateUserFriend(this.id, this.User[0],addFriend)
+        }
+        else
+        {
+          addFriend = Object.assign(addFriend,this.User[0].friendList);
+          addFriend.push({friendName: Request, status:"approved"});
+          this.authApi.UpdateUserFriend(this.id, this.User[0],addFriend)
+
+        }
         res=[];
         break;
       }
