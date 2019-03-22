@@ -13,143 +13,150 @@ import { AngularFireDatabase } from '@angular/fire/database';
   styleUrls: ['./status-friends.component.css']
 })
 export class StatusFriendsComponent implements OnInit {
-  User: User[];   
-  friend: Friend[]=[];
-  friend_status_hold: string[]=[];
-  friendRequest: string[]=[];
-  friendDetail: string[]=[];
-  id: string;
-
-
+  
+  friend_status_hold: string[]=[];//contain a list of names that this user has sent membership request
+  friendRequest: string[]=[];//Contains a list of names that have sent to this user membership request
 
   constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase) { }
 
   ngOnInit() { 
-    let s = this.authApi.GetUsersList(); 
-    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
-      this.User = [];
-      data.forEach(item => {
-        let a = item.payload.toJSON();
-        if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
-        {
-          this.id=item.key ;
-          a['$key'] = item.key;
-          this.User.push(a as User);
-          
-          this.friend = Object.assign(this.friend,this.User[0].friendList);
-          this.friend_status_hold=[];
-
-        }
-      })
-      for (var i = 0; i < this.friend.length; i++) 
-      {
-        if (this.friend[i].status==="hold")
-        {
-          this.friend_status_hold.push(this.friend[i].friendName)
-        }
-      }
-    })
-    
-    var temp: string[]=[]
-    
-       this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
-      for (var i = 0; i < collection.length; i++) 
-        {
-          if(collection[i].payload.val().friendList.length!=undefined && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
+     //Sending a friend request
+      this.authApi.GetUsersList().snapshotChanges().subscribe(collection => { 
+        this.friend_status_hold=[];//init
+        for (var i = 0; i < collection.length; i++) 
+        {     
+          if(collection[i].payload.val().nickName===this.authApi.getSessionStorage() && this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
           {
-            for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
-              {              
-                if(collection[i].payload.val().friendList[j].friendName===this.authApi.getSessionStorage() && collection[i].payload.val().friendList[j].status==="hold")
+            if(collection[i].payload.val().friendList.friendName!=="")//friends Exist
+            {
+              for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
+              {
+                if(collection[i].payload.val().friendList[j].status==="hold")//Check status - "hold"
                 {
-                  if(this.friendRequest.length==0)
-                  {
-                    this.friendRequest.push(collection[i].payload.val().nickName)
-                    temp.push(collection[i].key, j.toString(), collection[i].payload.val().nickName)
-                    this.friendDetail.push(temp.toString())
-                    temp=[];
-                    break
-                  }
-                  else
-                  {
-                    for (var k = 0; k < this.friendRequest.length; k++)
-                    {
-                      if(collection[i].payload.val().nickName===this.friendRequest[k])
-                      {
-                          k=this.friendRequest.length
-                          j=collection[i].payload.val().friendList.length
-                          break;
-                      }
-                    }
-                    if(k!==this.friendRequest.length||j!==collection[i].payload.val().friendList.length)
-                    {
-                      this.friendRequest.push(collection[i].payload.val().nickName)
-                      temp.push(collection[i].key, j.toString(), collection[i].payload.val().nickName)
-                      this.friendDetail.push(temp.toString())
-                      temp=[];
-                      break 
-                    }
-                  }  
+                  this.friend_status_hold.push(collection[i].payload.val().friendList[j].friendName)
                 }
-              }
-              
+              } 
             }
           }
-      })  
-
+        }
+        return;
+      })
+      //Receive membership request
+      this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
+        this.friendRequest=[];//init
+        for (var i = 0; i < collection.length; i++) 
+        {
+          if(collection[i].payload.val().friendList.friendName!=="")//friends Exist
+          {
+            for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
+            {
+              if(collection[i].payload.val().nickName!==this.authApi.getSessionStorage() && this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
+              {
+                if(collection[i].payload.val().friendList[j].friendName===this.authApi.getSessionStorage() &&collection[i].payload.val().friendList[j].status==="hold")
+                {
+                  this.friendRequest.push(collection[i].payload.val().nickName)
+                }
+              }
+            }
+          }
+        }
+        return;
+      })
   }
   
-
-  confirm(Request)
+  confirm(Request)//Confirmation of membership request
   {
-    console.log(this.User)
-    for (var i = 0; i < this.friendDetail.length; i++)
-    {
-      var res:string[]=[]
-      var addFriend:Friend[]=[]
-      res= this.friendDetail[i].split(",");
-      if(res[2]===Request)
+    this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
+      if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
       {
-        this.db.database.ref("users-list/"+res[0]+"/friendList/"+res[1]+"/status").set("approved")
-        if(this.User[0].friendList[0]==null)
+        for (var i = 0; i < collection.length; i++) 
         {
-          addFriend.push({friendName: Request, status:"approved"});
-          this.authApi.UpdateUserFriend(this.id, this.User[0],addFriend)
-        }
-        else
-        {
-          addFriend = Object.assign(addFriend,this.User[0].friendList);
-          addFriend.push({friendName: Request, status:"approved"});
-          this.authApi.UpdateUserFriend(this.id, this.User[0],addFriend)
-
-        }
-        res=[];
-        break;
+          for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
+          {
+            //Change the status of the member on this user
+            if(collection[i].payload.val().nickName===Request && collection[i].payload.val().friendList[j].friendName===this.authApi.getSessionStorage())
+            {
+              this.db.database.ref("users-list/"+collection[i].key+"/friendList/"+j+"/status").set("approved")
+              i=collection.length;
+              break;   
+            }
+          }
+        }      
       }
-    }
-    this.friendDetail=[];
-    this.friendRequest=[];
-    this.friend=[]
-    this.ngOnInit();
-    
+      this.friend_status_hold=[];
+      this.friendRequest=[];
+      this.ngOnInit(); 
+      return;
+    })
+
+    this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
+      var addFriend:Friend[]=[];
+      //Add this user to the other player's friends list
+      if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
+      {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())   
+          {
+            if(collection[i].payload.val().friendList.friendName===""&&Request!==null )//If he has no friends
+            {
+              addFriend=[];
+              addFriend.push({friendName: Request, status:"approved"})
+              this.authApi.UpdateUserFriend(collection[i].key, collection[i].payload.val(),addFriend)
+              Request=null;
+              addFriend=[];
+              i=collection.length;
+              break;
+            }
+            else
+            {   
+              if(Request!==null)
+              {
+                addFriend=[];
+                for (var j = 0; j < collection[i].payload.val().friendList.length; j++) //If he has friends
+                {
+                  addFriend.push(collection[i].payload.val().friendList[j])
+                }
+                addFriend.push({friendName:Request, status:"approved"})
+                this.authApi.UpdateUserFriend(collection[i].key, collection[i].payload.val(),addFriend);
+                Request=null;
+                i=collection.length;
+                break;
+              }
+            }
+          }
+        }
+      }  
+      this.friend_status_hold=[];
+      this.friendRequest=[];
+      this.ngOnInit(); 
+      return;
+    })  
   }
 
-  cancel(Request)
+  cancel(Request)//Cancel membership request
   {
-    for (var i = 0; i < this.friendDetail.length; i++)
-    {
-      var res:string[]=[]
-      res= this.friendDetail[i].split(",");
-      if(res[2]===Request)
+    this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
+      if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
       {
-        this.db.database.ref("users-list/"+res[0]+"/friendList/"+res[1]+"/status").set("cancelled")
-        res=[];
-        break;
+        for (var i = 0; i < collection.length; i++) //Change the status of the member on this user - cancelled
+        {
+          for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
+          {
+            if(collection[i].payload.val().nickName===Request &&Request!==null && collection[i].payload.val().friendList[j].friendName===this.authApi.getSessionStorage())
+            {
+              this.db.database.ref("users-list/"+collection[i].key+"/friendList/"+j+"/status").set("cancelled")
+              i=collection.length;
+              Request=null;
+              break;
+            }
+          }
+        }       
       }
-    }
-    this.friendDetail=[];
-    this.friendRequest=[];
-    this.friend=[]
-    this.ngOnInit();
+      this.friend_status_hold=[];
+      this.friendRequest=[];
+      this.ngOnInit(); 
+      return;
+    })    
   }
-
 }

@@ -14,20 +14,18 @@ import { User } from '../shared/user';
 })
 export class FriendPageComponent implements OnInit,DoCheck {
   friendPage = false;
-  path: string;
-  public friendForm: FormGroup;
-  counter=0;
-  exist:number;
+  path: string;//my URL
+  public friendForm: FormGroup;//Enter the name of the member in the relevant field
+  counter=0;//Count my friends
+  exist:number;//flag
  
-
-  User: User[];   
-  friend: Friend[]=[];
-  id:string;
-  
+  User: User[];//My user
+  friend: Friend[]=[];//My friends list
+  id:string;//my id
 
   constructor(private router : Router,
               private route: ActivatedRoute,
-              public authApi:AuthService ,  // CRUD API services
+              public authApi:AuthService ,  // API services
               public fb: FormBuilder,       // Form Builder service for Reactive forms
               public toastr: ToastrService,
               
@@ -48,14 +46,14 @@ export class FriendPageComponent implements OnInit,DoCheck {
       })
     })
     this.frienForm();  
-   // this.friend= new Array();  
-    
+   // this.friend= new Array();   
   }
 
     // Reactive student form
-    frienForm() {
+    frienForm() 
+    {
       this.friendForm = this.fb.group({
-        friendName: ['', [Validators.required]],
+      friendName: ['', [Validators.required]],
       })  
     }
 
@@ -63,9 +61,8 @@ export class FriendPageComponent implements OnInit,DoCheck {
       return this.friendForm.get('friendName');
     }
 
-  ngDoCheck()//after any change meybe subscribe video 11
+  ngDoCheck()
   {
-    
     this.path = this.router.routerState.snapshot.url
     if (this.path == "/friends-page")
     {
@@ -77,61 +74,80 @@ export class FriendPageComponent implements OnInit,DoCheck {
     }
   }
 
-  ResetForm() {
+  ResetForm() {//Delete relevant field
     this.friendForm.reset();
   }  
 
-  addFriend()
+  addFriend()//Add a friend to my friends list
   {
-      //console.log(this.friendForm.value.friendName)
       this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
-        //console.log(collection)
         for (var i = 0; i < collection.length; i++) 
         {
-          //console.log(this.authApi.friend)
+          var checkFriend:Friend[]=[]
+          if(this.friendForm.value.friendName===collection[i].payload.val().nickName)//If this nickname exists in DB
+          {
+            checkFriend = Object.assign(checkFriend,collection[i].payload.val().friendList);
+            for (var k = 0; k < checkFriend.length; k++) 
+            {
+              //If this friend has already sent me a friend request
+              if(checkFriend[k].friendName===this.authApi.getSessionStorage() && checkFriend[k].status==="hold")
+              {
+                this.toastr.error('כבר נשלחה בקשת חברות', '!אופס');
+                this.exist=1;
+                this.ResetForm();
+                break;
+              }
+            }
+          }
+          //If this user exists and his name is not the name of my user
           if(collection[i].payload.val().nickName===this.friendForm.value.friendName && collection[i].payload.val().nickName!==this.authApi.getSessionStorage())
           {
-            
-            if(this.User[0].friendList[0]==null)
+            if(this.User[0].friendList[0]==null)//If I do not have friends
             {
+              //Add this friend
               this.friend.push({friendName:this.friendForm.value.friendName, status:"hold"});
               this.authApi.UpdateUserFriend(this.id, this.User[0],this.friend)
               this.toastr.success('נישלחה בקשת חברות', '');
-              //console.log(this.User[0].friendList[0])
+              this.exist=0;
               this.ResetForm();
               break;
             }
-            else
+            else//If I have friends
             {
               this.friend = Object.assign(this.friend,this.User[0].friendList);
-              
-              for(var i=0;i<this.friend.length;i++)
+              for(var j=0;j<this.friend.length;j++)
               {
-                  console.log(this.friend[i]["friendName"])
-                  if(this.friend[i]["friendName"]===this.friendForm.value.friendName && this.friend[i]["status"]==="hold" )
-                    {
-                      this.toastr.error('כבר נשלחה בקשת חברות', '!אופס');
-                      this.exist=1;
-                      this.ResetForm();
-                      break;
-                    }
-                    else if(this.friend[i]["friendName"]===this.friendForm.value.friendName && this.friend[i]["status"]==="approved" )
-                    {
-                      this.toastr.error('אתם כבר חברים', '!אופס');
-                      this.exist=1;
-                      this.ResetForm();
-                      break;
-                    }
+                if(this.friend[j]["friendName"]===this.friendForm.value.friendName && this.friend[j]["status"]==="hold" )
+                {
+                  //I have already sent this friend a friend request
+                  this.toastr.error('כבר נשלחה בקשת חברות', '!אופס');
+                  this.exist=1;
+                  this.ResetForm();
+                  break;
+                }
+                if(this.friend[j]["friendName"]===this.friendForm.value.friendName && this.friend[j]["status"]==="approved" )
+                {
+                  //We are already friends
+                  this.toastr.error('אתם כבר חברים', '!אופס');
+                  this.exist=1;
+                  this.ResetForm();
+                  break;
+                }
+                if(this.friend[j]["friendName"]===this.friendForm.value.friendName && this.friend[j]["status"]==="cancelled" )
+                {
+                  //If the friend has canceled the membership request
+                  this.friend.splice(j, 1); 
+                  this.exist=0;
+                  break;
+                }
               }
+              //If the flag  different than 1 - send a membership request
               if(this.exist!=1)
               {
-                 //console.log(this.friend)
-                //his.friend=this.User[0].friendList
                 this.friend.push({friendName:this.friendForm.value.friendName, status:"hold"});
                 this.toastr.success('נישלחה בקשת חברות', '');
-                //console.log(this.friend)
-                this.authApi.UpdateUserFriend(this.id, this.User[0],this.friend)
-                //console.log(this.User[0].friendList)
+                this.counter=0;
+                this.authApi.UpdateUserFriend(this.id, this.User[0],this.friend);
                 this.friend=[];
                 this.ResetForm();
                 break;
@@ -145,22 +161,27 @@ export class FriendPageComponent implements OnInit,DoCheck {
         }
         if(this.friendForm.value.friendName===this.authApi.getSessionStorage() && this.counter==collection.length && this.counter!==0 && this.friendForm.value.friendName!==null)
         {
+          //If I entered my nickname
           this.ResetForm();  // // reset input text
           this.toastr.info('טעות, הכנסת את הכינוי שלך');
           this.counter=0;
+          this.friend=[];  
         }
         else if(this.counter===collection.length && this.counter!==0 && this.friendForm.value.friendName!==null)//check validation
         {
+          //This user does not exist
           this.ResetForm();  // // reset input text
           this.toastr.error('!משתמש זה לא קיים ', '!אופס');
           this.counter=0;
+          this.friend=[];
         }
         else
-        this.counter=0;
-        this.exist=0;
+        {
+          this.counter=0;
+          this.exist=0;
+          this.friend=[];
+        }
       })
-
-      //console.log(this.authApi.friend)
   }
 
 }

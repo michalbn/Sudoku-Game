@@ -26,12 +26,20 @@ h1
 {
     text-align: center;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    margin-top: 3%;
+    margin-top: 2%;
     font-size : 120%; 
     
 }
 
 .space
 {
-    margin-bottom: 1.2%;
+    margin-bottom: 1%;
+   
 }
+
+.glyphicon-trash
+{
+    color: rgb(243, 30, 30);
+}
+
+
