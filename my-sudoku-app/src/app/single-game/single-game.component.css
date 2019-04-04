@@ -1,11 +1,11 @@
 .logoimg{
     width: 20%;
-    height: 30%;
+    height: 25%;
     -ms-transform: rotate(30deg); /* IE 9 */
     -webkit-transform: rotate(20deg); /* Safari 3-8 */
     transform: rotate(15deg);
-   position: absolute;
-    left: 0; bottom: 0;
+   position: fixed;
+    left: 0px; bottom: 0px;
  /*   top: 0px;
     right: 0px;
     position: relative;*/
@@ -33,18 +33,21 @@ body
 .form-group
 {
     margin-top: 5%;
+    margin-left: 7%;
     
 }
 
 .btn
 {
-    margin-top: 15%; 
+   margin-right: 7%; 
 }
 
-.size
-{
-    font-size: 130%
+.checked {
+    color: orange;
 }
+
+
+
 
 
 

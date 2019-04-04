@@ -49,7 +49,7 @@ id:string;
           if(collection.length===0)
           {   
             var myArr=[1,2,3,4,5,6,7,8,9];//board      
-            for (var i = 0; i < 30; i++) //create 30 boards
+            for (var i = 0; i < 15; i++) //create 30 boards
             {
               if(((myArr.length-1)==(i%9))&&(i!=0))//shift after eight rounds
               {
@@ -70,7 +70,7 @@ id:string;
           if(collection.length===0)
           {
             var myArr=[1,3,5,7,9,8,2,4,6];//board
-            for (var i = 0; i < 30; i++) //create 30 boards
+            for (var i = 0; i < 15; i++) //create 30 boards
             {
               if(((myArr.length-1)==(i%9))&&(i!=0))
               {
@@ -91,7 +91,7 @@ id:string;
           if(collection.length===0)
           {
             var myArr=[5,6,3,2,9,8,1,4,7];//board
-            for (var i = 0; i < 30; i++) ////create 30 boards
+            for (var i = 0; i < 15; i++) ////create 30 boards
             {
               if(((myArr.length-1)==(i%9))&&(i!=0))
               {
@@ -167,7 +167,7 @@ id:string;
         board[pos-7]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-8]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
       if((pos%3)===1)//Middle line
@@ -190,7 +190,7 @@ id:string;
         board[pos-5]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-7]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
       if((pos%3)===0)//first line
@@ -213,7 +213,7 @@ id:string;
         board[pos-5]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-4]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
     }
@@ -239,7 +239,7 @@ id:string;
         board[pos-4]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-5]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
       if((pos%3)===1)//Middle line
@@ -262,7 +262,7 @@ id:string;
         board[pos-2]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-4]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
       if((pos%3)===0)//first line
@@ -285,7 +285,7 @@ id:string;
         board[pos-2]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos-1]=arr.slice();
-        console.log(board)
+       // console.log(board)
         
       }
     }
@@ -311,7 +311,7 @@ id:string;
         board[pos+5]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos+4]=arr.slice();
-        console.log(board)
+       // console.log(board)
         
       }
       if((pos%3)===1)//Middle line
@@ -334,7 +334,7 @@ id:string;
         board[pos+7]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos+5]=arr.slice();
-        console.log(board)
+       // console.log(board)
         
       }
       if((pos%3)===0)//first line
@@ -357,7 +357,7 @@ id:string;
         board[pos+7]=arr.slice();
         arr=arr.concat(arr.splice(0,3));
         board[pos+8]=arr.slice();
-        console.log(board)
+        //console.log(board)
         
       }
      
