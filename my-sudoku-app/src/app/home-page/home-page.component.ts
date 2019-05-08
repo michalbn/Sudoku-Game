@@ -44,7 +44,7 @@ id:string;
       })
       if(data.length===1)//add sudoku boards
       {
-        
+        ////////////////////Classic///////////////////////////
         this.boardSe.GetBoardsListEasy().snapshotChanges().subscribe(collection => {
           if(collection.length===0)
           {   
@@ -107,6 +107,137 @@ id:string;
           }
           else return;
         })
+
+        ///////////////////////Competition////////////////////////////
+        this.boardSe.GetBoardsList_CompetitionEasy().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {   
+            var myArr=[2,3,4,6,7,8,1,5,9];//board      
+            for (var i = 0; i < 15; i++) //create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))//shift after eight rounds
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);//Create a Sudoku board
+              var boardDB:Board;
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]};
+              this.boardSe.AddCompetitionBoradEasy(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+        // The same thing as "Easy"- difficulty level
+        this.boardSe.GetBoardsList_CompetitionMedium().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {
+            var myArr=[3,5,7,8,2,4,1,9,6];//board
+            for (var i = 0; i < 15; i++) //create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);
+              var boardDB:Board;
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]};
+              this.boardSe.AddCompetitionBoradMedium(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+         // The same thing as "Easy"- difficulty level
+        this.boardSe.GetBoardsList_CompetitionHard().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {
+            var myArr=[6,3,2,8,1,4,5,9,7];//board
+            for (var i = 0; i < 15; i++) ////create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);
+              var boardDB:Board
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]}
+              this.boardSe.AddCompetitionBoradHard(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+        
+        /////////////////////////////////Collaboration//////////////////////////////
+        this.boardSe.GetBoardsList_CollaborationEasy().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {   
+            var myArr=[3,4,6,8,1,5,2,7,9];//board      
+            for (var i = 0; i < 15; i++) //create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))//shift after eight rounds
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);//Create a Sudoku board
+              var boardDB:Board;
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]};
+              this.boardSe.AddCollaborationBoradEasy(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+        // The same thing as "Easy"- difficulty level
+        this.boardSe.GetBoardsList_CollaborationMedium().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {
+            var myArr=[5,7,8,4,1,9,3,2,6];//board
+            for (var i = 0; i < 15; i++) //create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);
+              var boardDB:Board;
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]};
+              this.boardSe.AddCollaborationBoradMedium(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+         // The same thing as "Easy"- difficulty level
+        this.boardSe.GetBoardsList_CollaborationHard().snapshotChanges().subscribe(collection => {
+          if(collection.length===0)
+          {
+            var myArr=[3,2,8,4,5,9,6,1,7];//board
+            for (var i = 0; i < 15; i++) ////create 30 boards
+            {
+              if(((myArr.length-1)==(i%9))&&(i!=0))
+              {
+                myArr=myArr.concat(myArr.splice(0,1));
+              }
+              var temp=myArr.slice();
+              var board=this.create_sudoku_boards(temp,i%9);
+              var boardDB:Board
+              boardDB={boardName:"Level "+i.toString(),sudoku:board.slice(),rate:{rating:0,vote:0},feedback:[{player:"",playerFeedback:""}]}
+              this.boardSe.AddCollaborationBoradHard(boardDB);//Saving in db
+            }
+            return;
+          }
+          else return;
+        })
+        
+        //////////////////////////////////////////////////////////////////
+        
           
       }      
     })

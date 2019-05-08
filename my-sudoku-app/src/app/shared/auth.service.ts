@@ -25,7 +25,6 @@ export class AuthService {
 
     // Create User
     AddUser(user: User,login:boolean,friendName :string,status: string) {
-      console.log(this.usersRef)
       this.usersRef.push({
         nickName: user.nickName,
         password: user.password,
