@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
   <head>
-      <meta charset="utf-8">
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <ul class="nav nav-tabs nav-justified">
@@ -15,7 +16,7 @@
 
     <form class="form-inline">
       <div class="form-group col">
-          &nbsp;&nbsp;
+        &nbsp;&nbsp;
         <label for="selectid">בחר/י צורת משחק:</label> 
         &nbsp;&nbsp;
         <select (change)="check_fields()" class="form-control" id="selectid">  
@@ -26,7 +27,7 @@
       </div> 
       
       <div class="form-group col">
-          &nbsp;&nbsp;
+        &nbsp;&nbsp;
         <label for="selectid1">בחר/י דרגת קושי:</label> 
         &nbsp;&nbsp;
         <select (change)="check_fields()" class="form-control" id="selectid1">  
@@ -38,21 +39,231 @@
       </div>
 
       <div class="form-group col">
-          &nbsp;&nbsp;
+        &nbsp;&nbsp;
         <label for="selectid2">בחר/י חבר מחובר:</label> 
         &nbsp;&nbsp;
-        <select (change)="check_fields()" class="form-control" id="selectid2">  
-          <option value="" selected disabled hidden>בחר כאן</option>
+        <select (change)="check_fields()" (focus)="check_fields()" class="form-control" id="selectid2">  
+          <option value="" selected hidden>בחר כאן</option>
           <option *ngIf = "friends_login.length == 0">אין חברים מחוברים</option>
-           <option *ngFor="let friends_login of friends_login">{{friends_login}}</option>
+          <option *ngFor="let friends_login of friends_login">{{friends_login}}</option>
         </select>
       </div>
 
-      <div class="form-group col">
-          &nbsp;&nbsp;
+      <div class="form-group col-md-5">
+        &nbsp;&nbsp;
         <label for="board">בחר/י לוח:</label>
         &nbsp;&nbsp;
+        <div *ngFor="let easyBoard of easyBoard">
+            <details id={{easyBoard.boardName}}>
+            <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                  <div *ngIf = "easyBoard.rate.rating>=0 && 1> easyBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "easyBoard.rate.rating>=1 && 2> easyBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "easyBoard.rate.rating>=2 && 3> easyBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "easyBoard.rate.rating>=3 && 4> easyBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "easyBoard.rate.rating>=4 && 5> easyBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "easyBoard.rate.rating==5">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      ({{easyBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{easyBoard.rate.vote}}</p>
+                  </div>
+                      
+              <div *ngIf = "easyBoard.feedback.length!==1">
+                  <p> {{easyBoard.feedback[0].player}} : {{easyBoard.feedback[0].playerFeedback}}</p>
+                </div>
+            </details>
+        </div>
+        <!--medium-->
+        <div *ngFor="let mediumBoard of mediumBoard">
+            <details id={{mediumBoard.boardName}}>
+            <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                  <div *ngIf = "mediumBoard.rate.rating>=0 && 1> mediumBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "mediumBoard.rate.rating>=1 && 2> mediumBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "mediumBoard.rate.rating>=2 && 3> mediumBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "mediumBoard.rate.rating>=3 && 4> mediumBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "mediumBoard.rate.rating>=4 && 5>mediumBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "mediumBoard.rate.rating==5">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      ({{mediumBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{mediumBoard.rate.vote}}</p>
+                  </div>
+                      
+              <div *ngIf = "mediumBoard.feedback.length!==1">
+                  <p> {{mediumBoard.feedback[0].player}} : {{mediumBoard.feedback[0].playerFeedback}}</p>
+                </div>
+            </details>
+        </div>
+        <!--Hard-->
+        <div *ngFor="let hardBoard of hardBoard">
+            <details id={{hardBoard.boardName}}>
+            <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                  <div *ngIf = "hardBoard.rate.rating>=0 && 1> hardBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "hardBoard.rate.rating>=1 && 2> hardBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "hardBoard.rate.rating>=2 && 3> hardBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "hardBoard.rate.rating>=3 && 4> hardBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "hardBoard.rate.rating>=4 && 5>hardBoard.rate.rating">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span> &nbsp;
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                  <div *ngIf = "hardBoard.rate.rating==5">
+                      <p> דירוג: 
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      ({{hardBoard.rate.rating}})  &nbsp;&nbsp;
+                      כמות המצביעים: {{hardBoard.rate.vote}}</p>
+                  </div>
+                      
+              <div *ngIf = "hardBoard.feedback.length!==1">
+                  <p> {{hardBoard.feedback[0].player}} : {{hardBoard.feedback[0].playerFeedback}}</p>
+                </div>
+            </details>
+        </div>
       </div>
+
     </form>
 
 
