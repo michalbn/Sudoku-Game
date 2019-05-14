@@ -21,7 +21,7 @@ const appRoutes: Routes=[
   {path: '', component: WeclomePageComponent},
   {path: 'home-page', component: HomePageComponent},
   {path: 'single-game', component: SingleGameComponent},
-  {path: 'classic-game', component: SudokuClassicGameComponent},
+  {path: 'classic-game/:difficulty/:levelname', component: SudokuClassicGameComponent},
   {path: 'new-user', component: NewUserPageComponent},
   {path: 'friends-page', component: FriendPageComponent,children:[
     {path: 'watch-friends', component: WatchFriendsComponent},

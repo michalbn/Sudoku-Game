@@ -26,78 +26,86 @@ export class FriendsGamePageComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.friends_list=[];
-    let s = this.authApi.GetUsersList(); //find my user
-    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
-      this.User = [];
-      this.friend = [];
-      data.forEach(item => {
-        let a = item.payload.toJSON();
-        if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-game-page")
-        {
-          a['$key'] = item.key;
-          this.User.push(a as User);
-          this.friend = Object.assign(this.friend,this.User[0].friendList);
-          this.friends_list=[];
-          return;
-        }
-      })
-      if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-game-page")
-      {
-        for (var i = 0; i < this.friend.length; i++) //Shows my friends
-        {
-          this.friends_list.push(this.friend[i].friendName);
-        }        
-      }
-      this.friends_login=[]
-      if(this.router.routerState.snapshot.url ==="/friends-game-page" && this.friends_list.length!=0)
-      {
-        for (var i = 0; i < this.friends_list.length; i++) 
-        {
-          for (var j = 0; i < data.length; j++) 
+    if(this.authApi.getSessionStorage()==null)///if session not null
+    {
+      this.router.navigate(['/']);//go to new-user
+    }
+    else
+    {
+      this.friends_list=[];
+      let s = this.authApi.GetUsersList(); //find my user
+      s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+        this.User = [];
+        this.friend = [];
+        data.forEach(item => {
+          let a = item.payload.toJSON();
+          if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-game-page")
           {
-            if(data[j].payload.val().nickName===this.friends_list[i])
+            a['$key'] = item.key;
+            this.User.push(a as User);
+            this.friend = Object.assign(this.friend,this.User[0].friendList);
+            this.friends_list=[];
+            return;
+          }
+        })
+        if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-game-page")
+        {
+          for (var i = 0; i < this.friend.length; i++) //Shows my friends
+          {
+            this.friends_list.push(this.friend[i].friendName);
+          }        
+        }
+        this.friends_login=[]
+        if(this.router.routerState.snapshot.url ==="/friends-game-page" && this.friends_list.length!=0)
+        {
+          for (var i = 0; i < this.friends_list.length; i++) 
+          {
+            for (var j = 0; i < data.length; j++) 
             {
-              if(data[j].payload.val().login==true)
+              if(data[j].payload.val().nickName===this.friends_list[i])
               {
-                this.friends_login.push(this.friends_list[i])
-                break;
-              }
-              else
-              {
-                break;
+                if(data[j].payload.val().login==true)
+                {
+                  this.friends_login.push(this.friends_list[i])
+                  break;
+                }
+                else
+                {
+                  break;
+                }
               }
             }
           }
-        }
-        if(this.friends_login.length==0)//no friends
-        {
-          this.check_fields("")
-          console.log("koko")
-
-        }
-        else if(this.friends_login.length>0)
-        {
-          var temp = (document.getElementById('selectid2') as HTMLInputElement).value
-          var count=0
-          for(i=0;i<this.friends_login.length;i++)
-          {
-            if(this.friends_login[i]===temp)
-            {
-              count=1
-              break;
-            }
-            
-          }
-          if(count===0)
+          if(this.friends_login.length==0)//no friends
           {
             this.check_fields("")
+            console.log("koko")
+  
           }
-
+          else if(this.friends_login.length>0)
+          {
+            var temp = (document.getElementById('selectid2') as HTMLInputElement).value
+            var count=0
+            for(i=0;i<this.friends_login.length;i++)
+            {
+              if(this.friends_login[i]===temp)
+              {
+                count=1
+                break;
+              }
+              
+            }
+            if(count===0)
+            {
+              this.check_fields("")
+            }
+  
+          }
+         
         }
-       
-      }
-    })
+      })
+    }
+
   }
 
   check_fields(friends)

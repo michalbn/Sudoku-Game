@@ -32,21 +32,30 @@ export class FriendPageComponent implements OnInit,DoCheck {
   ) { }
 
   ngOnInit() {
-    let s = this.authApi.GetUsersList(); 
-    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
-      this.User = [];
-      data.forEach(item => {
-        let a = item.payload.toJSON();
-        if(a["nickName"]===this.authApi.getSessionStorage())
-        {
-          this.id=item.key 
-          a['$key'] = item.key;
-          this.User.push(a as User);
-        }
+    if(this.authApi.getSessionStorage()==null)///if session not null
+    {
+      this.router.navigate(['/']);//go to new-user
+    }
+    else
+    {
+      let s = this.authApi.GetUsersList(); 
+      s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+        this.User = [];
+        data.forEach(item => {
+          let a = item.payload.toJSON();
+          if(a["nickName"]===this.authApi.getSessionStorage())
+          {
+            this.id=item.key 
+            a['$key'] = item.key;
+            this.User.push(a as User);
+          }
+        })
       })
-    })
-    this.frienForm();  
-   // this.friend= new Array();   
+      this.frienForm();  
+     // this.friend= new Array(); 
+
+    }
+  
   }
 
     // Reactive student form
@@ -63,15 +72,24 @@ export class FriendPageComponent implements OnInit,DoCheck {
 
   ngDoCheck()
   {
-    this.path = this.router.routerState.snapshot.url
-    if (this.path == "/friends-page")
+    if(this.authApi.getSessionStorage()==null)///if session not null
     {
-      this.friendPage=true;
+      this.router.navigate(['/']);//go to new-user
     }
     else
     {
-      this.friendPage=false;
+      this.path = this.router.routerState.snapshot.url
+      if (this.path == "/friends-page")
+      {
+        this.friendPage=true;
+      }
+      else
+      {
+        this.friendPage=false;
+      }
+
     }
+
   }
 
   ResetForm() {//Delete relevant field

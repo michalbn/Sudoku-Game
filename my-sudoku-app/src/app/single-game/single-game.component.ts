@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SudokuBoardsService } from '../shared/sudoku-boards.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-single-game',
@@ -12,15 +13,23 @@ export class SingleGameComponent implements OnInit {
   mediumBoard: string[]=[];//My friend list - status approved
   hardBoard: string[]=[];//My friend list - status approved
 
-  constructor(private router: Router,public boardSe : SudokuBoardsService) { }
+  constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService) { }
 
   ngOnInit() {
     //document.getElementById("demo").style.color="black"
+    if(this.authApi.getSessionStorage()==null)///if session not null
+    {
+      this.router.navigate(['/']);//go to new-user
+    }
   }
 
-  play()
+  play(level,difficulty)
   {
-    this.router.navigate(['/classic-game']);//go to new-user
+    console.log(level)
+    console.log(difficulty)
+    this.router.navigate(['/classic-game',difficulty,level]);//go to new-user
+    level=null;
+    difficulty=null;
   }
 
   mark(levelName)
@@ -35,7 +44,6 @@ export class SingleGameComponent implements OnInit {
   }
   modo(value: string)
   {
-    console.log(value)
     this.easyBoard=[];
     this.mediumBoard=[];
     this.hardBoard=[];

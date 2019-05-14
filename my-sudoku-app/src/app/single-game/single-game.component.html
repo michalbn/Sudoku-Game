@@ -31,7 +31,7 @@
             <label for="board">בחר לוח:</label>
                 <div *ngFor="let easyBoard of easyBoard">
                     <details id={{easyBoard.boardName}}>
-                    <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                    <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(easyBoard.boardName,'קל')" >התחל לשחק</button></summary>
                           <div *ngIf = "easyBoard.rate.rating>=0 && 1> easyBoard.rate.rating">
                               <p> דירוג: 
                               <span class="fa fa-star"></span>
@@ -101,7 +101,7 @@
                 <!--medium-->
                 <div *ngFor="let mediumBoard of mediumBoard">
                     <details id={{mediumBoard.boardName}}>
-                    <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                    <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(mediumBoard.boardName,'בינוני')" >התחל לשחק</button></summary>
                           <div *ngIf = "mediumBoard.rate.rating>=0 && 1> mediumBoard.rate.rating">
                               <p> דירוג: 
                               <span class="fa fa-star"></span>
@@ -171,7 +171,7 @@
                 <!--Hard-->
                 <div *ngFor="let hardBoard of hardBoard">
                     <details id={{hardBoard.boardName}}>
-                    <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+                    <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(hardBoard.boardName,'קשה')" >התחל לשחק</button></summary>
                           <div *ngIf = "hardBoard.rate.rating>=0 && 1> hardBoard.rate.rating">
                               <p> דירוג: 
                               <span class="fa fa-star"></span>

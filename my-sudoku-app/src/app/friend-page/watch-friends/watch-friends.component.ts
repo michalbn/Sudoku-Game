@@ -19,33 +19,41 @@ export class WatchFriendsComponent implements OnInit {
   constructor(public authApi: AuthService, private router : Router) { }
 
   ngOnInit() {
-    this.status_approved=[];
-    let s = this.authApi.GetUsersList(); //find my user
-    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
-      this.User = [];
-      this.friend = [];
-      data.forEach(item => {
-        let a = item.payload.toJSON();
-        if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
-        {
-          this.id=item.key ;
-          a['$key'] = item.key;
-          this.User.push(a as User);
-          this.friend = Object.assign(this.friend,this.User[0].friendList);
-          this.status_approved=[];
-        }
-      })
-      if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
-      {
-        for (var i = 0; i < this.friend.length; i++) //Shows my friends
-        {
-          if (this.friend[i].status==="approved")
+    if(this.authApi.getSessionStorage()==null)///if session not null
+    {
+      this.router.navigate(['/']);//go to new-user
+    }
+    else
+    {
+      this.status_approved=[];
+      let s = this.authApi.GetUsersList(); //find my user
+      s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+        this.User = [];
+        this.friend = [];
+        data.forEach(item => {
+          let a = item.payload.toJSON();
+          if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
           {
-             this.status_approved.push(this.friend[i].friendName);
+            this.id=item.key ;
+            a['$key'] = item.key;
+            this.User.push(a as User);
+            this.friend = Object.assign(this.friend,this.User[0].friendList);
+            this.status_approved=[];
+          }
+        })
+        if(this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
+        {
+          for (var i = 0; i < this.friend.length; i++) //Shows my friends
+          {
+            if (this.friend[i].status==="approved")
+            {
+               this.status_approved.push(this.friend[i].friendName);
+            }
           }
         }
-      }
-    })
+      })
+    }
+
   }
 
   delete_friend(name)//delete my friend

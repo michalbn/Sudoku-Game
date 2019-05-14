@@ -21,6 +21,12 @@ export class StatusFriendsComponent implements OnInit {
 
   ngOnInit() { 
      //Sending a friend request
+     if(this.authApi.getSessionStorage()==null)///if session not null
+     {
+       this.router.navigate(['/']);//go to new-user
+     }
+     else
+     {
       this.authApi.GetUsersList().snapshotChanges().subscribe(collection => { 
         this.friend_status_hold=[];//init
         for (var i = 0; i < collection.length; i++) 
@@ -62,6 +68,8 @@ export class StatusFriendsComponent implements OnInit {
         }
         return;
       })
+     }
+
   }
   
   confirm(Request)//Confirmation of membership request
