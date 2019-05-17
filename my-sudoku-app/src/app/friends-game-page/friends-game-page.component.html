@@ -44,7 +44,7 @@
         &nbsp;&nbsp;
         <select (change)="check_fields()" (focus)="check_fields()" class="form-control" id="selectid2">  
           <option value="" selected hidden>בחר כאן</option>
-          <option *ngIf = "friends_login.length == 0">אין חברים מחוברים</option>
+          <option *ngIf = "friends_login.length == 0">לא קיימים</option>
           <option *ngFor="let friends_login of friends_login">{{friends_login}}</option>
         </select>
       </div>

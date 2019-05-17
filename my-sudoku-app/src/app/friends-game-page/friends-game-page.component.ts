@@ -79,7 +79,7 @@ export class FriendsGamePageComponent implements OnInit {
           if(this.friends_login.length==0)//no friends
           {
             this.check_fields("")
-            console.log("koko")
+
   
           }
           else if(this.friends_login.length>0)
@@ -125,7 +125,7 @@ export class FriendsGamePageComponent implements OnInit {
 
     if(onlinefriends!=="" && gameType !=="" && difficulty!=="")
     {
-      if(onlinefriends!=="אין חברים מחוברים")
+      if(onlinefriends!=="לא קיימים")
       {
         //לקרוא לפונקציה
         this.create_sudoku_boards(gameType,difficulty,onlinefriends)

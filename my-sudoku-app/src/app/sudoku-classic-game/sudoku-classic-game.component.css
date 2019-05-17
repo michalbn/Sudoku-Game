@@ -18,11 +18,10 @@ body {
 table /*css on table*/
  {
     background: white;
-    margin-top: 3%;
+    margin-top: 2%;
 	border: 3px solid black;
 	max-width: 35%;
-	max-height: 35%;
-    margin-bottom: 3%;
+    margin-bottom: 2%;
     margin-left:auto; 
     margin-right:auto;
     
@@ -32,7 +31,22 @@ td
 {
 	border: 1px solid black;
 	text-align: center;
-	font-size: 170%;
+	font-size: 160%;
+}
+
+input
+{
+    text-align: center;
+    border: none;
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    
+}
+
+input:focus {
+    outline:none;
 }
 
 tr:nth-child(6),tr:nth-child(3)
@@ -49,9 +63,9 @@ h1
 {
     vertical-align: middle;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 2%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	font-size : 450%; 
+	font-size : 400%; 
     text-shadow: 2px 2px gray;
     color: #87CEFA;
 }
@@ -70,3 +84,33 @@ tbody /*css body-table*/
     display:block;
     margin-bottom:1%
 }
+
+input[type="text"]:disabled
+{
+background-color: white;
+}
+
+.nav-bar
+{
+    display: inline;
+    background-color: blue;
+    text-align: center;
+    margin-left:1%;
+}
+
+.pos
+{
+    text-align: center;
+
+}
+
+/* .table input[type="text"]:focus{
+    background-color:rgba(155, 216, 255,.2);
+    margin-bottom:-1px;
+  }
+  .table input[type="text"].highlight{
+    background-color:rgba(155, 216, 255,.2);
+  }
+  .table input[type="text"].selected{
+    background-color:rgba(143, 239, 91,.2);
+  } */
