@@ -24,10 +24,11 @@ export class AuthService {
               ) { }
 
     // Create User
-    AddUser(user: User,login:boolean,friendName :string,status: string) {
+    AddUser(user: User,login:boolean,friendName :string,status: string,point:number) {
       this.usersRef.push({
         nickName: user.nickName,
         password: user.password,
+        point:point,
         login: login,
         friendList: {friendName:friendName, status:status}
       })
@@ -57,6 +58,7 @@ export class AuthService {
       this.db.object('users-list/'+id).set({
         nickName: user.nickName,
         password: user.password,
+        point: user.point,
         login: login,
        friendList:user.friendList
        // friendList: {friendName:user.fzz, status:null}
@@ -69,6 +71,7 @@ export class AuthService {
       this.db.object('users-list/'+id).set({
         nickName: user.nickName,
         password: user.password,
+        point: user.point,
         login: user.login,
         friendList:friend
        // friendList: {friendName:user.fzz, status:null}

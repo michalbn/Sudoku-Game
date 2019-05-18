@@ -2,6 +2,7 @@
 <html dir="rtl" lang="he">
   <head>
       <meta charset="utf-8">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <h1>משחק סודוקו קלאסי</h1>
@@ -14,14 +15,26 @@
             </tr>
           </tbody>
         </table>
-        <div class="pos"> 
-            <button type="button" class="nav-bar btn btn-info" (click)="newGame()">משחק חדש</button>
-            <button type="button" class="nav-bar btn btn-info">סיימתי!</button>
-          
+
+
+        <div class="info">
+          <br>
+            <button type="submit" class="btn btn-link press" (click)="help()"> <span class="fa fa-life-ring"></span> עזרה</button>
+            <h3 class="btn-link" > מצב נקודות: {{point}}   </h3>
+            <h3 class="btn-link"> <span class="fa fa-clock-o"></span> &nbsp;&nbsp;{{this.sec}} : {{this.min}} : {{this.hour}}  </h3>
+            <br>
+            <div class="pos"> 
+                <button type="button" class="nav-bar btn btn-info" (click)="newGame()">משחק חדש</button>
+                <button type="button" class="nav-bar btn btn-info">סיימתי!</button>
+              
+            </div>
+            <br>
+            <button type="submit" class="btn btn-link press stop" (click)="home()"> <span class="fa fa-share"></span> יציאה</button>     
         </div>
 
       <div class="logopart">
           <img class=logoimg src="assets\Sudoku.png"/>
+          
       </div>
   </body>
   </html>

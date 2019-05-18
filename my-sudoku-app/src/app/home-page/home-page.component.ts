@@ -18,6 +18,7 @@ userName: string;
 today: number = Date.now();
 User: User[];  
 id:string;
+point:number;
 
 
   constructor(public authApi: AuthService,
@@ -40,6 +41,7 @@ id:string;
           this.id=item.key ;
           a['$key'] = item.key;
           this.User.push(a as User);
+          this.point=this.User[0].point;
         }
       })
       if(data.length===1)//add sudoku boards

@@ -95,7 +95,7 @@ background-color: white;
     display: inline;
     background-color: blue;
     text-align: center;
-    margin-left:1%;
+    margin-left:7%;
 }
 
 .pos
@@ -103,6 +103,67 @@ background-color: white;
     text-align: center;
 
 }
+.btn-link
+{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+.info
+{
+    height: 55%;
+    width: 21%;
+    background-color: white;/*  rgb(148, 211, 250); */
+    position: absolute; /* or absolute */
+    top: 20%;
+    left: 8%;
+    border-style: solid;
+    border-radius: 7%;
+
+}
+
+.fa-life-ring
+{
+    
+    color: red;
+}
+
+button:active
+{
+    color: red;
+}
+
+.stop:active
+{
+    color:green;
+}
+
+h3{
+    font-size : 150%; 
+    text-align: center;
+    
+}
+
+h3:hover
+{
+    opacity:1.0;
+    text-decoration: none;
+    box-shadow:none;
+    
+}
+
+.fa-clock-o
+{
+    color: black;
+}
+
+.fa-share
+{
+    color: green;
+}
+
+
 
 /* .table input[type="text"]:focus{
     background-color:rgba(155, 216, 255,.2);

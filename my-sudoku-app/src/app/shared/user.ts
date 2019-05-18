@@ -5,5 +5,6 @@ export interface User  extends Friend {
     nickName: string;
     login: boolean;
     password: number;
+    point : number;
     friendList?: Friend[]
 }

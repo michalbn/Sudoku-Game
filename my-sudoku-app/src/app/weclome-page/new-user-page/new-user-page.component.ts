@@ -70,7 +70,7 @@ export class NewUserPageComponent implements OnInit {
         {
           this.authApi.userLogin=this.userForm.value.nickName;//add nickName to global variable
           //console.log(this.userForm.value)
-          this.authApi.AddUser(this.userForm.value,true,this.friendName,this.status); // Submit user data using auth service
+          this.authApi.AddUser(this.userForm.value,true,this.friendName,this.status,1000); // Submit user data using auth service
           this.ResetForm();  // reset input text
           this.router.navigate(['/home-page']);  
         }
