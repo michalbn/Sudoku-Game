@@ -20,6 +20,9 @@ export class SudokuClassicGameComponent implements OnInit {
   hour: number = 0;
   interval;
 
+  time:number=0;
+  interval1;
+
   sudokoClassic:String[][];
   temp:String[][];
   userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
@@ -90,35 +93,8 @@ export class SudokuClassicGameComponent implements OnInit {
         this.min=0;
         this.sec=0;
         this.interval=0;
-        this.interval = setInterval(() => {
-          if(this.sec < 59) {
-            this.sec++;
-          } 
-          else
-          {
-            this.sec = 0;
-            if(this.min<59)
-            {
-              this.min++;
-            }
-            else
-            {
-              this.min=0;
-              if(this.hour<23)
-              {
-                this.hour++;
-              }
-              else{
-                clearInterval(this.interval);
-                this.router.navigate(['/single-game']);//go to new-user
-                
-                
-             
-              }
-             
-            }
-          }
-        },1000)
+        this.timeInterval()
+
         //console.log(difficulty)
         // if(this.flag==0)
         // {
@@ -220,7 +196,19 @@ export class SudokuClassicGameComponent implements OnInit {
   home()
   {
     clearInterval(this.interval);
-    this.router.navigate(['/single-game']);//go to new-user
+    var r = confirm("לצאת מהמשחק?");
+    if (r == true) 
+    {
+      
+      this.router.navigate(['/single-game']);//go to new-user
+    }
+    else
+    {
+      
+      this.timeInterval()
+    }
+
+    
   }
 
   help()
@@ -311,9 +299,12 @@ export class SudokuClassicGameComponent implements OnInit {
       }
      }
     }
-    alert("you win");
-    //הוספת מידע ל DB
-    this.router.navigate(['/single-game']);//go to new-user
+    // alert("you win");
+    // //הוספת מידע ל DB
+    // this.router.navigate(['/single-game']);//go to new-user
+    clearInterval(this.interval);
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
     return true;
   }
 
@@ -401,5 +392,60 @@ export class SudokuClassicGameComponent implements OnInit {
      }
    }
 
+  }
+
+
+  loko()
+  {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    this.interval1=0;
+    this.interval1 = setInterval(() => {
+      
+      if(this.time===3)
+      {
+        clearInterval(this.interval1);
+        this.router.navigate(['/single-game']);//go to new-user
+      }
+      else
+      {
+this.time++;
+console.log(this.time)
+      }
+    },100)
+  //  this.router.navigate(['/single-game']);//go to new-user
+  }
+
+  timeInterval()
+  {
+    this.interval = setInterval(() => {
+      if(this.sec < 59) {
+        this.sec++;
+      } 
+      else
+      {
+        this.sec = 0;
+        if(this.min<59)
+        {
+          this.min++;
+        }
+        else
+        {
+          this.min=0;
+          if(this.hour<23)
+          {
+            this.hour++;
+          }
+          else{
+            clearInterval(this.interval);
+            this.router.navigate(['/single-game']);//go to new-user
+            
+            
+         
+          }
+         
+        }
+      }
+    },1000)
   }
 }

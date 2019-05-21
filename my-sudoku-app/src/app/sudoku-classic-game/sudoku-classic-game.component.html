@@ -6,6 +6,15 @@
   </head>
   <body>
     <h1>משחק סודוקו קלאסי</h1>
+    <div id="myModal" class="modal">
+      
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close" (click)="loko()">&times;</span>
+          <p>להלהלהלהלהלהלהלהלהל</p>
+        </div>
+      
+      </div>
       <table class="table table-bordered">    
         <tbody >
             <tr class={{index}} *ngFor="let sudoko of sudokoClassic let row=index" >                
