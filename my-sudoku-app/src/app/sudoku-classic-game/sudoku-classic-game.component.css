@@ -138,6 +138,10 @@ button:active
 {
     color:green;
 }
+.refresh:active
+{
+    color: blue;
+}
 
 h3{
     font-size : 150%; 
@@ -162,6 +166,12 @@ h3:hover
 {
     color: green;
 }
+
+:disabled {
+    color: rgb(188, 224, 247);
+    -webkit-text-stroke-width: 0.6px;
+    -webkit-text-stroke-color: black;
+  }
 
 
 

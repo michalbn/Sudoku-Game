@@ -4,6 +4,8 @@ import { AuthService } from '../shared/auth.service';
 import { timer } from 'rxjs';
 import { SudokuBoardsService } from '../shared/sudoku-boards.service';
 import { User } from '../shared/user';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,13 +19,30 @@ export class SudokuClassicGameComponent implements OnInit {
   min: number = 0;
   hour: number = 0;
   interval;
+
   sudokoClassic:String[][];
+  temp:String[][];
+  userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
+  easyTimes:number=35
+  midTimes:number=45
+  hardTimes:number=55
+
+  flag=0;
+
+  row:number;
+  col:number;
 
   User: User[];  
-id:string;
-point:number;
+  id:string;
+  point:number;
 
-  constructor(private router: Router,private route: ActivatedRoute,public authApi: AuthService, public boardSe : SudokuBoardsService) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    public authApi: AuthService, 
+    public boardSe : SudokuBoardsService,
+    private db: AngularFireDatabase,
+    public toastr: ToastrService,  // Toastr service for alert message
+    ) { }
 
   ngOnInit() {
     if(this.authApi.getSessionStorage()==null)///if session not null
@@ -52,7 +71,7 @@ point:number;
             }
           })
         })
-        console.log(levelname);
+        //console.log(levelname);
         // const source = timer(0,1000);
         // //output: 0,1,2,3,4,5......
         // const subscribe = source.subscribe(val =>{
@@ -100,63 +119,13 @@ point:number;
             }
           }
         },1000)
-        console.log(difficulty)
-        if(difficulty==="קל")
-        {
-          this.boardSe.GetBoardsListEasy().snapshotChanges().subscribe(collection => {
-            for (var i = 0; i < collection.length; i++) 
-            {
-              
-              if(collection[i].payload.val().boardName===levelname)
-              {
-                var times = 35;
-                console.log(collection[i].payload.val())
-                this.createGame(times,collection[i].payload.val().sudoku)
-                break
-              }     
-            }
-            return
-          })
-
-        }
-        if(difficulty==="בינוני")
-        {
-          this.boardSe.GetBoardsListMedium().snapshotChanges().subscribe(collection => {
-            for (var i = 0; i < collection.length; i++) 
-            {
-              
-              if(collection[i].payload.val().boardName===levelname)
-              {
-                var times = 45;
-                console.log(collection[i].payload.val())
-                this.createGame(times,collection[i].payload.val().sudoku)
-
-                break
-              }     
-            }
-            return
-          })
-
-        }
-        if(difficulty==="קשה")
-        {
-          this.boardSe.GetBoardsListHard().snapshotChanges().subscribe(collection => {
-            for (var i = 0; i < collection.length; i++) 
-            {
-              
-              if(collection[i].payload.val().boardName===levelname)
-              {
-                var times =55;
-                console.log(collection[i].payload.val())
-                this.createGame(times,collection[i].payload.val().sudoku)
-                
-                break
-              }     
-            }
-            return
-          })
-
-        }
+        //console.log(difficulty)
+        // if(this.flag==0)
+        // {
+          this.randonBoard(difficulty,levelname)
+        // }
+        // this.flag=0
+        
 
         
       }
@@ -187,10 +156,36 @@ point:number;
   
   }
 
-  newGame()
+  refreshGame()
   {
     clearInterval(this.interval);
+    this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
+    var difficulty = this.route.snapshot.paramMap.get('difficulty');
+    var levelname = this.route.snapshot.paramMap.get('levelname');
     this.ngOnInit();
+  }
+
+  clearBoard()
+  {
+    //clearInterval(this.interval); 
+    console.log(this.userChoice)
+    for(var i=0; i<9 ; i++)
+    {
+     for(var j=0; j<9; j++)
+     {
+       var cellId= i.toString()+j.toString();
+       var cellChoice=(document.getElementById(cellId) as HTMLInputElement).value
+       if(this.sudokoClassic[i][j]==="")
+       {
+        (document.getElementById(cellId) as HTMLInputElement).value=""
+       }
+     }
+    }
+    //this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
+    //var difficulty = this.route.snapshot.paramMap.get('difficulty');
+    //var levelname = this.route.snapshot.paramMap.get('levelname');
+    this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
+    
   }
 
   createGame(times:number,dbInfo)
@@ -215,8 +210,10 @@ point:number;
         this.sudokoClassic[random_row][random_col]=""
         times--
       }
+
     }
-    console.log(this.sudokoClassic)
+
+    console.log(this.userChoice)
 
   }
 
@@ -228,7 +225,181 @@ point:number;
 
   help()
   {
+    if(this.point>=100)
+    {
+      if( this.find_empty_pos()==true)
+      {
+        this.point-=100;
+        this.db.database.ref("users-list/"+this.id+"/point").set(this.point);
+        //console.log(this.row,this.col)
+      //  var cellId= this.row.toString()+this.col.toString();
+       // (document.getElementById(cellId) as HTMLInputElement).value=(this.temp[this.row][this.col]).toString()
+        //(document.getElementById(cellId) as HTMLInputElement).value='5'
+        //console.log((document.getElementById(cellId) as HTMLInputElement).value)
+        //document.getElementById(cellId).style.backgroundColor="pink";
+        
+        var difficulty = this.route.snapshot.paramMap.get('difficulty');
+        if(difficulty=='קל')
+        {
+          this.easyTimes=this.easyTimes-1
+        }
+        if(difficulty=='בינוני')
+        {
+          this.midTimes=this.midTimes-1
+        }
+        if(difficulty=='קשה')
+        {
+          this.hardTimes=this.hardTimes-1
+        }
+      }
+      else
+      {
+        this.toastr.error('הלוח מלא ולכן לא ניתן להשתמש בעזרה', '!אופס');
+      }
+
+    }
+
+
     
   }
 
+  find_empty_pos()
+  {
+    this.scanBoeard()
+  for(var i=0; i<9 ; i++)
+  {
+   for(var j=0; j<9; j++)
+   {
+      if(this.sudokoClassic[i][j]==""&& this.userChoice[i][j]=="")
+      //if(((document.getElementById(i.toString()+j.toString()) as HTMLInputElement).value)!=this.temp[i][j])
+      {
+        // console.log(this.temp)
+        // console.log(this.sudokoClassic)
+        // console.log(i,j)
+        // console.log(i.toString()+j.toString())
+        //JSON.parse(JSON.stringify(this.temp[i][j]));
+        
+        this.sudokoClassic[i][j]=this.temp[i][j]
+     
+        
+        return true
+      }
+    }
+   }
+   return false;
+  }
+
+  // backtracking(row,col,counter)
+  // {
+
+  // }
+
+  EndGame()
+  {
+    for(var i=0; i<9 ; i++)
+    {
+     for(var j=0; j<9; j++)
+     {
+      var cellId= i.toString()+j.toString();
+      if(((document.getElementById(cellId) as HTMLInputElement).value)!==(this.temp[i][j]).toString())
+      {
+        var alrt= " יש לך טעות בשורה " + i.toString() + " ובעמודה " + j.toString();
+        this.toastr.warning(alrt, ':התראה');
+        console.log(this.userChoice)
+       // console.log(i,j)
+        return false;
+      }
+     }
+    }
+    alert("you win");
+    //הוספת מידע ל DB
+    this.router.navigate(['/single-game']);//go to new-user
+    return true;
+  }
+
+  randonBoard(difficulty,levelname)
+  {
+    if(difficulty==="קל")
+    {
+      this.boardSe.GetBoardsListEasy().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          
+          if(collection[i].payload.val().boardName===levelname)
+          {
+           // console.log(collection[i].payload.val())
+            this.temp=collection[i].payload.val().sudoku.slice()
+            console.log(this.easyTimes)
+            this.createGame(this.easyTimes,collection[i].payload.val().sudoku.slice())
+            break
+          }     
+        }
+        return
+      })
+
+    }
+    if(difficulty==="בינוני")
+    {
+      this.boardSe.GetBoardsListMedium().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          
+          if(collection[i].payload.val().boardName===levelname)
+          {
+            //console.log(collection[i].payload.val())
+            this.temp=collection[i].payload.val().sudoku.slice()
+            this.createGame(this.midTimes,collection[i].payload.val().sudoku.slice())
+
+            break
+          }     
+        }
+        return
+      })
+
+    }
+    if(difficulty==="קשה")
+    {
+      this.boardSe.GetBoardsListHard().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          
+          if(collection[i].payload.val().boardName===levelname)
+          {
+            //console.log(collection[i].payload.val())
+            this.temp=collection[i].payload.val().sudoku.slice()
+            this.createGame(this.hardTimes,collection[i].payload.val().sudoku.slice())
+            
+            break
+          }     
+        }
+        return
+      })
+
+    }
+  }
+
+  scanBoeard()
+  {
+    for(var i=0; i<9 ; i++)
+    {
+     for(var j=0; j<9; j++)
+     {
+       var cellId= i.toString()+j.toString();
+      
+       var cellChoice=(document.getElementById(cellId) as HTMLInputElement).value
+       //console.log(cellChoice)
+       //console.log(this.sudokoClassic[i][j])
+       if(this.sudokoClassic[i][j]==="")
+       {
+         this.userChoice[i][j]=cellChoice;
+       }
+       else
+       {
+         this.userChoice[i][j]="";
+       }
+       console.log(this.userChoice)
+     }
+   }
+
+  }
 }

@@ -7,9 +7,11 @@
   <body>
     <h1>משחק סודוקו קלאסי</h1>
       <table class="table table-bordered">    
-        <tbody>
+        <tbody >
             <tr class={{index}} *ngFor="let sudoko of sudokoClassic let row=index" >                
-              <td *ngFor="let j of sudoko let col=index"><input type="text" [disabled]="isDisabled(sudokoClassic[row][8-col])" value={{sudokoClassic[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td>
+              <td *ngFor="let j of sudoko let col=index">
+                <input type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])" value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1">
+              </td>
               <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
 
             </tr>
@@ -24,10 +26,14 @@
             <h3 class="btn-link"> <span class="fa fa-clock-o"></span> &nbsp;&nbsp;{{this.sec}} : {{this.min}} : {{this.hour}}  </h3>
             <br>
             <div class="pos"> 
-                <button type="button" class="nav-bar btn btn-info" (click)="newGame()">משחק חדש</button>
-                <button type="button" class="nav-bar btn btn-info">סיימתי!</button>
+                <button type="button" class="nav-bar btn btn-info" (click)="clearBoard()">נקה לוח</button>
+                <button type="button" class="nav-bar btn btn-info" (click)="EndGame()">סיימתי!</button>
+                
+                
               
             </div>
+            <br>
+            <button type="button" class="btn btn-link press refresh" (click)="refreshGame()"><span class="glyphicon glyphicon-refresh"></span> ערבב מחדש</button>
             <br>
             <button type="submit" class="btn btn-link press stop" (click)="home()"> <span class="fa fa-share"></span> יציאה</button>     
         </div>
