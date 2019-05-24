@@ -48,7 +48,13 @@ h1
 
 .size
 {
-    font-size: 140%
+    font-size: 140%;
+  
+}
+
+.btn-link
+{
+    font-size: 90%;
 }
 
 

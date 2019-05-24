@@ -18,7 +18,8 @@ a
 }
 body
 {
-    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";   
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";  
+    
 }
 
 .glyphicon.glyphicon-education
@@ -35,15 +36,24 @@ body
     margin-top: 5%;
     margin-left: 6%;
     margin-right: 3%;
+    font-size: 130%; 
 }
 
 .btn
 {
    margin-right: 7%; 
+   font-size: 95%; 
 }
 
 .checked {
     color: orange;
+}
+
+
+
+select 
+{
+    font-size: 95%
 }
 
 

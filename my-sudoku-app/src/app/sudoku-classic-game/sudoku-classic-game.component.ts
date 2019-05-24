@@ -23,10 +23,12 @@ export class SudokuClassicGameComponent implements OnInit {
   time:number=0;
   interval1;
 
+  winning:number
+
   sudokoClassic:String[][];
   temp:String[][];
   userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
-  easyTimes:number=35
+  easyTimes:number=1
   midTimes:number=45
   hardTimes:number=55
 
@@ -74,21 +76,7 @@ export class SudokuClassicGameComponent implements OnInit {
             }
           })
         })
-        //console.log(levelname);
-        // const source = timer(0,1000);
-        // //output: 0,1,2,3,4,5......
-        // const subscribe = source.subscribe(val =>{
-        //   this.val=val;
-        //   console.log(val)
-        //   if(this.val==5)
-        //   {
-        //     //subscribe.unsubscribe()
 
-         
-        //   }
-        // } );
-
-        //goooodd
         this.hour=0;
         this.min=0;
         this.sec=0;
@@ -157,9 +145,6 @@ export class SudokuClassicGameComponent implements OnInit {
        }
      }
     }
-    //this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
-    //var difficulty = this.route.snapshot.paramMap.get('difficulty');
-    //var levelname = this.route.snapshot.paramMap.get('levelname');
     this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
     
   }
@@ -213,6 +198,7 @@ export class SudokuClassicGameComponent implements OnInit {
 
   help()
   {
+    this.scanBoeard();
     if(this.point>=100)
     {
       if( this.find_empty_pos()==true)
@@ -291,9 +277,15 @@ export class SudokuClassicGameComponent implements OnInit {
       var cellId= i.toString()+j.toString();
       if(((document.getElementById(cellId) as HTMLInputElement).value)!==(this.temp[i][j]).toString())
       {
-        var alrt= " יש לך טעות בשורה " + i.toString() + " ובעמודה " + j.toString();
+        var alrt= " יש לך טעות בשורה " + (i+1).toString() + " ובעמודה " + (j+1).toString();
         this.toastr.warning(alrt, ':התראה');
-        console.log(this.userChoice)
+        document.getElementById(cellId).style.backgroundColor='yellow';
+        document.getElementById(cellId).style.borderRadius='50%'
+        setTimeout(function(){
+          document.getElementById(cellId).style.backgroundColor = 'white';  // Change the color back to the original
+        }, 600);
+        
+        //console.log(this.userChoice)
        // console.log(i,j)
         return false;
       }
@@ -305,6 +297,13 @@ export class SudokuClassicGameComponent implements OnInit {
     clearInterval(this.interval);
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
+    var difficulty = this.route.snapshot.paramMap.get('difficulty');
+    this.winning=this.boardSe.calculatePoints(difficulty,this.sec,this.min)
+    this.point+=this.winning;
+    this.db.database.ref("users-list/"+this.id+"/point").set(this.point);
+    
+
+
     return true;
   }
 
@@ -371,6 +370,7 @@ export class SudokuClassicGameComponent implements OnInit {
 
   scanBoeard()
   {
+    this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
     for(var i=0; i<9 ; i++)
     {
      for(var j=0; j<9; j++)

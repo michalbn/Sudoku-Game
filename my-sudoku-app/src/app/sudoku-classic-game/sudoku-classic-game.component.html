@@ -11,7 +11,44 @@
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close" (click)="loko()">&times;</span>
-          <p>להלהלהלהלהלהלהלהלהל</p>
+          
+            <h2>!YOU WIN</h2>
+            <h4>זכית ב {{winning}} נקודות</h4>
+            בבקשה תדרג/י את לוח המשחק
+            <br>
+
+            <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+              </div>
+              <br>
+              <br>
+              <br>
+              בבקשה הכנס/י משוב על לוח המשחק:
+              <br>
+              <br>
+              <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3" required></textarea> 
+              <!-- <p *ngIf="nickName.errors?.minlength" class="error"><sup>*</sup>הכינוי צריך להכיל לפחות 3 אותיות</p>
+              <p *ngIf="nickName.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 10 תווים</p> -->
+              <br>
+              <br>
+              <button type="submit" class="btn btn-info">שמור</button>
+
+
+             
+            <div class="pyro">
+                <div class="before"></div>
+                <div class="after"></div>
+            </div>
+          
         </div>
       
       </div>
@@ -19,7 +56,7 @@
         <tbody >
             <tr class={{index}} *ngFor="let sudoko of sudokoClassic let row=index" >                
               <td *ngFor="let j of sudoko let col=index">
-                <input type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])" value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1">
+                <input type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])" value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
               </td>
               <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
 
