@@ -1,7 +1,7 @@
 # Sudoku-Game
 
 For my project I have decided to develop a 9x9 Sudoku game.  "Graphic Sudoku Game".
-My game allows Sudoku fans to solve puzzles at various difficulty levels - easy, medium and hard. If they struggle solving the game board; they will be able to utilize the help button. This will be done using the Backtracking algorithm.
+My game allows Sudoku fans to solve puzzles at various difficulty levels - easy, medium and hard. If they struggle solving the game board; they will be able to utilize the help button.
 
 When a player registers for a game, a user is created. During this process the player selects a name. The results and times of each game board will be saved on the server under the selected name.
 
