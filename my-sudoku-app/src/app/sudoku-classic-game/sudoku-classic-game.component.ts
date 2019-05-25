@@ -6,6 +6,7 @@ import { SudokuBoardsService } from '../shared/sudoku-boards.service';
 import { User } from '../shared/user';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -23,14 +24,16 @@ export class SudokuClassicGameComponent implements OnInit {
   time:number=0;
   interval1;
 
+  public feedbackForm: FormGroup;
+
   winning:number
 
   sudokoClassic:String[][];
   temp:String[][];
   userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
   easyTimes:number=1
-  midTimes:number=45
-  hardTimes:number=55
+  midTimes:number=1
+  hardTimes:number=1
 
   flag=0;
 
@@ -47,9 +50,11 @@ export class SudokuClassicGameComponent implements OnInit {
     public boardSe : SudokuBoardsService,
     private db: AngularFireDatabase,
     public toastr: ToastrService,  // Toastr service for alert message
+    public fb: FormBuilder       // Form Builder service for Reactive forms
     ) { }
 
   ngOnInit() {
+    this.feedbacForm()
     if(this.authApi.getSessionStorage()==null)///if session not null
     {
       this.router.navigate(['/']);//go to new-user
@@ -106,6 +111,22 @@ export class SudokuClassicGameComponent implements OnInit {
   //   console.log(event)
   // }
 
+  feedbacForm()
+  {
+    this.feedbackForm= this.fb.group({
+      feedback: ['', [Validators.required, ,Validators.maxLength(50)]],
+      rate: ['', []]
+    })  
+  }
+
+  get feedback() {//get user nickName
+    return this.feedbackForm.get('feedback');
+  }
+
+  get rate() {
+    return this.feedbackForm.get('rate');
+  }
+
   isDisabled(value)
   {
     //console.log(value)
@@ -132,7 +153,7 @@ export class SudokuClassicGameComponent implements OnInit {
   clearBoard()
   {
     //clearInterval(this.interval); 
-    console.log(this.userChoice)
+    //console.log(this.userChoice)
     for(var i=0; i<9 ; i++)
     {
      for(var j=0; j<9; j++)
@@ -174,7 +195,7 @@ export class SudokuClassicGameComponent implements OnInit {
 
     }
 
-    console.log(this.userChoice)
+    //console.log(this.userChoice)
 
   }
 
@@ -319,7 +340,7 @@ export class SudokuClassicGameComponent implements OnInit {
           {
            // console.log(collection[i].payload.val())
             this.temp=collection[i].payload.val().sudoku.slice()
-            console.log(this.easyTimes)
+           // console.log(this.easyTimes)
             this.createGame(this.easyTimes,collection[i].payload.val().sudoku.slice())
             break
           }     
@@ -388,14 +409,14 @@ export class SudokuClassicGameComponent implements OnInit {
        {
          this.userChoice[i][j]="";
        }
-       console.log(this.userChoice)
+     //  console.log(this.userChoice)
      }
    }
 
   }
 
 
-  loko()
+  close_box()
   {
     var modal = document.getElementById("myModal");
     modal.style.display = "none";
@@ -410,7 +431,7 @@ export class SudokuClassicGameComponent implements OnInit {
       else
       {
 this.time++;
-console.log(this.time)
+//console.log(this.time)
       }
     },100)
   //  this.router.navigate(['/single-game']);//go to new-user
@@ -447,5 +468,218 @@ console.log(this.time)
         }
       }
     },1000)
+  }
+
+
+  save_feedback()
+  {
+    //console.log(this.feedbackForm.value.rate)
+    //console.log(this.feedbackForm.value.feedback)
+    var difficulty = this.route.snapshot.paramMap.get('difficulty');
+    var levelname = this.route.snapshot.paramMap.get('levelname');
+
+    if(difficulty==="קל")
+    {
+      this.boardSe.GetBoardsListEasy().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          
+          if(collection[i].payload.val().boardName===levelname)
+          {
+            var boardId=collection[i].payload.key
+            var feedbackData=(collection[i].payload.val().feedback).slice();
+            var rateData=(collection[i].payload.val().rate);
+            if(this.feedbackForm.value.feedback!=="")
+            {
+              
+            if(feedbackData[0].player==="")
+            {
+              rateData.vote=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=0;
+              }
+              else
+              {
+                rateData.rating=parseInt(this.feedbackForm.value.rate);
+              }
+              
+              feedbackData[0].player=this.authApi.getSessionStorage();
+              feedbackData[0].playerFeedback=this.feedbackForm.value.feedback;
+             // console.log(rateData)
+              //console.log(feedbackData)
+          
+              this.db.database.ref("sudoku-boards/classic/easy/"+boardId+"/rate").set(rateData);
+              this.db.database.ref("sudoku-boards/classic/easy/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user  
+              this.feedbackForm.value.feedback=""
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+            else
+            {
+              rateData.vote+=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=((rateData.rating)/2).toFixed(2);
+              }
+              else
+              {
+                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+              }
+              this.db.database.ref("sudoku-boards/classic/easy/"+boardId+"/rate").set(rateData);
+              feedbackData.push({player:this.authApi.getSessionStorage(),playerFeedback:this.feedbackForm.value.feedback});
+              this.db.database.ref("sudoku-boards/classic/easy/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user 
+              this.feedbackForm.value.feedback="" 
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+
+            }
+
+
+           
+          }  
+          
+        }
+        
+        return
+      })
+     
+
+    }
+    if(difficulty==="בינוני")
+    {
+      this.boardSe.GetBoardsListMedium().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          if(collection[i].payload.val().boardName===levelname)
+          {
+            var boardId=collection[i].payload.key
+            var feedbackData=(collection[i].payload.val().feedback).slice();
+            var rateData=(collection[i].payload.val().rate);
+            if(this.feedbackForm.value.feedback!=="")
+            {
+              
+            if(feedbackData[0].player==="")
+            {
+              rateData.vote=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=0;
+              }
+              else
+              {
+                rateData.rating=parseInt(this.feedbackForm.value.rate);
+              }
+              
+              feedbackData[0].player=this.authApi.getSessionStorage();
+              feedbackData[0].playerFeedback=this.feedbackForm.value.feedback;
+              //console.log(rateData)
+              //console.log(feedbackData)
+          
+              this.db.database.ref("sudoku-boards/classic/medium/"+boardId+"/rate").set(rateData);
+              this.db.database.ref("sudoku-boards/classic/medium/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user  
+              this.feedbackForm.value.feedback=""
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+            else
+            {
+              rateData.vote+=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=((rateData.rating)/2).toFixed(2);
+              }
+              else
+              {
+                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+              }
+              this.db.database.ref("sudoku-boards/classic/medium/"+boardId+"/rate").set(rateData);
+              feedbackData.push({player:this.authApi.getSessionStorage(),playerFeedback:this.feedbackForm.value.feedback});
+              this.db.database.ref("sudoku-boards/classic/medium/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user 
+              this.feedbackForm.value.feedback="" 
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+
+            }
+
+
+           
+          }      
+        }
+        return
+      })
+
+    }
+    if(difficulty==="קשה")
+    {
+      this.boardSe.GetBoardsListHard().snapshotChanges().subscribe(collection => {
+        for (var i = 0; i < collection.length; i++) 
+        {
+          if(collection[i].payload.val().boardName===levelname)
+          {
+            var boardId=collection[i].payload.key
+            var feedbackData=(collection[i].payload.val().feedback).slice();
+            var rateData=(collection[i].payload.val().rate);
+            if(this.feedbackForm.value.feedback!=="")
+            {
+              
+            if(feedbackData[0].player==="")
+            {
+              rateData.vote=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=0;
+              }
+              else
+              {
+                rateData.rating=parseInt(this.feedbackForm.value.rate);
+              }
+              
+              feedbackData[0].player=this.authApi.getSessionStorage();
+              feedbackData[0].playerFeedback=this.feedbackForm.value.feedback;
+        //      console.log(rateData)
+          //    console.log(feedbackData)
+          
+              this.db.database.ref("sudoku-boards/classic/hard/"+boardId+"/rate").set(rateData);
+              this.db.database.ref("sudoku-boards/classic/hard/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user  
+              this.feedbackForm.value.feedback=""
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+            else
+            {
+              rateData.vote+=1
+              if(this.feedbackForm.value.rate=="")
+              {
+                rateData.rating=((rateData.rating)/2).toFixed(2);
+              }
+              else
+              {
+                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+              }
+              this.db.database.ref("sudoku-boards/classic/hard/"+boardId+"/rate").set(rateData);
+              feedbackData.push({player:this.authApi.getSessionStorage(),playerFeedback:this.feedbackForm.value.feedback});
+              this.db.database.ref("sudoku-boards/classic/hard/"+boardId+"/feedback").set(feedbackData);
+              //this.router.navigate(['/single-game']);//go to new-user 
+              this.feedbackForm.value.feedback="" 
+              this.feedbackForm.value.rate=""
+              i=collection.length
+            }
+
+            }           
+          }      
+        }
+        return
+      })
+
+    }
+    this.router.navigate(['/single-game']);//go to new-user 
   }
 }

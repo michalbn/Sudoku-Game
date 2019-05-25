@@ -415,11 +415,11 @@ h3:hover
      }
   @keyframes position {
     0%, 19.9% {
-      margin-top: 10%;
+      margin-top: 8%;
       margin-left: 40%; }
   
       20%, 39.9% {
-        margin-top: 10%;
+        margin-top: 8%;
         margin-left: 30%; }
   
       }

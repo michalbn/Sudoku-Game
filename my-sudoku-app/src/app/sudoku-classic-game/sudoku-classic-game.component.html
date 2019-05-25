@@ -10,24 +10,28 @@
       
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close" (click)="loko()">&times;</span>
+          <span class="close" (click)="close_box()">&times;</span>
           
             <h2>!YOU WIN</h2>
             <h4>זכית ב {{winning}} נקודות</h4>
-            בבקשה תדרג/י את לוח המשחק
-            <br>
 
+            <form [formGroup]="feedbackForm" (ngSubmit)="save_feedback()" novalidate>
+                <div class="container">
+                  <div class="form-group">
+                      בבקשה תדרג/י את לוח המשחק
+            <br>
             <div class="rate">
-                <input type="radio" id="star5" name="rate" value="5" />
+                <input type="radio" id="star5" name="rate" value="5" formControlName="rate"/>
                 <label for="star5" title="text">5 stars</label>
-                <input type="radio" id="star4" name="rate" value="4" />
+                <input type="radio" id="star4" name="rate" value="4" formControlName="rate"/>
                 <label for="star4" title="text">4 stars</label>
-                <input type="radio" id="star3" name="rate" value="3" />
+                <input type="radio" id="star3" name="rate" value="3" formControlName="rate"/>
                 <label for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2" />
+                <input type="radio" id="star2" name="rate" value="2" formControlName="rate"/>
                 <label for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1" />
+                <input type="radio" id="star1" name="rate" value="1" formControlName="rate"/>
                 <label for="star1" title="text">1 star</label>
+                
               </div>
               <br>
               <br>
@@ -36,13 +40,14 @@
               <br>
               <br>
               <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3" required></textarea> 
-              <!-- <p *ngIf="nickName.errors?.minlength" class="error"><sup>*</sup>הכינוי צריך להכיל לפחות 3 אותיות</p>
-              <p *ngIf="nickName.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 10 תווים</p> -->
+              <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 50 תווים</p>
               <br>
               <br>
-              <button type="submit" class="btn btn-info">שמור</button>
+              <button type="submit" class="btn btn-info" [disabled]="!feedbackForm.valid">שמור</button>
 
-
+                  </div>
+                </div>
+            </form>
              
             <div class="pyro">
                 <div class="before"></div>

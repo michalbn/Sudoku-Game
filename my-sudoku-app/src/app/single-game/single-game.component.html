@@ -16,8 +16,9 @@
 
     <form class="form-inline">
         <div class="form-group col">
+             
             <label for="selectid"> בחר דרגת קושי: </label>
-            &nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <select (change)="modo($event.target.value)" size="1" class="form-control" id="selectid">  
               <option value="" selected disabled hidden>בחר כאן</option>
               <option>קל</option>
@@ -93,8 +94,11 @@
                               כמות המצביעים: {{easyBoard.rate.vote}}</p>
                           </div>
                               
-                      <div *ngIf = "easyBoard.feedback.length!==1">
-                          <p> {{easyBoard.feedback[0].player}} : {{easyBoard.feedback[0].playerFeedback}}</p>
+                      <div *ngIf = "easyBoard.feedback[0].player!==''">
+                          <div *ngFor="let feedback of easyBoard.feedback let i=index"> 
+                            <p> {{easyBoard.feedback[i].player}} : {{easyBoard.feedback[i].playerFeedback}}</p>
+                          </div>
+                          
                         </div>
                     </details>
                 </div>
@@ -163,9 +167,11 @@
                               כמות המצביעים: {{mediumBoard.rate.vote}}</p>
                           </div>
                               
-                      <div *ngIf = "mediumBoard.feedback.length!==1">
-                          <p> {{mediumBoard.feedback[0].player}} : {{mediumBoard.feedback[0].playerFeedback}}</p>
-                        </div>
+                          <div *ngIf = "mediumBoard.feedback[0].player!==''">
+                                <div *ngFor="let feedback of mediumBoard.feedback let i=index"> 
+                                  <p> {{mediumBoard.feedback[i].player}} : {{mediumBoard.feedback[i].playerFeedback}}</p>
+                                </div>
+                         </div>
                     </details>
                 </div>
                 <!--Hard-->
@@ -233,9 +239,11 @@
                               כמות המצביעים: {{hardBoard.rate.vote}}</p>
                           </div>
                               
-                      <div *ngIf = "hardBoard.feedback.length!==1">
-                          <p> {{hardBoard.feedback[0].player}} : {{hardBoard.feedback[0].playerFeedback}}</p>
-                        </div>
+                          <div *ngIf = "hardBoard.feedback[0].player!==''">
+                                <div *ngFor="let feedback of hardBoard.feedback let i=index"> 
+                                  <p> {{hardBoard.feedback[i].player}} : {{hardBoard.feedback[i].playerFeedback}}</p>
+                                </div>
+                         </div>
                     </details>
                 </div>
                 
