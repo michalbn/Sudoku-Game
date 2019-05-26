@@ -25,15 +25,16 @@ export class SudokuClassicGameComponent implements OnInit {
   interval1;
 
   public feedbackForm: FormGroup;
+  grade:Object[]=[];
 
   winning:number
 
   sudokoClassic:String[][];
   temp:String[][];
   userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
-  easyTimes:number=1
-  midTimes:number=1
-  hardTimes:number=1
+  easyTimes:number=35
+  midTimes:number=45
+  hardTimes:number=55
 
   flag=0;
 
@@ -55,6 +56,7 @@ export class SudokuClassicGameComponent implements OnInit {
 
   ngOnInit() {
     this.feedbacForm()
+    this.grade=[];
     if(this.authApi.getSessionStorage()==null)///if session not null
     {
       this.router.navigate(['/']);//go to new-user
@@ -75,6 +77,7 @@ export class SudokuClassicGameComponent implements OnInit {
             if(a["nickName"]===this.authApi.getSessionStorage())
             {
               this.id=item.key ;
+              this.grade=(item.payload.val().grade).slice()
               a['$key'] = item.key;
               this.User.push(a as User);
               this.point=this.User[0].point;
@@ -253,6 +256,10 @@ export class SudokuClassicGameComponent implements OnInit {
       }
 
     }
+    else
+    {
+      this.toastr.info('אין לך מספיק נקודות');
+    }
 
 
     
@@ -316,15 +323,31 @@ export class SudokuClassicGameComponent implements OnInit {
     // //הוספת מידע ל DB
     // this.router.navigate(['/single-game']);//go to new-user
     clearInterval(this.interval);
+    var difficulty = this.route.snapshot.paramMap.get('difficulty');
+    var levelname = this.route.snapshot.paramMap.get('levelname');
+
+     if(this.grade[0]["boardName"]=="")
+    {
+      // this.grade[0]["boardName"]=levelname
+      // this.grade[0]["difficulty"]=difficulty
+      // this.grade[0]["score"]=this.boardSe.calculatePoints(difficulty,this.sec,this.min)
+      // this.grade[0]["time"]=this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString()
+      this.grade=[{boardName:levelname,difficulty:difficulty,score:this.boardSe.calculatePoints(difficulty,this.sec,this.min),time:this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString()}];
+      this.db.database.ref("users-list/"+this.id+"/grade").set(this.grade);  
+    }
+    else
+    {
+
+      this.grade.push({boardName:levelname,difficulty:difficulty,score:this.boardSe.calculatePoints(difficulty,this.sec,this.min),time:this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString()});
+      console.log(this.grade)
+      this.db.database.ref("users-list/"+this.id+"/grade").set(this.grade);  
+    }
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
     var difficulty = this.route.snapshot.paramMap.get('difficulty');
     this.winning=this.boardSe.calculatePoints(difficulty,this.sec,this.min)
     this.point+=this.winning;
     this.db.database.ref("users-list/"+this.id+"/point").set(this.point);
-    
-
-
     return true;
   }
 
@@ -338,7 +361,7 @@ export class SudokuClassicGameComponent implements OnInit {
           
           if(collection[i].payload.val().boardName===levelname)
           {
-           // console.log(collection[i].payload.val())
+            
             this.temp=collection[i].payload.val().sudoku.slice()
            // console.log(this.easyTimes)
             this.createGame(this.easyTimes,collection[i].payload.val().sudoku.slice())
@@ -357,7 +380,7 @@ export class SudokuClassicGameComponent implements OnInit {
           
           if(collection[i].payload.val().boardName===levelname)
           {
-            //console.log(collection[i].payload.val())
+            // console.log(collection[i].payload.val().feedback)
             this.temp=collection[i].payload.val().sudoku.slice()
             this.createGame(this.midTimes,collection[i].payload.val().sudoku.slice())
 

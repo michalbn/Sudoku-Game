@@ -36,7 +36,8 @@ body
     margin-top: 5%;
     margin-left: 6%;
     margin-right: 3%;
-    font-size: 130%; 
+    font-size: 120%; 
+    /* font-family:"Comic Sans MS", cursive, sans-serif; */
 }
 
 .btn
@@ -53,7 +54,8 @@ body
 
 select 
 {
-    font-size: 95%
+    font-size: 95%;
+   
 }
 
 

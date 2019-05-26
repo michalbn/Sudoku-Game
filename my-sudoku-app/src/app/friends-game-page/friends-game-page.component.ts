@@ -146,11 +146,11 @@ export class FriendsGamePageComponent implements OnInit {
 
   mark(levelName)
   {
-    if(document.getElementById(levelName).style.color=="blue")
+    if(document.getElementById(levelName).style.color=="rgb(2, 7, 136)")
       document.getElementById(levelName).style.color="black";
     else
     {
-      document.getElementById(levelName).style.color="blue";
+      document.getElementById(levelName).style.color="rgb(2, 7, 136)";
     }
     levelName=null;
   }

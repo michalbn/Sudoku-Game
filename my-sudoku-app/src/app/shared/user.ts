@@ -7,4 +7,5 @@ export interface User  extends Friend {
     password: number;
     point : number;
     friendList?: Friend[]
+    grade:{boardName:string,time:string,score:number,difficulty:string }[];
 }

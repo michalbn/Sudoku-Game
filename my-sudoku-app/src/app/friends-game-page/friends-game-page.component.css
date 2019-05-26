@@ -33,16 +33,26 @@ body
 .form-group
 {
     margin-top: 5%;
+    font-size: 120%; 
+    /* font-family:"Comic Sans MS", cursive, sans-serif; */
+
     
 }
 
 .btn
 {
    margin-right: 7%; 
+   font-size: 95%; 
 }
 
 .checked {
     color: orange;
+}
+
+select 
+{
+    font-size: 95%;
+   
 }
 
 
