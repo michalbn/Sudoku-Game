@@ -13,7 +13,10 @@
           <span class="close" (click)="close_box()">&times;</span>
           
             <h2>!YOU WIN</h2>
-            <h4>זכית ב {{winning}} נקודות</h4>
+            <div *ngIf = "winning!==0">
+                <h4>זכית ב {{winning}} נקודות</h4>
+            </div>
+           
 
             <form [formGroup]="feedbackForm" (ngSubmit)="save_feedback()" novalidate>
                 <div class="container">
