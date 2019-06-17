@@ -28,8 +28,8 @@ const appRoutes: Routes=[
     {path: 'status-friends', component: StatusFriendsComponent},
   ]},
   {path: 'friends-game-page', component: FriendsGamePageComponent},
-  {path: 'competition-game', component: SudokuCompetitionGameComponent},
-  {path: 'collaboration-game', component: SudokuCollaborationGameComponent},
+  {path: 'competition-game/:game/:from/:to/:difficulty/:levelname', component: SudokuCompetitionGameComponent},
+  {path: 'collaboration-game/:game/:from/:to/:difficulty/:levelname', component: SudokuCollaborationGameComponent},
   {path: 'grade-page', component: GradePageComponent,children:[
     {path: 'competition', component: CompetitionGradePageComponent},
     {path: 'collaboration', component: CollaborationGradePageComponent},

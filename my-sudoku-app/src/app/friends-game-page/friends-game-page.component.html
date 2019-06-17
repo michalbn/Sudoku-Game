@@ -14,13 +14,24 @@
       <li role="presentation" ><a routerLink="/setting"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
     </ul>
 
+    <div id="myModal" class="modal">
+      
+            <!-- Modal content -->
+        <div class="modal-content">
+              <!-- <span class="close" (click)="close_box()" >&times;</span> -->
+            <h2>אנא המתן לאישור</h2>
+
+        </div>
+          
+    </div>
+
     <form class="form-inline">
       <div class="form-group col">
         &nbsp;&nbsp;
         <label for="selectid">בחר/י צורת משחק:</label> 
         &nbsp;&nbsp;
         <select (change)="check_fields()" size="1" class="form-control" id="selectid">  
-          <option value="" selected disabled hidden>בחר כאן</option>
+          <option value="" selected hidden>בחר כאן</option>
           <option>תחרות</option>
           <option>שיתוף פעולה</option>
         </select>
@@ -55,7 +66,7 @@
         &nbsp;&nbsp;
         <div *ngFor="let easyBoard of easyBoard">
             <details id={{easyBoard.boardName}}>
-            <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+            <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(easyBoard.boardName)" >התחל לשחק</button></summary>
                   <div *ngIf = "easyBoard.rate.rating>=0 && 1> easyBoard.rate.rating">
                       <p> דירוג: 
                       <span class="fa fa-star"></span>
@@ -125,7 +136,7 @@
         <!--medium-->
         <div *ngFor="let mediumBoard of mediumBoard">
             <details id={{mediumBoard.boardName}}>
-            <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+            <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link"  (click)="play(mediumBoard.boardName)" >התחל לשחק</button></summary>
                   <div *ngIf = "mediumBoard.rate.rating>=0 && 1> mediumBoard.rate.rating">
                       <p> דירוג: 
                       <span class="fa fa-star"></span>
@@ -195,7 +206,7 @@
         <!--Hard-->
         <div *ngFor="let hardBoard of hardBoard">
             <details id={{hardBoard.boardName}}>
-            <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play()" >התחל לשחק</button></summary>
+            <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link"  (click)="play(hardBoard.boardName)" >התחל לשחק</button></summary>
                   <div *ngIf = "hardBoard.rate.rating>=0 && 1> hardBoard.rate.rating">
                       <p> דירוג: 
                       <span class="fa fa-star"></span>

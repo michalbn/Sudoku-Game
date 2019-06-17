@@ -6,6 +6,8 @@ import { database } from 'firebase';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { SudokuBoardsService } from '../shared/sudoku-boards.service';
 import { Board } from '../shared/Board';
+import { MessageService } from '../shared/message.service';
+import { message } from '../shared/message';
 
 
 @Component({
@@ -17,19 +19,30 @@ export class HomePageComponent implements OnInit {
 userName: string;
 today: number = Date.now();
 User: User[];  
+
 id:string;
 point:number;
+
+Message : message[];
+Message1 : message[];
+msgid:string;
+confirmFlag:boolean
+lenDB:number
+
 
 
   constructor(public authApi: AuthService,
               private router: Router,
               private actRoute: ActivatedRoute,
               public boardSe : SudokuBoardsService,
-              private db: AngularFireDatabase
+              private db: AngularFireDatabase,
+              private messageService: MessageService,
+              private af: AngularFireDatabase
              ) { }
 
   ngOnInit() {   
     this.boardSe.GetAllBoradsList();  // Call GetAllBoradsList before main form is being called
+    this.messageService.GetMessagesList();
     let s = this.authApi.GetUsersList(); //list of users
     s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
       this.User = [];
@@ -42,6 +55,7 @@ point:number;
           a['$key'] = item.key;
           this.User.push(a as User);
           this.point=this.User[0].point;
+          
         }
       })
       if(data.length===1)//add sudoku boards
@@ -241,8 +255,83 @@ point:number;
         //////////////////////////////////////////////////////////////////
         
           
-      }      
+      }   
+      else return;   
     })
+        //////message alert
+        this.messageService.GetMessagesList().snapshotChanges().subscribe(collection => {
+          this.Message = [];
+          collection.forEach(item => {
+            let a = item.payload.toJSON();
+            console.log(a["to"])
+            if(a["to"]===this.authApi.getSessionStorage() && a["status"]==="hold")
+            {
+              this.msgid=item.key
+              this.Message.push(a as message);
+            }
+         })        
+          console.log(this.Message)
+          // for(var i=0 ; i<this.Message.length ; i++)
+          if(this.Message.length>1)
+          {
+            location.reload();
+          }
+          else if(this.Message.length===1)
+          {
+           if(this.Message[0].to===this.authApi.getSessionStorage()&& this.Message[0].status==="hold")
+            {
+              this.confirmFlag = confirm(this.Message[0].massage);
+              if(this.confirmFlag!=null)
+              {
+                console.log(this.messageService.GetMessagesList.length)
+                console.log(this.confirmFlag)
+                if(this.Message.length===1)
+                {
+                  if (this.confirmFlag == true) //exit
+                  {
+  
+                  //   break
+                  console.log(this.Message) 
+                  this.delay(300,collection) 
+                //  this.confirmFlag=null;  
+                  
+                          
+                  }
+                  else if(this.confirmFlag==false)
+                  {
+                    if(this.Message.length===1)
+                    {
+                      //this.messageService.DeleteMessage(collection[0].key)
+                      this.delay1(100,collection) 
+                    //   this.db.database.ref("messages-list/"+collection[0].key+"/status").set("canceled")
+                    // this.Message=[];
+                   // this.confirmFlag=null;
+                    }
+                    else
+                    {
+                      this.Message=[]
+                    }
+                    return
+                  }
+                  else
+                  {
+                    this.ngOnInit()
+                  }
+                }
+                else
+                {
+                  this.ngOnInit()
+                }
+              }
+
+            }
+           
+          }
+
+          
+          return;
+        })
+
     this.today = Date.now();//showing the date
     this.userName=this.authApi.userLogin;//enter the global nickName to variable
     if(this.userName!=null)//if global variable not null
@@ -261,6 +350,277 @@ point:number;
   }
 
     // Contains Reactive Form logic
+
+    async delay(ms: number,collection) {
+      await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>this.conf(collection));
+  }
+
+  async delay1(ms: number,collection) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>this.cencel(collection));
+}
+
+cencel(collection)
+{
+ // console.log(Object.keys(collection[0].payload.val()).length)
+//  if(this.Message[0]!=null)
+//  {
+//   console.log(Object.keys(this.Message[0]).length)
+//  }
+//  else
+//  {
+//    console.log("dsfgh")
+//  }
+    this.messageService.GetMessagesList().snapshotChanges().subscribe(collection1 => {this.lenDB= collection1.length})
+    console.log(this.Message)
+    console.log(this.msgid)
+    console.log(collection[0].key)
+    console.log(this.confirmFlag)
+    //console.log(this.af.database.('messages-list'))
+    // if(this.lenDB===0)
+    // {
+    //   this.Message=[];
+    //   return;
+    // }
+
+    if(this.Message.length>=2)
+    {
+      this.Message=[];
+      this.confirmFlag=null
+      // this.ngOnInit()
+      return;
+    }
+    else if(this.confirmFlag===false && this.Message.length==1)
+    {
+      this.af.database.ref('messages-list/').transaction(ab=>{
+        if(ab===null)
+        {console.log("empty id"); console.log(ab);
+      this.confirmFlag=null;
+            this.Message=[];
+            // this.ngOnInit()
+            return;
+          }
+      else {
+        if(ab[Object.keys(ab)[0]]["to"]===this.authApi.getSessionStorage())
+        {
+          console.log("exsit id"); console.log(Object.keys(ab)[0]);
+          if(this.msgid===Object.keys(ab)[0] && this.confirmFlag===false)
+          {
+            this.db.database.ref("messages-list/"+Object.keys(ab)[0]+"/status").set("canceled");
+            this.confirmFlag=null;
+            this.Message=[];
+            return;
+          }
+          else
+          {
+            // this.confirmFlag=null;
+            // this.Message=[];
+            // return;
+            this.conf(collection)
+            this.confirmFlag=null;
+            this.Message=[];
+            return;
+          }
+        }
+
+    } 
+     return
+    })
+    }
+    else if(this.confirmFlag!=null && this.Message.length==1)
+    {
+      this.conf(collection)
+            this.confirmFlag=null;
+            this.Message=[];
+            return;
+    }
+
+    this.Message=[];
+      this.confirmFlag=null
+      return;
+    // else if(this.confirmFlag===true)
+    // {
+    //   this.conf(collection)
+    // }
+    // else if(this.confirmFlag===null)
+    // {
+
+    // }
+
+//     if(this.confirmFlag===null)
+//     {
+//       this.messageService.DeleteMessage(this.msgid)
+//     }
+//     if(this.Message.length!==0 && (this.msgid ===collection[0].key))
+//     {
+     
+//       this.db.database.ref("messages-list/"+this.msgid+"/status").set("canceled")
+//       this.confirmFlag=null
+//       this.Message=[];
+//       return;
+      
+//     }
+//     else if(this.Message.length!==0  &&(collection[0].key !== this.msgid) && this.confirmFlag===true)
+//     {
+     
+//       this.db.database.ref("messages-list/"+this.msgid+"/status").set("approved")
+//       if(this.Message[0].game=="תחרות")
+//       {
+//         this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+//         this.Message=[];
+//         this.confirmFlag=null
+//         return;
+//       }
+//       else
+//       {
+//         this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+//         this.Message=[];
+//         this.confirmFlag=null
+//         return;
+//       }
+//     }
+//     else if(this.Message.length!==0  &&(collection[0].key !== this.msgid) && this.confirmFlag===false)
+//     {
+// //לבדוק ID פה
+// this.af.database.ref('messages-list/').transaction(ab=>{if(ab===null){console.log("empty id"); console.log(ab)}
+// else {console.log("exsit id")} ; console.log(ab)})
+
+//       this.db.database.ref("messages-list/"+this.msgid+"/status").set("canceled")
+//       this.confirmFlag=null
+//       this.Message=[];
+//       return
+        
+//     }
+//     else if(this.Message.length===0)
+//     {
+//      // this.db.database.ref("messages-list/"+collection[i].key+"/status").set("canceled")
+//      this.Message=[];
+//      this.confirmFlag=null
+//      //this.ngOnInit()
+     
+//       return;
+//     }
+}
+
+
+  conf(collection)
+  {
+    console.log(this.Message)
+    console.log(this.msgid)
+    console.log(collection[0].key)
+    console.log(this.confirmFlag)
+    console.log(this.Message.length)
+
+    if(this.Message.length>=2)
+    {
+      this.Message=[];
+      this.confirmFlag=null
+      // this.ngOnInit()
+      return;
+    }
+
+    else if(this.confirmFlag===true && this.Message.length==1)
+    {
+      this.af.database.ref('messages-list/').transaction(ab=>{if(ab===null){console.log("empty id"); console.log(ab);
+    this.confirmFlag=null;
+          this.Message=[];
+          // this.ngOnInit()
+          return;}
+    else {console.log("exsit id") ; console.log(Object.keys(ab)[0]);
+    
+    console.log(ab[Object.keys(ab)[0]]["game"]);
+    if(this.msgid===Object.keys(ab)[0] && this.confirmFlag===true)
+    {
+    this.db.database.ref("messages-list/"+Object.keys(ab)[0]+"/status").set("approved")
+      if(ab[Object.keys(ab)[0]]["game"]=="תחרות")
+      {
+        this.router.navigate(['/competition-game',ab[Object.keys(ab)[0]]["game"],ab[Object.keys(ab)[0]]["from"],ab[Object.keys(ab)[0]]["to"],ab[Object.keys(ab)[0]]["difficulty"],ab[Object.keys(ab)[0]]["boradName"]]);//go to new-user
+        this.Message=[];
+        this.confirmFlag=null
+        return;
+      }
+      else
+      {
+        this.router.navigate(['/competition-game',ab[Object.keys(ab)[0]]["game"],ab[Object.keys(ab)[0]]["from"],ab[Object.keys(ab)[0]]["to"],ab[Object.keys(ab)[0]]["difficulty"],ab[Object.keys(ab)[0]]["boradName"]]);//go to new-user
+        this.Message=[];
+        this.confirmFlag=null
+        return;
+      }
+    }
+  }
+    return;
+  })
+  return
+
+    }
+    else if(this.confirmFlag!=null && this.Message.length==1)
+    {
+      //this.ca(collection)
+      this.cencel(collection) 
+      this.Message=[];
+      this.confirmFlag=null
+      return;
+    }
+  
+
+
+    this.Message=[];
+    this.confirmFlag=null
+    return;
+
+    
+  
+
+    // this.messageService.GetMessagesList().snapshotChanges().subscribe(collection1 => {this.lenDB= collection1.length})
+    // console.log(this.lenDB)
+    // if(this.lenDB===1)
+    // {
+    //   this.Message=[];
+    //   return;
+    // }
+
+    // if((this.Message.length!==0  &&(collection[0].key === this.msgid))||(this.Message.length!==0  &&(collection[0].key !== this.msgid)&&this.confirmFlag===true ))
+    // {
+    //  console.log(this.messageService.GetMessage(this.msgid))
+    //  this.af.database.ref('messages-list/').transaction(ab=>{if(ab===null){console.log("empty id"); console.log(ab)}
+    // else {console.log("exsit id")} })
+    //   this.db.database.ref("messages-list/"+this.msgid+"/status").set("approved")
+    //   console.log(Object.keys(this.Message[0]))
+    //   if(this.Message[0].game=="תחרות")
+    //   {
+    //     this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+    //     this.Message=[];
+    //     this.confirmFlag=null
+    //     return;
+    //   }
+    //   else
+    //   {
+    //     this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+    //     this.Message=[];
+    //     this.confirmFlag=null
+    //     return;
+    //   }
+    // }
+    // else if(this.Message.length!==0  &&(collection[0].key !== this.msgid) && this.confirmFlag===false)
+    // {
+
+    //   this.db.database.ref("messages-list/"+this.msgid+"/status").set("canceled")
+    //   this.Message=[];
+    //   this.confirmFlag=null
+    //   return
+        
+    // }
+    // else if(this.Message.length===0)
+    // {
+    //  // this.db.database.ref("messages-list/"+collection[i].key+"/status").set("canceled")
+    //  this.Message=[];
+    //  this.confirmFlag=null
+    //  //this.ngOnInit()
+     
+    //   return;
+    // }
+
+
+  }
 
 
   logout()
