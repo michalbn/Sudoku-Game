@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-setting-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.messageService.alertMsg(SettingPageComponent)
+    
+    
   }
 
 }

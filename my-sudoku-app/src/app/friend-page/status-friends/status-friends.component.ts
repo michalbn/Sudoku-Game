@@ -4,6 +4,7 @@ import { User } from 'src/app/shared/user';
 import { Friend } from 'src/app/shared/friend';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { MessageService } from 'src/app/shared/message.service';
 
 
 
@@ -17,7 +18,7 @@ export class StatusFriendsComponent implements OnInit {
   friend_status_hold: string[]=[];//contain a list of names that this user has sent membership request
   friendRequest: string[]=[];//Contains a list of names that have sent to this user membership request
 
-  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase) { }
+  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase,private messageService: MessageService) { }
 
   ngOnInit() { 
      //Sending a friend request
@@ -69,6 +70,7 @@ export class StatusFriendsComponent implements OnInit {
         return;
       })
      }
+     this.messageService.alertMsg(StatusFriendsComponent)
 
   }
   

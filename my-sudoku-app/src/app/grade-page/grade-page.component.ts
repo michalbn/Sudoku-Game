@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
+import { MessageService } from '../shared/message.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class GradePageComponent implements OnInit,DoCheck {
 
 
   constructor(private router : Router,
-              private route: ActivatedRoute,public authApi: AuthService) { }
+              private route: ActivatedRoute,public authApi: AuthService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     if(this.authApi.getSessionStorage()==null)///if session not null
@@ -47,7 +49,8 @@ export class GradePageComponent implements OnInit,DoCheck {
           }
         }
       })
-
+      this.messageService.alertMsg(GradePageComponent)
+     
     }
     console.log(this.gradeInfo)
   }

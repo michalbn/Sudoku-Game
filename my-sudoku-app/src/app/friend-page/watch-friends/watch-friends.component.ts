@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/user';
 import { Friend } from 'src/app/shared/friend';
+import { MessageService } from 'src/app/shared/message.service';
 
 @Component({
   selector: 'app-watch-friends',
@@ -16,7 +17,7 @@ export class WatchFriendsComponent implements OnInit {
   status_approved: string[]=[];//My friend list - status approved
   id:string;//My user id
 
-  constructor(public authApi: AuthService, private router : Router) { }
+  constructor(public authApi: AuthService, private router : Router,private messageService: MessageService) { }
 
   ngOnInit() {
     if(this.authApi.getSessionStorage()==null)///if session not null
@@ -53,6 +54,8 @@ export class WatchFriendsComponent implements OnInit {
         }
       })
     }
+    this.messageService.alertMsg(WatchFriendsComponent)
+    
 
   }
 

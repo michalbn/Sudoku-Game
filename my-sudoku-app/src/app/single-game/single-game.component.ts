@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SudokuBoardsService } from '../shared/sudoku-boards.service';
 import { AuthService } from '../shared/auth.service';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-single-game',
@@ -13,13 +14,18 @@ export class SingleGameComponent implements OnInit {
   mediumBoard: string[]=[];//My friend list - status approved
   hardBoard: string[]=[];//My friend list - status approved
 
-  constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService) { }
+  constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService,private messageService: MessageService) { }
 
   ngOnInit() {
     //document.getElementById("demo").style.color="black"
     if(this.authApi.getSessionStorage()==null)///if session not null
     {
       this.router.navigate(['/']);//go to new-user
+    }
+    else
+    {
+      //////message alert
+    this.messageService.alertMsg(SingleGameComponent)
     }
   }
 

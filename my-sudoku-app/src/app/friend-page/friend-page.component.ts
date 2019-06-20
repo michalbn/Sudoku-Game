@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../shared/auth.service';
 import { Friend } from '../shared/friend';
 import { User } from '../shared/user';
+import { MessageService } from '../shared/message.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class FriendPageComponent implements OnInit,DoCheck {
               public authApi:AuthService ,  // API services
               public fb: FormBuilder,       // Form Builder service for Reactive forms
               public toastr: ToastrService,
+              private messageService: MessageService
               
   ) { }
 
@@ -53,7 +55,8 @@ export class FriendPageComponent implements OnInit,DoCheck {
       })
       this.frienForm();  
      // this.friend= new Array(); 
-
+     this.messageService.alertMsg(FriendPageComponent)
+     
     }
   
   }

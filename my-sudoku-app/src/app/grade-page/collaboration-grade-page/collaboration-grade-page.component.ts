@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'src/app/shared/message.service';
 
 @Component({
   selector: 'app-collaboration-grade-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollaborationGradePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
+    this.messageService.alertMsg(CollaborationGradePageComponent)
   }
+  
+  
 
 }
