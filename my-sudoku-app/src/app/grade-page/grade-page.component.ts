@@ -28,29 +28,31 @@ export class GradePageComponent implements OnInit,DoCheck {
     }
     else
     {
-      this.gradeInfo=[];
-      this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
-        for (var i = 0; i < collection.length; i++) 
-        {
-          if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
+      if(this.router.routerState.snapshot.url === "/grade-page")
+      {
+        this.gradeInfo=[];
+        this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
+          for (var i = 0; i < collection.length; i++) 
           {
-            if(collection[i].payload.val().grade[0]["boardName"]!=="")
+            if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
             {
-              this.flagGrade=true;
-              for (var j = 0; j < collection[i].payload.val().grade.length; j++)
+              if(collection[i].payload.val().grade[0]["boardName"]!=="")
               {
-               this.gradeInfo.push(collection[i].payload.val().grade[j]) 
-              } 
-            }
-            else
-            {
-              this.flagGrade=false;
+                this.flagGrade=true;
+                for (var j = 0; j < collection[i].payload.val().grade.length; j++)
+                {
+                 this.gradeInfo.push(collection[i].payload.val().grade[j]) 
+                } 
+              }
+              else
+              {
+                this.flagGrade=false;
+              }
             }
           }
-        }
-      })
-      this.messageService.alertMsg(GradePageComponent)
-     
+        })
+        this.messageService.alertMsg(GradePageComponent)
+      }
     }
     console.log(this.gradeInfo)
   }
