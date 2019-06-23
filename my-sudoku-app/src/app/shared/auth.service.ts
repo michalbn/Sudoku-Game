@@ -31,7 +31,8 @@ export class AuthService {
         point:point,
         login: login,
         friendList: {friendName:friendName, status:status},
-        grade: [{boardName:"",time:"",score:0, difficulty:""}]
+        grade: [{boardName:"",time:"",score:0, difficulty:""}],
+        gradeCompetition: [{boardName:"",time:"",score:0, difficulty:"",rival:""}]
       })
     }
 
@@ -62,7 +63,8 @@ export class AuthService {
         point: user.point,
         login: login,
         friendList:user.friendList,
-        grade:user.grade
+        grade:user.grade,
+        gradeCompetition:user.gradeCompetition
        // friendList: {friendName:user.fzz, status:null}
         
       })
@@ -76,7 +78,8 @@ export class AuthService {
         point: user.point,
         login: user.login,
         friendList:friend,
-        grade:user.grade
+        grade:user.grade,
+        gradeCompetition:user.gradeCompetition
        // friendList: {friendName:user.fzz, status:null}
         
       })

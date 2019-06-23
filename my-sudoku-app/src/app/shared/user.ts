@@ -8,4 +8,5 @@ export interface User  extends Friend {
     point : number;
     friendList?: Friend[]
     grade:{boardName:string,time:string,score:number,difficulty:string }[];
+    gradeCompetition:{boardName:string,time:string,score:number,difficulty:string,rival:string}[];
 }

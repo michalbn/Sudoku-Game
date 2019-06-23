@@ -64,7 +64,8 @@
         <tbody >
             <tr class={{index}} *ngFor="let sudoko of sudokoClassic let row=index" >                
               <td *ngFor="let j of sudoko let col=index">
-                <input type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])" value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
+                <input type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])"
+                 value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
               </td>
               <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
 

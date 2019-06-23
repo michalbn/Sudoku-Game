@@ -141,6 +141,25 @@ export class MessageService {
             }
             console.log(path)
             location.reload();
+
+            /////////////////////////////////////
+            // if(path=="competition-game/")
+            // {
+            //   this.af.database.ref('messages-list/').transaction(a => {
+            //     for (var i = 0; i < Object.keys(a).length; i++)
+            //     {
+            //       if(Object.keys(a[Object.keys(a)[i]]).length<7)
+            //       {
+            //         this.DeleteMessage(Object.keys(a)[i])
+            //         this._location.back();
+            //         location.reload();
+            //         return;
+            //       }
+            //     }
+            //   })
+            // }
+
+            ///////////////////////////////////
         }
         else
         {
