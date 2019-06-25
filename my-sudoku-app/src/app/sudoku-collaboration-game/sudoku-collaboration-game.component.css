@@ -1,0 +1,730 @@
+.logoimg{
+    width: 20%;
+    height: 30%;
+    -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(20deg); /* Safari 3-8 */
+    transform: rotate(15deg);
+    position: absolute;
+ /* left: 0; bottom: 0;*/
+    top: 0px;
+    right: 0px;
+ /* position: relative;*/
+}
+
+
+body {
+    font-family:  "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    box-sizing: border-box;
+}
+table /*css on table*/
+ {
+    background: white;
+    margin-top: 2%;
+	border: 3px solid black;
+	max-width: 35%;
+    margin-bottom: 2%;
+    margin-left:auto; 
+    margin-right:auto;
+    
+}
+
+td
+{
+	border: 1px solid black;
+	text-align: center;
+
+}
+
+input
+{
+    text-align: center;
+    border: none;
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    font-size: 200%;
+    
+}
+
+input:focus {
+    outline:none;
+}
+
+tr:nth-child(6),tr:nth-child(3)
+{
+	border-bottom: 3px solid black;
+}
+
+td:nth-child(4), td:nth-child(7)
+{
+	border-right: 3px solid black;
+}
+
+h1
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 2%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size : 400%; 
+    text-shadow: 2px 2px gray;
+    color: #87CEFA;
+}
+
+tbody /*css body-table*/
+{
+	justify-content: center;
+	align-items: center;
+}
+
+.btn /*css on button*/
+{
+    margin-left:auto;
+    margin-right:auto;
+    font-size : 150%; 
+    display:block;
+    margin-bottom:1%
+}
+
+input[type="text"]:disabled
+{
+background-color: white;
+}
+
+:disabled {
+    color: rgb(188, 224, 247);
+    -webkit-text-stroke-width: 0.6px;
+    -webkit-text-stroke-color: black;
+  }
+
+  .info
+  {
+      height: 42%;
+      width: 21%;
+      background-color: white;/*  rgb(148, 211, 250); */
+      position: absolute; /* or absolute */
+      top: 20%;
+      left: 8%;
+      border-style: solid;
+      border-radius: 7%;
+  
+  }
+
+  .nav-bar
+  {
+      display: inline;
+      background-color: blue;
+      text-align: center;
+      margin-left:7%;
+  }
+  
+  .pos
+  {
+      text-align: center;
+  
+  }
+  .btn-link
+  {
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 0;
+  }
+  
+  .fa-life-ring
+  {
+      
+      color: red;
+  }
+  
+  button:active
+  {
+      color: red;
+  }
+  
+  .stop:active
+  {
+      color:green;
+  }
+  .refresh:active
+  {
+      color: blue;
+  }
+  
+  .fa-clock-o
+  {
+      color: black;
+  }
+  
+  .fa-share
+  {
+      color: green;
+  }
+  h3{
+      font-size : 150%; 
+      text-align: center;
+      
+  }
+  
+  h3:hover
+  {
+      opacity:1.0;
+      text-decoration: none;
+      box-shadow:none;
+      
+  }
+
+  
+/**************************** chatttt ****/
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+    background-color: #555;
+    color: white;
+    padding: 1% 1%;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 4%;
+    right: 3%;
+    width: 13%;
+    font-size: 200%
+  }
+  
+  /* The popup chat - hidden by default */
+  .chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 3%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    width: 23%;
+    
+    
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 100%;
+    padding: 5%;
+    background-color: white;
+  }
+  
+  /* Full-width textarea */
+  .form-container textarea {
+    width: 100%;
+    padding: 3%;
+    margin: 5% 0 7% 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 25%;
+  }
+  
+  /* When the textarea gets focus, do something */
+  .form-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/send button */
+  .form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1% 2%;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:3%;
+    opacity: 0.8;
+  }
+  
+
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+
+
+
+
+/***********************************chat**********************/
+
+.form-container .frame{
+    display:inline-block;
+    background:whitesmoke;
+    /* float: right; */
+    resize: none;
+    height:250px;
+    overflow:hidden;
+    padding: 1%;
+    width: 100%;
+   
+
+}
+
+.form-container .frame ul {
+    width:100%;
+    float: right;
+    list-style-type: none;
+    position:absolute;
+    bottom:35%;
+    top:18%;
+    overflow-y:scroll;
+    display: flex; 
+    flex-direction: column-reverse;
+    direction: ltr;
+    
+}
+
+
+.close1 {
+    color:rgb(73, 70, 70);
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+ .close1:hover,
+  .close1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .close2 {
+    color:rgb(73, 70, 70);
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+ .close2:hover,
+  .close2:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+ p {
+    /* display:inline-block; */
+    float: right;
+    padding:3% 4% 6% 4%;
+    border-radius: 6px;
+    direction: rtl;
+    color:black;
+    background-color:#90ee74;
+    scroll-behavior: smooth;
+
+}
+
+
+
+br 
+{ 
+   display: block;   
+}
+.p1 {
+    /* display:inline-block; */
+    float: right;
+    padding:3% 4% 6% 4%;
+    border-radius: 6px;
+    direction: rtl;
+    color:black;
+    background-color:white;
+    scroll-behavior: smooth;
+
+
+}
+
+/**************************modal3 Loss******************************/
+/* The Modal (background) */
+.modal3 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+  }
+    /* Modal Content */
+    .modal-content3 {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        font-size: 118%;
+        font-weight: bold;
+      }
+      
+      /* The Close Button */
+      .close3 {
+        color:rgb(73, 70, 70);
+        float: left;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close3:hover,
+      .close3:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      h5
+      {
+          vertical-align: middle;
+            text-align: center;
+            margin-top: 2%;
+            font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size : 300%; 
+            text-shadow: 1px 1px gray;
+            font-weight: bold;
+            color: #87CEFA;
+      }
+
+      span {
+        content: "\2639";
+
+      }
+
+      
+/**************************modal4******************************/
+      
+  /* The Modal (background) */
+.modal4 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+  }
+  
+  /* Modal Content */
+  .modal-content4 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    font-size: 118%;
+    font-weight: bold;
+  }
+  
+  /* The Close Button */
+  .close {
+    color:rgb(73, 70, 70);
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  h2
+{
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 2%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size : 400%; 
+    text-shadow: 1px 1px gray;
+    font-weight: bold;
+    color: #87CEFA;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count:infinite;
+    letter-spacing: 3px;
+}
+
+
+@-webkit-keyframes example {
+    0%   {color: orange;}
+    20%  {color: yellow;}
+    40%  {color: green;}
+    60%  {color: cyan;}
+    80%  {color: blue;}
+    100% {color: violet;}
+  }
+  
+  /* Standard syntax */
+  @keyframes example {
+    0%   {color: orange;}
+    20%  {color: yellow;}
+    40%  {color: green;}
+    60%  {color: cyan;}
+    80%  {color: blue;}
+    100% {color: violet;}
+  }
+
+
+/* ************************pyro****************** */
+
+
+.pyro > .before, .pyro > .after {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+    -moz-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    -webkit-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    -o-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    -ms-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards; }
+  
+  .pyro > .after {
+    -moz-animation-delay: 1.25s, 1.25s, 1.25s;
+    -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
+    -o-animation-delay: 1.25s, 1.25s, 1.25s;
+    -ms-animation-delay: 1.25s, 1.25s, 1.25s;
+    animation-delay: 1.25s, 1.25s, 1.25s;
+    -moz-animation-duration: 1.25s, 1.25s, 6.25s;
+    -webkit-animation-duration: 1.25s, 1.25s, 6.25s;
+    -o-animation-duration: 1.25s, 1.25s, 6.25s;
+    -ms-animation-duration: 1.25s, 1.25s, 6.25s;
+    animation-duration: 1.25s, 1.25s, 6.25s; }
+  
+  @-webkit-keyframes bang {
+    from {
+      box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+  @-moz-keyframes bang {
+    from {
+      box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+  @-o-keyframes bang {
+    from {
+      box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+  @-ms-keyframes bang {
+    from {
+      box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+  @keyframes bang {
+    from {
+      box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+  @-webkit-keyframes gravity {
+    to {
+      transform: translateY(-1px);
+      -moz-transform: translateY(-1px);
+      -webkit-transform: translateY(-1px);
+      -o-transform: translateY(-1px);
+      -ms-transform: translateY(-1px);
+      opacity: 0; } }
+  @-moz-keyframes gravity {
+    to {
+      transform: translateY(-1px);
+      -moz-transform: translateY(-1x);
+      -webkit-transform: translateY(-1px);
+      -o-transform: translateY(-1px);
+      -ms-transform: translateY(-1px);
+      opacity: 0; } }
+  @-o-keyframes gravity {
+    to {
+      transform: translateY(-1px);
+      -moz-transform: translateY(-1px);
+      -webkit-transform: translateY(-1px);
+      -o-transform: translateY(1px);
+      -ms-transform: translateY(-1px);
+      opacity: 0; } }
+  @-ms-keyframes gravity {
+    to {
+      transform: translateY(-1px);
+      -moz-transform: translateY(-1px);
+      -webkit-transform: translateY(-1px);
+      -o-transform: translateY(-1px);
+      -ms-transform: translateY(-1px);
+      opacity: 0; } }
+  @keyframes gravity {
+    to {
+      transform: translateY(-1px);
+      -moz-transform: translateY(-1px);
+      -webkit-transform: translateY(-1px);
+      -o-transform: translateY(-1px);
+      -ms-transform: translateY(-1px);
+      opacity: 0; } }
+  @-webkit-keyframes position {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%; }
+  
+
+  
+     40%, 59.9% {
+      margin-top: 20%;
+      margin-left: 70%; }
+  
+    60%, 79.9% {
+      margin-top: 30%;
+      margin-left: 20%; }
+  
+    80%, 99.9% {
+      margin-top: 30%;
+      margin-left: 80%; }
+     }
+  @-moz-keyframes position {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%; }
+  
+     20%, 39.9% {
+      margin-top: 40%;
+      margin-left: 30%; }
+  
+    40%, 59.9% {
+      margin-top: 20%;
+      margin-left: 70%; }
+  
+    60%, 79.9% {
+      margin-top: 30%;
+      margin-left: 20%; }
+  
+    80%, 99.9% {
+      margin-top: 30%;
+      margin-left: 80%; }
+     }
+  @-o-keyframes position {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%; }
+  
+
+  
+    40%, 59.9% {
+      margin-top: 20%;
+      margin-left: 70%; }
+  
+    60%, 79.9% {
+      margin-top: 30%;
+      margin-left: 20%; }
+   
+    80%, 99.9% {
+      margin-top: 30%;
+      margin-left: 80%; }
+     }
+  @-ms-keyframes position {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%; }
+  
+
+  
+    40%, 59.9% {
+      margin-top: 20%;
+      margin-left: 70%; }
+  
+    60%, 79.9% {
+      margin-top: 30%;
+      margin-left: 20%; }
+  
+    80%, 99.9% {
+      margin-top: 30%;
+      margin-left: 80%; }
+     }
+  @keyframes position {
+    0%, 19.9% {
+      margin-top: 8%;
+      margin-left: 40%; }
+  
+      20%, 39.9% {
+        margin-top: 8%;
+        margin-left: 30%; }
+  
+      }
+
+      h4
+      {
+          vertical-align: middle;
+          text-align: center;
+          margin-top: 2%;
+          font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+          font-size : 160%; 
+          text-shadow: 1px 1px gray;
+          font-weight: bold;
+          color: #87CEFA;
+          -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+          -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+          -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+          animation-name: example;
+          animation-duration: 4s;
+          animation-iteration-count:infinite;
+          letter-spacing: 3px;
+      }
+
+      /*********************rate******************  */
+
+      
+
+      .rate {
+        float: right;
+        height: 46px;
+        padding: 0 10px;
+    }
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+    }
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+
+    
+    .size
+    {
+      background-color: rgb(241, 234, 234);
+      border-style: groove;
+      color: black;
+      font-weight: bold;
+      font-size: 100%;
+       
+    }
+    
+

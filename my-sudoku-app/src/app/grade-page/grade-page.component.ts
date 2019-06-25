@@ -42,11 +42,13 @@ export class GradePageComponent implements OnInit,DoCheck {
                 for (var j = 0; j < collection[i].payload.val().grade.length; j++)
                 {
                  this.gradeInfo.push(collection[i].payload.val().grade[j]) 
+                 console.log(this.gradeInfo)
                 } 
               }
               else
               {
                 this.flagGrade=false;
+                break;
               }
             }
           }

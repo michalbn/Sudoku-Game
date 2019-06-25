@@ -346,7 +346,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
       sudokuBoard:this.sudokuBoard,
       done:"no",
     win:""}
-
   }
   isDisabled(value)
   //You can not click on a cell that is already full
@@ -638,8 +637,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
 
   save_feedback()//Save feedback in DB
   {
-    //למחוק אחרי זה מה דאטה בייס את המשחק תחרות הזה...
-    //וגם ביציאה
+
     this.closeForm()
     console.log("saveeeeeee")
     if(this.difficulty==="קל")
@@ -682,7 +680,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
               }
               else
               {
-                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+                rateData.rating=((parseInt(rateData.rating)+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
                 //until 2 decimal places
               }
               this.db.database.ref("sudoku-boards/competition/easy/"+boardId+"/rate").set(rateData);
@@ -738,7 +736,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
               }
               else
               {
-                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+                rateData.rating=((parseInt(rateData.rating)+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
               }
               this.db.database.ref("sudoku-boards/competition/medium/"+boardId+"/rate").set(rateData);
               feedbackData.push({player:this.authApi.getSessionStorage(),playerFeedback:this.feedbackForm.value.feedback});
@@ -795,7 +793,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
               }
               else
               {
-                rateData.rating=((rateData.rating+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
+                rateData.rating=((parseInt(rateData.rating)+parseInt(this.feedbackForm.value.rate))/2).toFixed(2);
               }
               this.db.database.ref("sudoku-boards/competition/hard/"+boardId+"/rate").set(rateData);
               feedbackData.push({player:this.authApi.getSessionStorage(),playerFeedback:this.feedbackForm.value.feedback});

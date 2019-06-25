@@ -9,33 +9,35 @@
 
     <h1>ציוני שיתופי פעולה:</h1>
 
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">השותף</th>
-            <th scope="col">שם הלוח</th>
-            <th scope="col">זמן</th>
-            <th scope="col">ציון</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>koko</td>
-            <td>zibi</td>
-            <td>00:01:12</td>
-            <td>95</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>loko</td>
-            <td>pizza</td>
-            <td>00:02:45</td>
-            <td>80</td>
-          </tr>
-        </tbody>
-      </table>
+          <div *ngIf = "flagGrade2">
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">שם הלוח</th>
+                      <th scope="col">דרגת קושי</th>
+                      <th scope="col">זמן</th>
+                      <th scope="col">שם השותף</th>
+                      <th scope="col">ציון</th>
+                    </tr>
+                  </thead>
+                 
+                  <tbody>
+                    <tr *ngFor="let grade of gradeInfo2 let i=index">       
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{gradeInfo2[i].boardName}}</td>
+                      <td>{{gradeInfo2[i].difficulty}}</td>
+                      <td>{{gradeInfo2[i].time}}</td>
+                      <td>{{gradeInfo2[i].collaborator}}</td>
+                      <td>{{gradeInfo2[i].score}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+      
+          <div *ngIf = "!flagGrade2">
+              <h2>לא קיימים ציונים</h2>
+          </div>
 
 
 

@@ -32,7 +32,9 @@ export class AuthService {
         login: login,
         friendList: {friendName:friendName, status:status},
         grade: [{boardName:"",time:"",score:0, difficulty:""}],
-        gradeCompetition: [{boardName:"",time:"",score:0, difficulty:"",rival:""}]
+        gradeCompetition: [{boardName:"",time:"",score:0, difficulty:"",rival:""}],
+        gradeCollaboration: [{boardName:"",time:"",score:0, difficulty:"",collaborator:""}]
+        
       })
     }
 
@@ -64,7 +66,8 @@ export class AuthService {
         login: login,
         friendList:user.friendList,
         grade:user.grade,
-        gradeCompetition:user.gradeCompetition
+        gradeCompetition:user.gradeCompetition,
+        gradeCollaboration:user.gradeCollaboration
        // friendList: {friendName:user.fzz, status:null}
         
       })
@@ -79,7 +82,8 @@ export class AuthService {
         login: user.login,
         friendList:friend,
         grade:user.grade,
-        gradeCompetition:user.gradeCompetition
+        gradeCompetition:user.gradeCompetition,
+        gradeCollaboration:user.gradeCollaboration
        // friendList: {friendName:user.fzz, status:null}
         
       })
