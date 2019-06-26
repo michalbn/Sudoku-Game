@@ -42,4 +42,10 @@ h1
     color: rgb(243, 30, 30);
 }
 
+body
+{
+    height: 100vh;
+    overflow: auto;
+}
+
 

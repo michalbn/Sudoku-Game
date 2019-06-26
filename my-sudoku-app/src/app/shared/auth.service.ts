@@ -17,6 +17,20 @@ export class AuthService {
   public userLogin: string;  
   disconnect: number
 
+
+  BackgroundColor="#FFFFFF";//צבע הרקע
+  headersColor="#87CEFA";//צבע הכותרות
+  BackgroundBoardColor="#FFFFFF";//צבע רקע הלוח
+  helpNumbersColor="#BCE0F7";//צבע מספרי העזרה
+  numbersColor="#000000"
+
+  //  numbersColor:
+  //  BackgroundBoardColor="#FFFFFF"
+  //BoardColor:string//צבע רקע הלוח
+
+
+
+
   constructor(private db: AngularFireDatabase,
               private storage:LocalStorageService,
               private sessionSt: SessionStorageService,

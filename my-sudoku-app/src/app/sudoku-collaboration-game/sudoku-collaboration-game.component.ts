@@ -90,6 +90,8 @@ export class SudokuCollaborationGameComponent implements OnInit {
         this.chat=""
         if(this.difficulty==="קל" || this.difficulty==="בינוני"||this.difficulty==="קשה")
         {
+          let root = document.documentElement;
+          root.style.setProperty('--numbersColor',this.authApi.numbersColor)     
           this.authApi.GetUsersList().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
             this.User = [];
             data.forEach(item => {
@@ -338,6 +340,8 @@ export class SudokuCollaborationGameComponent implements OnInit {
     }
     else
     {
+      let root = document.documentElement;
+      root.style.setProperty('--helpNumbersColor',this.authApi.helpNumbersColor)
       return true;
     }
   }

@@ -34,22 +34,29 @@ export class GradePageComponent implements OnInit,DoCheck {
         this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
           for (var i = 0; i < collection.length; i++) 
           {
-            if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
+            if(this.router.routerState.snapshot.url === "/grade-page")
             {
-              if(collection[i].payload.val().grade[0]["boardName"]!=="")
+              if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
-                this.flagGrade=true;
-                for (var j = 0; j < collection[i].payload.val().grade.length; j++)
+                if(collection[i].payload.val().grade[0]["boardName"]!=="")
                 {
-                 this.gradeInfo.push(collection[i].payload.val().grade[j]) 
-                 console.log(this.gradeInfo)
-                } 
+                  this.flagGrade=true;
+                  for (var j = 0; j < collection[i].payload.val().grade.length; j++)
+                  {
+                   this.gradeInfo.push(collection[i].payload.val().grade[j]) 
+                   console.log(this.gradeInfo)
+                  } 
+                }
+                else
+                {
+                  this.flagGrade=false;
+                  break;
+                }
               }
-              else
-              {
-                this.flagGrade=false;
-                break;
-              }
+            }
+            else
+            {
+              break;
             }
           }
         })

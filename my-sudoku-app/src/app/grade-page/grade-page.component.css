@@ -108,3 +108,8 @@ h2
 
 
 }
+
+body {
+    height: 100vh;
+    overflow: auto;
+  }

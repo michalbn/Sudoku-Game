@@ -13,6 +13,13 @@
     position: relative;*/
 }
 
+
+body {
+  height: 100vh;
+  overflow: auto;
+}
+
+
 a
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";

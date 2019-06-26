@@ -48,9 +48,12 @@ h2
     text-align: center;
     margin-top: 6%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	font-size : 150%; 
-
-
+	font-size : 150%;
 }
+
+body {
+    height: 100vh;
+    overflow: auto;
+  }
 
 

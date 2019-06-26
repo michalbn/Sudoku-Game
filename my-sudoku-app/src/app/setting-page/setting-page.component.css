@@ -31,7 +31,7 @@ h1
 {
     vertical-align: middle;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 3%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 	font-size : 200%; 
     text-shadow: 1px 1px gray;
@@ -43,7 +43,30 @@ p
     color: black;
     text-shadow: 0px 0px gray;
     font-size : 80%; 
+    margin-top: 0.5%;
 }
+
+
+body {
+    height: 100vh;
+    overflow: auto;
+  }
+
+  .size
+{
+    font-size: 140%;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";    
+}
+
+.pos
+{
+    margin-right: 12%;
+    margin-top: 12%;
+    position:absolute;
+     top:0; right:0;
+    
+}
+
 
 
 

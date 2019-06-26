@@ -68,3 +68,9 @@ h1
 {
     color:#550a55d5;
 }
+
+body
+{
+    height: 100vh;
+    overflow: auto;
+}

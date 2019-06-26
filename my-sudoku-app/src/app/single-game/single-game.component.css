@@ -19,6 +19,8 @@ a
 body
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";  
+    height: 100vh;
+    overflow: auto;
     
 }
 

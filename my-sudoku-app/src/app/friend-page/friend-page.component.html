@@ -4,7 +4,7 @@
   <head>
       <meta charset="utf-8">
   </head>
-  <body>
+  <body [style.background]="this.authApi.BackgroundColor">
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation"><a routerLink="/home-page"><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
       <li role="presentation"><a routerLink="/single-game"><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
@@ -21,7 +21,7 @@
       </ul>
     <router-outlet></router-outlet>
     <div *ngIf = "friendPage">
-    <h1>להוספת החבר/ה הכנס/י את כינויו:</h1>
+    <h1  [style.color]="this.authApi.headersColor">להוספת החבר/ה הכנס/י את כינויו:</h1>
     <form method="post" role="form" class="form-horizontal" [formGroup]="friendForm" (ngSubmit)="addFriend()" novalidate>
       <div class="form-group">
         <div class="col-xs-6 col-xs-offset-3">

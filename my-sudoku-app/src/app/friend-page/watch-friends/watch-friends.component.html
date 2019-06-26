@@ -4,10 +4,10 @@
   <head>
       <meta charset="utf-8">
   </head>
-  <body>
+  <body [style.background]="this.authApi.BackgroundColor">
 
 
-    <h1>החברים שלי:</h1>
+    <h1  [style.color]="this.authApi.headersColor">החברים שלי:</h1>
     <div class ="status">
             <div *ngFor="let friend_status of status_approved" >
                 <div class ="space">

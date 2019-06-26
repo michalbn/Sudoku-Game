@@ -4,10 +4,10 @@
   <head>
       <meta charset="utf-8">
   </head>
-  <body>
+  <body [style.background]="this.authApi.BackgroundColor">
 
 
-    <h1>ציוני שיתופי פעולה:</h1>
+    <h1 [style.color]="this.authApi.headersColor">ציוני שיתופי פעולה:</h1>
 
           <div *ngIf = "flagGrade2">
               <table class="table table-hover">

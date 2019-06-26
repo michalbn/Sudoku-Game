@@ -68,6 +68,8 @@ export class SudokuClassicGameComponent implements OnInit {
       var levelname = this.route.snapshot.paramMap.get('levelname');
       if(difficulty==="קל" || difficulty==="בינוני"||difficulty==="קשה")
       {
+        let root = document.documentElement;
+        root.style.setProperty('--numbersColor',this.authApi.numbersColor)   
         this.boardSe.GetAllBoradsList();  // Call GetAllBoradsList
         let s = this.authApi.GetUsersList(); //list of users
         s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
@@ -132,6 +134,8 @@ export class SudokuClassicGameComponent implements OnInit {
     }
     else
     {
+      let root = document.documentElement;
+      root.style.setProperty('--helpNumbersColor',this.authApi.helpNumbersColor)
       return true;
     }
   }

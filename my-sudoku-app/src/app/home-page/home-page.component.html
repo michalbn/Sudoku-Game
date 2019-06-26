@@ -3,7 +3,8 @@
   <head>
       <meta charset="utf-8">
   </head>
-  <body>
+  <body [style.background]="this.authApi.BackgroundColor">
+    
 
 
 
@@ -17,12 +18,12 @@
       <li role="presentation"><a (click)="logout()" class="btn btn-info"><span class="glyphicon glyphicon-log-out"></span>התנתק/י</a></li>
     </ul>
 
-    <h2> {{today|date: "dd.MM.y"}}</h2>     
+    <h2  [style.color]="this.authApi.headersColor"> {{today|date: "dd.MM.y"}}</h2>     
  
-    <h1> ברוכים הבאים {{userName}} </h1>
+    <h1 [style.color]="this.authApi.headersColor"> ברוכים הבאים {{userName}} </h1>
 
 
-    <h3><div class="coin">
+    <h3  [style.color]="this.authApi.headersColor"><div class="coin">
         <div class="front"></div>
         <div class="front_b"></div>
         <div class="back"></div>

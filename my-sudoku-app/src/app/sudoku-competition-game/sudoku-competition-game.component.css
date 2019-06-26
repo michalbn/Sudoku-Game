@@ -14,7 +14,8 @@
 
 body {
     font-family:  "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    box-sizing: border-box;
+    overflow: auto;
+    height: 100vh;
 }
 table /*css on table*/
  {
@@ -38,6 +39,7 @@ td
 input
 {
     text-align: center;
+    color:var(--numbersColor);
     border: none;
     height:100%;
     width:100%;
@@ -93,7 +95,8 @@ background-color: white;
 }
 
 :disabled {
-    color: rgb(188, 224, 247);
+    /* color: rgb(188, 224, 247); */
+    color: var(--helpNumbersColor);
     -webkit-text-stroke-width: 0.6px;
     -webkit-text-stroke-color: black;
   }

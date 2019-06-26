@@ -36,22 +36,30 @@ export class CompetitionGradePageComponent implements OnInit {
         this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
           for (var i = 0; i < collection.length; i++) 
           {
-            if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
+            if(this.router.routerState.snapshot.url === "/grade-page/competition")
             {
-              if(collection[i].payload.val().gradeCompetition[0]["boardName"]!=="")
+              if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
-                this.flagGrade1=true;
-                for (var j = 0; j < collection[i].payload.val().gradeCompetition.length; j++)
+                if(collection[i].payload.val().gradeCompetition[0]["boardName"]!=="")
                 {
-                 this.gradeInfo1.push(collection[i].payload.val().gradeCompetition[j]) 
-                console.log(this.gradeInfo1)
-                } 
+                  this.flagGrade1=true;
+                  for (var j = 0; j < collection[i].payload.val().gradeCompetition.length; j++)
+                  {
+                   this.gradeInfo1.push(collection[i].payload.val().gradeCompetition[j]) 
+                  console.log(this.gradeInfo1)
+                  } 
+  
+                }
+                else
+                {
+                  this.flagGrade1=false;
+                }
+              }
 
-              }
-              else
-              {
-                this.flagGrade1=false;
-              }
+            }
+            else
+            {
+              break;
             }
           }
           return;
