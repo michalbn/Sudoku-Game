@@ -57,6 +57,7 @@ export class FriendsGamePageComponent implements OnInit {
           let a = item.payload.toJSON();
           if (a["nickName"] === this.authApi.getSessionStorage() && this.authApi.getSessionStorage() !== "" && this.router.routerState.snapshot.url === "/friends-game-page") {
             a['$key'] = item.key;
+            this.authApi.valid=item.key;
             this.User.push(a as User);
             this.friend = Object.assign(this.friend, this.User[0].friendList);
             this.friends_list = [];

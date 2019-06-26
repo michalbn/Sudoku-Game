@@ -100,6 +100,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
               if(a["nickName"]===this.authApi.getSessionStorage())
               {
                 this.id=item.key ;
+                this.authApi.valid=this.id
                 this.gradeCollaboration=(item.payload.val().gradeCollaboration).slice()//copy the grade from DB
                 a['$key'] = item.key;
                 this.User.push(a as User);

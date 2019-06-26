@@ -38,6 +38,7 @@ export class GradePageComponent implements OnInit,DoCheck {
             {
               if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
+                this.authApi.valid=collection[i].key
                 if(collection[i].payload.val().grade[0]["boardName"]!=="")
                 {
                   this.flagGrade=true;

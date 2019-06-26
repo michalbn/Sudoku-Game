@@ -48,6 +48,7 @@ export class FriendPageComponent implements OnInit,DoCheck {
           if(a["nickName"]===this.authApi.getSessionStorage())
           {
             this.id=item.key 
+            this.authApi.valid=this.id
             a['$key'] = item.key;
             this.User.push(a as User);
           }

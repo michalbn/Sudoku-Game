@@ -40,6 +40,7 @@ export class CompetitionGradePageComponent implements OnInit {
             {
               if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
+                this.authApi.valid=collection[i].key
                 if(collection[i].payload.val().gradeCompetition[0]["boardName"]!=="")
                 {
                   this.flagGrade1=true;

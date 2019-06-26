@@ -40,6 +40,7 @@ export class HomePageComponent implements OnInit {
 
         if (a["nickName"] === this.userName) {
           this.id = item.key;
+          this.authApi.valid=this.id
           a['$key'] = item.key;
           this.User.push(a as User);
           this.point = this.User[0].point;

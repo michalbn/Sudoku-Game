@@ -34,6 +34,7 @@ export class StatusFriendsComponent implements OnInit {
         {     
           if(collection[i].payload.val().nickName===this.authApi.getSessionStorage() && this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
           {
+            this.authApi.valid=collection[i].key
             if(collection[i].payload.val().friendList.friendName!=="")//friends Exist
             {
               for (var j = 0; j < collection[i].payload.val().friendList.length; j++)

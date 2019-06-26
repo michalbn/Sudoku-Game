@@ -36,6 +36,7 @@ export class WatchFriendsComponent implements OnInit {
           if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
           {
             this.id=item.key ;
+            this.authApi.valid=this.id
             a['$key'] = item.key;
             this.User.push(a as User);
             this.friend = Object.assign(this.friend,this.User[0].friendList);

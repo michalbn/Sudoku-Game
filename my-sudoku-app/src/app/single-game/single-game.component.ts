@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SudokuBoardsService } from '../shared/sudoku-boards.service';
 import { AuthService } from '../shared/auth.service';
 import { MessageService } from '../shared/message.service';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-single-game',
@@ -13,6 +14,8 @@ export class SingleGameComponent implements OnInit {
   easyBoard: string[]=[];//My friend list - status approved
   mediumBoard: string[]=[];//My friend list - status approved
   hardBoard: string[]=[];//My friend list - status approved
+
+  User: User[];// My user   
 
   constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService,private messageService: MessageService) { }
 
@@ -26,6 +29,20 @@ export class SingleGameComponent implements OnInit {
     {
       //////message alert
     this.messageService.alertMsg(SingleGameComponent)
+    let s = this.authApi.GetUsersList(); //find my user
+    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+      this.User = [];
+      data.forEach(item => {
+        let a = item.payload.toJSON();
+        if (a["nickName"] === this.authApi.getSessionStorage() && this.authApi.getSessionStorage() !== "" && this.router.routerState.snapshot.url === "//single-game")
+         {
+          a['$key'] = item.key;
+          this.authApi.valid=item.key;
+          this.User.push(a as User);
+          return;
+         }
+        })
+      })
     }
   }
 

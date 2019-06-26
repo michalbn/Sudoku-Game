@@ -35,6 +35,7 @@ export class CollaborationGradePageComponent implements OnInit {
             {
               if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
+                this.authApi.valid=collection[i].key
                 if(collection[i].payload.val().gradeCollaboration[0]["boardName"]!=="")
                 {
                   this.flagGrade2=true;
