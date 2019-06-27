@@ -8,6 +8,24 @@
 
 
     <h1  [style.color]="this.authApi.getSessionColorheadersColor()">מצב בקשות:</h1>
+
+    <!------------------------------------------------  -->
+<div id="myModal5" class="modal5">
+
+        <!-- Modal content -->
+        <div class="modal5-content">
+            <div *ngIf="this.messageService.Message.length!==0">
+                <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+                <br><br>
+                <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+                <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+                <br><br><br>
+            </div>
+        </div>
+      
+      </div>
+    <!-- ------------------------------------------------- -->
+    
     <div class ="status">
         <div *ngFor="let friend_status of friend_status_hold" >
                 <div class ="space">

@@ -61,7 +61,7 @@ export class GradePageComponent implements OnInit,DoCheck {
             }
           }
         })
-        this.messageService.alertMsg(GradePageComponent)
+        this.messageService.alertMsg(this.router.url)
       }
     }
     console.log(this.gradeInfo)

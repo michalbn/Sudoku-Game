@@ -31,7 +31,7 @@ export class CompetitionGradePageComponent implements OnInit {
     {
       if(this.router.routerState.snapshot.url === "/grade-page/competition")
       {
-        this.messageService.alertMsg(CompetitionGradePageComponent)
+        this.messageService.alertMsg(this.router.url)
         this.gradeInfo1=[];
         this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
           for (var i = 0; i < collection.length; i++) 

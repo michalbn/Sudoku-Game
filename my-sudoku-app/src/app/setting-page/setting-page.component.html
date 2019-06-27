@@ -13,6 +13,24 @@
       <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
     </ul>
 
+    
+<!------------------------------------------------  -->
+<div id="myModal5" class="modal5">
+
+    <!-- Modal content -->
+    <div class="modal5-content">
+        <div *ngIf="this.messageService.Message.length!==0">
+            <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+            <br><br>
+            <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+            <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+            <br><br><br>
+        </div>
+    </div>
+  
+  </div>
+<!-- ------------------------------------------------- -->
+
     <form action="/action_page.php">
       <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע הרקע:<p><input type="color" (input)="favcolor1($event.target.value)" name="favcolor1" value="{{this.authApi.getSessionColorBackgroundColor()}}"></p></h1>
       <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע הכותרות:<p><input type="color" (input)="favcolor2($event.target.value)" name="favcolor2" value="{{this.authApi.getSessionColorheadersColor()}}"></p></h1>
@@ -22,7 +40,7 @@
     </form>
 
     <div class="pos">
-    <button type="submit" class="btn btn-info size" (click)="defult()">להגדרת ברירת מחדל</button>
+    <button type="submit" class="btn btn-info size" (click)="defult()">ברירת מחדל</button>
     </div>
 
 

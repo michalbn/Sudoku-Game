@@ -55,7 +55,7 @@ export class WatchFriendsComponent implements OnInit {
         }
       })
     }
-    this.messageService.alertMsg(WatchFriendsComponent)
+    this.messageService.alertMsg(this.router.url)
     
 
   }

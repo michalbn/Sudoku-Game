@@ -55,311 +55,103 @@ export class MessageService {
       this.messageRef.remove();
     }
 
-    alertMsg(sdfg)
+    alertMsg(component)
     {
-      console.log("goood")
-    //  this.GetMessagesList().snapshotChanges().subscribe(collection => {
+      console.log(component)
+      console.log(this.router.url);
       this.Message = [];
-      // collection.forEach(item => {
-      //   let a = item.payload.toJSON();
-      //   if (a["to"] === this.authApi.getSessionStorage() && a["status"] === "hold") {
-      //     this.msgid = item.key
-      //     this.Message.push(a as message);
-      //     return;
-      //   }
-      //   return
-      // })
-      console.log(this.Message)
-      this.GetMessagesList().snapshotChanges().subscribe(collection => {
-        this.Message = [];
-        collection.forEach(item => {
-          console.log(item)
-          let a = item.payload.toJSON();
-          if (a["to"] === this.authApi.getSessionStorage() && a["status"] === "hold") {
-            this.msgid = item.key
-            this.count++
-            this.Message.push(a as message);
-            return;
-          }
-        })
-        console.log(collection)
-        console.log(this.count)
-        if(this.count===1 && this.Message.length === 1)
-        {
-          this.confirmFlag = confirm(this.Message[0].massage);
-          console.log(this.confirmFlag)
-          console.log(this.Message.length)
-          console.log(this.Message)
-          if (this.confirmFlag != null)
+      if(component===this.router.url)
+      {
+        this.GetMessagesList().snapshotChanges().subscribe(collection => {
+          if(component!== null && component===this.router.url)
           {
-            if (this.confirmFlag == true)
-            {
-              //this.delay(300)
-              this.conf()
-            }
-            else if (this.confirmFlag == false)
-            {
-              if (this.Message.length === 1)
+            console.log(component)
+            console.log(this.router.url);
+            this.Message = [];
+            collection.forEach(item => {
+              let a = item.payload.toJSON();
+              if (a["to"] === this.authApi.getSessionStorage() && a["status"] === "hold")
               {
-                //this.delay1(1000)
-                this.cencel()
-              } 
+                this.msgid = item.key
+               // this.count++
+                this.Message.push(a as message);
+                return;
+              }
+            })
+            console.log(this.Message)
+            if(this.Message.length===0)
+            {
+              var modal5 = document.getElementById("myModal5");
+              if(modal5!=null)
+              {
+                modal5.style.display = "none";
+                
+              }
+              return;
             }
+            else if(this.Message.length>1)
+            {
+              console.log("error")
+              this.DeleteMessage(this.msgid)
+              return;
+            }
+            else if(this.Message.length===1) 
+            {
+              var modal5 = document.getElementById("myModal5");
+              if(modal5!=null)
+              {
+                modal5.style.display = "block";
+                
+              }
+              return;
+            }
+            component=null;
           }
-          this.Message=[];
-          this.confirmFlag=null;
-          return
-        }
-        else if (this.Message.length >= 1)
-        {
-          this.af.database.ref('messages-list/').transaction(a => {
-            for (var i = 0; i < Object.keys(a).length; i++)
-            {
-              console.log(Object.keys(a[Object.keys(a)[i]]).length)
-                if(Object.keys(a[Object.keys(a)[i]]).length<7)
-                {
-                  this.DeleteMessage(Object.keys(a)[i])
-                  return
-                  
-                }
-            }
-            return
-          })
-            this.confirmFlag = null;
-            this.Message = [];
-            //this.router.navigate(['/friends-game-page'])
-            // if(this.router.url===)
-            // {
-            //   this._location.back()
-            // }
-            var path =  this.router.url.substr(1,this.router.url.indexOf('/',1))
-            if(path=="competition-game/")
-            {
-              this._location.back();
-              this._location.back();
-             
-            }
-            console.log(path)
-            location.reload();
-
-            /////////////////////////////////////
-            // if(path=="competition-game/")
-            // {
-            //   this.af.database.ref('messages-list/').transaction(a => {
-            //     for (var i = 0; i < Object.keys(a).length; i++)
-            //     {
-            //       if(Object.keys(a[Object.keys(a)[i]]).length<7)
-            //       {
-            //         this.DeleteMessage(Object.keys(a)[i])
-            //         this._location.back();
-            //         location.reload();
-            //         return;
-            //       }
-            //     }
-            //   })
-            // }
-
-            ///////////////////////////////////
-        }
-        else
-        {
-          this.af.database.ref('messages-list/').transaction(ab => {
-            if(ab==null)
-            {
-              this.count=0;
-              this.confirmFlag = null;
-              this.Message = [];
-              return
-            }
-            this.confirmFlag = null;
-            this.Message = [];
-            return
-          })
-        }
-        // console.log(this.Message)
-        // return
-      })
-      this.count=0
-     console.log(this.count)
-      
-
-    //   console.log(this.Message)
-      
-    //   if (this.Message.length > 1)
-    //   {
-    //     this.confirmFlag = null;
-    //     this.Message = [];
-    //     location.reload();
-    //   }
-    //   else if (this.Message.length === 1)
-    //   {
-    //     for(var j=0;j<1;j++)
-    //     {
-    //       console.log(j)
-    //       if (this.Message[0].to === this.authApi.getSessionStorage() && this.Message[0].status === "hold") {
-    //         this.confirmFlag = confirm(this.Message[0].massage);
-    //         console.log(this.confirmFlag)
-    //         console.log(this.Message)
-  
-    //         if (this.confirmFlag != null) {
-    //           if (this.Message.length === 1) {
-    //             if (this.confirmFlag == true) //exit
-    //             {
-    //               this.delay(300)
-    //               //  this.confirmFlag=null;  
-    //             }
-    //             else if (this.confirmFlag == false) {
-    //               if (this.Message.length === 1) {
-    //                 this.delay1(100)
-    //               }
-    //               else {
-    //                 this.Message = []
-    //               }
-    //               return
-    //             }
-    //             else {
-    //             //  this.ngOnInit()
-    //             }
-    //           }
-    //           else {
-    //            // this.ngOnInit()
-    //           }
-    //         }
-  
-    //       }
-
-    //     }
-    //     console.log(j)
-    //     this.confirmFlag = null;
-    //     this.Message = [];
-    //     return;
-    //   }
-    //   else
-    //   {
-    //     this.confirmFlag = null;
-    //     this.Message = [];
-    //     return;
-
-    //   }
-    // })
-    // return;
-    //   })
-    //   return;
-    }
-
-
-
-    
-  async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => this.conf());
-  }
-
-  async delay1(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => this.cencel());
-  }
-
-  cencel() {
-    if (this.Message.length >= 2) {
-      this.Message = [];
-      this.confirmFlag = null
-      return;
-    }
-    else if (this.confirmFlag === false && this.Message.length == 1) {
-      this.af.database.ref('messages-list/').transaction(ab => {
-        if (ab === null) {
-          //console.log("empty id"); console.log(ab);
-          this.confirmFlag = null;
-          this.Message = [];
+          component=null;
           return;
-        }
-        else {
-          for (var i = 0; i < Object.keys(ab).length; i++) {
-            if (ab[Object.keys(ab)[i]]["to"] === this.authApi.getSessionStorage()) {
-              //console.log("exsit id"); console.log(Object.keys(ab)[i]);
-              if (this.msgid === Object.keys(ab)[i] && this.confirmFlag === false) {
-                this.db.database.ref("messages-list/" + Object.keys(ab)[i] + "/status").set("canceled");
-                this.confirmFlag = null;
-                this.Message = [];
-                return;
-              }
-              else {
-                this.conf()
-                this.confirmFlag = null;
-                this.Message = [];
-                return;
-              }
-            }
+        })
 
-          }
-        }
-        return
-      })
-    }
-    else if (this.confirmFlag != null && this.Message.length == 1) {
-      this.conf()
-      this.confirmFlag = null;
-      this.Message = [];
-      return;
+      }
     }
 
-    this.Message = [];
-    this.confirmFlag = null
-    return;
-  }
-
-
-  conf() {
-    if (this.Message.length >= 2) {
-      this.Message = [];
-      this.confirmFlag = null
-      return;
-    }
-
-    else if (this.confirmFlag === true && this.Message.length == 1) {
-      this.af.database.ref('messages-list/').transaction(ab => {
-        if (ab === null) {
-         // console.log("empty id"); console.log(ab);
-          this.confirmFlag = null;
-          this.Message = [];
-          // this.ngOnInit()
-          return;
-        }
-        else {
-          for (var i = 0; i < Object.keys(ab).length; i++) {
-           // console.log("exsit id");
-            //console.log(Object.keys(ab)[0]);
-            if (this.msgid === Object.keys(ab)[i] && this.confirmFlag === true) {
-              this.db.database.ref("messages-list/" + Object.keys(ab)[i] + "/status").set("approved")
-              if (ab[Object.keys(ab)[i]]["game"] == "תחרות") {
-                this.router.navigate(['/competition-game', ab[Object.keys(ab)[i]]["game"], ab[Object.keys(ab)[i]]["from"], ab[Object.keys(ab)[i]]["to"], ab[Object.keys(ab)[i]]["difficulty"], ab[Object.keys(ab)[i]]["boradName"]]);//go to new-user
-                this.Message = [];
-                this.confirmFlag = null
-                return;
-              }
-              else {
-                this.router.navigate(['/collaboration-game', ab[Object.keys(ab)[i]]["game"], ab[Object.keys(ab)[i]]["from"], ab[Object.keys(ab)[i]]["to"], ab[Object.keys(ab)[i]]["difficulty"], ab[Object.keys(ab)[i]]["boradName"]]);//go to new-user
-                this.Message = [];
-                this.confirmFlag = null
-                return;
-              }
-            }
-          }
-
-        }
+    conf()
+    {
+      console.log("koko")
+      var modal5 = document.getElementById("myModal5");
+      if(modal5!=null)
+      {
+        modal5.style.display = "none";
+        
+      }
+      this.db.database.ref("messages-list/" + this.msgid + "/status").set("approved")
+      if(this.Message[0].game==="תחרות")
+      {
+        this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+        this.DeleteMessage(this.msgid)
+        this.Message=[];
+        return; 
+      }
+      else
+      {
+        this.router.navigate(['/collaboration-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+        this.DeleteMessage(this.msgid)
+        this.Message=[];
         return;
-      })
-      return
+      }
 
     }
-    else if (this.confirmFlag != null && this.Message.length == 1) {
-      this.cencel()
-      this.Message = [];
-      this.confirmFlag = null
-      return;
+
+    cencel()
+    {
+      var modal5 = document.getElementById("myModal5");
+      if(modal5!=null)
+      {
+        modal5.style.display = "none";
+        
+      }
+      this.db.database.ref("messages-list/" + this.msgid + "/status").set("canceled")
+
     }
 
-    this.Message = [];
-    this.confirmFlag = null
-    return;
-  }
+  
 }

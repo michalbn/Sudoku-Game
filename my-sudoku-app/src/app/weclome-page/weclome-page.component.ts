@@ -71,6 +71,7 @@ export class WeclomePageComponent implements OnInit {
 
            // console.log(JSON.stringify(collection[i]))
            //this.db.database.ref("users-list/"+collection[i].key+"/login").set(true)
+           console.log(collection[i].payload.val().color)
             this.authApi.userLogin=this.userForm.value.nickName//user exist
             this.authApi.BackgroundColor=collection[i].payload.val().color.BackgroundColor
             this.authApi.headersColor=collection[i].payload.val().color.headersColor

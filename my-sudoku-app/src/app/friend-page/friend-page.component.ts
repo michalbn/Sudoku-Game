@@ -56,7 +56,7 @@ export class FriendPageComponent implements OnInit,DoCheck {
       })
       this.frienForm();  
      // this.friend= new Array(); 
-     this.messageService.alertMsg(FriendPageComponent)
+     this.messageService.alertMsg(this.router.url)
      
     }
   

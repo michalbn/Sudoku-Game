@@ -247,7 +247,9 @@ export class HomePageComponent implements OnInit {
       else return;
     })
     //////message alert
-    this.messageService.alertMsg(HomePageComponent)
+    
+    this.messageService.alertMsg(this.router.url)
+   
 
     this.today = Date.now();//showing the date
     this.userName = this.authApi.userLogin;//enter the global nickName to variable
@@ -264,6 +266,11 @@ export class HomePageComponent implements OnInit {
     else if (this.authApi.getSessionStorage() != null)///if session not null
     {
       this.userName = this.authApi.getSessionStorage();//update global nickName
+      this.authApi.BackgroundColor=this.authApi.getSessionColorBackgroundColor()
+      this.authApi.headersColor=this.authApi.getSessionColorheadersColor()
+      this.authApi.BackgroundBoardColor=this.authApi.getSessionColorBackgroundBoardColor()
+      this.authApi.helpNumbersColor=this.authApi.getSessionColorhelpNumbersColor()
+      this.authApi.numbersColor=this.authApi.getSessionColornumbersColor()
     }
     else {
       this.router.navigate(['/']);//go to new-user

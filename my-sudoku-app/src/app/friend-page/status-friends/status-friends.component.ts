@@ -71,7 +71,7 @@ export class StatusFriendsComponent implements OnInit {
         return;
       })
      }
-     this.messageService.alertMsg(StatusFriendsComponent)
+     this.messageService.alertMsg(this.router.url)
 
   }
   

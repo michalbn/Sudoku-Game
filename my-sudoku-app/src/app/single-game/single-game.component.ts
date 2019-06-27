@@ -28,7 +28,7 @@ export class SingleGameComponent implements OnInit {
     else
     {
       //////message alert
-    this.messageService.alertMsg(SingleGameComponent)
+    this.messageService.alertMsg(this.router.url)
     let s = this.authApi.GetUsersList(); //find my user
     s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
       this.User = [];

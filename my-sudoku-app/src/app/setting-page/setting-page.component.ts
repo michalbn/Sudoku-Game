@@ -22,7 +22,7 @@ export class SettingPageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.messageService.alertMsg(SettingPageComponent)
+    this.messageService.alertMsg(this.router.url)
 
     let s = this.authApi.GetUsersList(); //list of users
     s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)

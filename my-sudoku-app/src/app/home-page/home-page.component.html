@@ -22,7 +22,22 @@
  
     <h1 [style.color]="this.authApi.getSessionColorheadersColor()"> ברוכים הבאים {{userName}} </h1>
 
+<!------------------------------------------------  -->
+<div id="myModal5" class="modal5">
 
+    <!-- Modal content -->
+    <div class="modal5-content">
+        <div *ngIf="this.messageService.Message.length!==0">
+            <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+            <br><br>
+            <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+            <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+            <br><br><br>
+        </div>
+    </div>
+  
+  </div>
+<!-- ------------------------------------------------- -->
     <h3  [style.color]="this.authApi.getSessionColorheadersColor()"><div class="coin">
         <div class="front"></div>
         <div class="front_b"></div>

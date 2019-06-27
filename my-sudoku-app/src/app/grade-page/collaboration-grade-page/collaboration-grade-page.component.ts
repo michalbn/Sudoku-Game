@@ -26,7 +26,7 @@ export class CollaborationGradePageComponent implements OnInit {
     {
       if(this.router.routerState.snapshot.url === "/grade-page/collaboration")
       {
-        this.messageService.alertMsg(CollaborationGradePageComponent)
+        this.messageService.alertMsg(this.router.url)
         this.gradeInfo2=[];
         this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
           for (var i = 0; i < collection.length; i++) 
