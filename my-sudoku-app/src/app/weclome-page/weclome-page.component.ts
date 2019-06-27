@@ -72,6 +72,12 @@ export class WeclomePageComponent implements OnInit {
            // console.log(JSON.stringify(collection[i]))
            //this.db.database.ref("users-list/"+collection[i].key+"/login").set(true)
             this.authApi.userLogin=this.userForm.value.nickName//user exist
+            this.authApi.BackgroundColor=collection[i].payload.val().color.BackgroundColor
+            this.authApi.headersColor=collection[i].payload.val().color.headersColor
+            this.authApi.BackgroundBoardColor=collection[i].payload.val().color.BackgroundBoardColor
+            this.authApi.helpNumbersColor=collection[i].payload.val().color.helpNumbersColor
+            this.authApi.numbersColor=collection[i].payload.val().color.numbersColor
+            console.log(this.authApi.numbersColor)
            // this.authApi.DeleteUser(collection[i].key)
             //this.authApi.AddUser(collection[i].payload.val(),true)
             this.authApi.UpdateUserLogin(collection[i].key,collection[i].payload.val(),true)

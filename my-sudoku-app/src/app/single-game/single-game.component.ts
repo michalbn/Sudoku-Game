@@ -34,7 +34,7 @@ export class SingleGameComponent implements OnInit {
       this.User = [];
       data.forEach(item => {
         let a = item.payload.toJSON();
-        if (a["nickName"] === this.authApi.getSessionStorage() && this.authApi.getSessionStorage() !== "" && this.router.routerState.snapshot.url === "//single-game")
+        if (a["nickName"] === this.authApi.getSessionStorage() && this.authApi.getSessionStorage() !== "" && this.router.routerState.snapshot.url === "/single-game")
          {
           a['$key'] = item.key;
           this.authApi.valid=item.key;

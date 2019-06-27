@@ -18,11 +18,11 @@ export class AuthService {
   disconnect: number
 
 
-  BackgroundColor="#FFFFFF";//צבע הרקע
-  headersColor="#87CEFA";//צבע הכותרות
-  BackgroundBoardColor="#FFFFFF";//צבע רקע הלוח
-  helpNumbersColor="#BCE0F7";//צבע מספרי העזרה
-  numbersColor="#000000"
+  BackgroundColor;//צבע הרקע
+  headersColor;//צבע הכותרות
+  BackgroundBoardColor;//צבע רקע הלוח
+  helpNumbersColor;//צבע מספרי העזרה
+  numbersColor;
 
   //  numbersColor:
   //  BackgroundBoardColor="#FFFFFF"
@@ -47,8 +47,8 @@ export class AuthService {
         friendList: {friendName:friendName, status:status},
         grade: [{boardName:"",time:"",score:0, difficulty:""}],
         gradeCompetition: [{boardName:"",time:"",score:0, difficulty:"",rival:""}],
-        gradeCollaboration: [{boardName:"",time:"",score:0, difficulty:"",collaborator:""}]
-        
+        gradeCollaboration: [{boardName:"",time:"",score:0, difficulty:"",collaborator:""}],
+        color:{BackgroundColor:"#FFFFFF",headersColor:"#87CEFA",BackgroundBoardColor:"#FFFFFF",helpNumbersColor:"#BCE0F7",numbersColor:"#000000"}  
       })
     }
 
@@ -81,7 +81,8 @@ export class AuthService {
         friendList:user.friendList,
         grade:user.grade,
         gradeCompetition:user.gradeCompetition,
-        gradeCollaboration:user.gradeCollaboration
+        gradeCollaboration:user.gradeCollaboration,
+        color:user.color
        // friendList: {friendName:user.fzz, status:null}
         
       })
@@ -97,7 +98,8 @@ export class AuthService {
         friendList:friend,
         grade:user.grade,
         gradeCompetition:user.gradeCompetition,
-        gradeCollaboration:user.gradeCollaboration
+        gradeCollaboration:user.gradeCollaboration,
+        color:user.color
        // friendList: {friendName:user.fzz, status:null}
         
       })
@@ -117,7 +119,99 @@ export class AuthService {
     delSessionStorage()
     {
       this.sessionSt.clear("logged-in");
+      this.sessionSt.clear("Background-color");
+      this.sessionSt.clear("headers-color");
+      this.sessionSt.clear("Background-board-color");
+      this.sessionSt.clear("help-numbers-color");
+      this.sessionSt.clear("numbers-color");
     }
+
+
+    /////////////color setting
+    setSessionColorBackgroundColor(BackgroundColor:string)
+    {
+      this.sessionSt.store("Background-color",BackgroundColor);
+    }
+
+    setSessionColorheadersColor(headersColor:string)
+    {
+      this.sessionSt.store("headers-color",headersColor);
+    }
+
+    setSessionColorBackgroundBoardColor(BackgroundBoardColor:string)
+    {
+      this.sessionSt.store("Background-board-color",BackgroundBoardColor);
+    }
+
+    setSessionColorhelpNumbersColor(helpNumbersColor:string)
+    {
+      this.sessionSt.store("help-numbers-color",helpNumbersColor);
+    }
+
+    setSessionColornumbersColor(numbersColor:string)
+    {
+      this.sessionSt.store("numbers-color",numbersColor);
+    }
+
+    /////////////color gettt
+    getSessionColorBackgroundColor()
+    {
+      return this.sessionSt.retrieve("Background-color");
+    }
+
+    getSessionColorheadersColor()
+    {
+      return this.sessionSt.retrieve("headers-color");
+    }
+
+    getSessionColorBackgroundBoardColor()
+    {
+      return this.sessionSt.retrieve("Background-board-color");
+    }
+
+    getSessionColorhelpNumbersColor()
+    {
+      return this.sessionSt.retrieve("help-numbers-color");
+    }
+
+    getSessionColornumbersColor()
+    {
+      return this.sessionSt.retrieve("numbers-color");
+    }
+
+        /////////////color update
+        updateSessionColorBackgroundColor(BackgroundColor:string)
+        {
+          this.sessionSt.clear("Background-color");
+          this.sessionSt.store("Background-color",BackgroundColor);
+        }
+    
+        updateSessionColorheadersColor(headersColor:string)
+        {
+          this.sessionSt.clear("headers-color");
+          this.sessionSt.store("headers-color",headersColor);
+        }
+    
+        updateSessionColorBackgroundBoardColor(BackgroundBoardColor:string)
+        {
+          this.sessionSt.clear("Background-board-color");
+          this.sessionSt.store("Background-board-color",BackgroundBoardColor);
+        }
+    
+        updateSessionColorhelpNumbersColor(helpNumbersColor:string)
+        {
+          this.sessionSt.clear("help-numbers-color");
+          this.sessionSt.store("help-numbers-color",helpNumbersColor);
+        }
+    
+        updateSessionColornumbersColor(numbersColor:string)
+        {
+          this.sessionSt.clear("numbers-color");
+          this.sessionSt.store("numbers-color",numbersColor);
+        }
+
+    
+    
 
     
     

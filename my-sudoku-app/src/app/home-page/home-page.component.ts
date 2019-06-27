@@ -20,6 +20,12 @@ export class HomePageComponent implements OnInit {
   today: number = Date.now();
   User: User[];
 
+  // BackgroundColor;//צבע הרקע
+  // headersColor;//צבע הכותרות
+  // BackgroundBoardColor;//צבע רקע הלוח
+  // helpNumbersColor;//צבע מספרי העזרה
+  // numbersColor;
+
   id: string;
   point: number;
 
@@ -47,6 +53,14 @@ export class HomePageComponent implements OnInit {
 
         }
       })
+      // if(this.User.length>0)
+      // {
+      //   this.BackgroundColor=this.User[0].color.BackgroundBoardColor
+      //   this.headersColor=this.User[0].color.headersColor
+      //   this.BackgroundBoardColor=this.User[0].color.BackgroundBoardColor
+      //   this.helpNumbersColor=this.User[0].color.helpNumbersColor
+      //   this.numbersColor=this.User[0].color.numbersColor
+      // }
       if (data.length === 1)//add sudoku boards
       {
         ////////////////////Classic///////////////////////////
@@ -240,6 +254,11 @@ export class HomePageComponent implements OnInit {
     if (this.userName != null)//if global variable not null
     {
       this.authApi.setSessionStorage(this.authApi.userLogin);//setSessionStorage
+      this.authApi.setSessionColorBackgroundColor(this.authApi.BackgroundColor);
+      this.authApi.setSessionColorheadersColor(this.authApi.headersColor);
+      this.authApi.setSessionColorBackgroundBoardColor(this.authApi.BackgroundBoardColor);
+      this.authApi.setSessionColorhelpNumbersColor(this.authApi.helpNumbersColor);
+      this.authApi.setSessionColornumbersColor(this.authApi.numbersColor);
     }
 
     else if (this.authApi.getSessionStorage() != null)///if session not null

@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
   </head>
-  <body [style.background]="this.authApi.BackgroundColor">
+  <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation"><a routerLink="/home-page"><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
       <li role="presentation"><a routerLink="/single-game"><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
@@ -14,11 +14,11 @@
     </ul>
 
     <form action="/action_page.php">
-      <h1 [style.color]="this.authApi.headersColor">צבע הרקע:<p><input type="color" (input)="favcolor1($event.target.value)" name="favcolor1" value="{{this.authApi.BackgroundColor}}"></p></h1>
-      <h1 [style.color]="this.authApi.headersColor">צבע הכותרות:<p><input type="color" (input)="favcolor2($event.target.value)" name="favcolor2" value="{{this.authApi.headersColor}}"></p></h1>
-      <h1 [style.color]="this.authApi.headersColor">צבע רקע הלוח:<p><input type="color" (input)="favcolor3($event.target.value)" name="favcolor3" value="{{this.authApi.BackgroundBoardColor}}"></p></h1>
-      <h1 [style.color]="this.authApi.headersColor">צבע המספרים בלוח:<p><input type="color" (input)="favcolor4($event.target.value)" name="favcolor4" value="{{this.authApi.numbersColor}}"></p></h1>
-      <h1 [style.color]="this.authApi.headersColor">צבע מספרי העזרה בלוח:<p><input type="color" (input)="favcolor5($event.target.value)" name="favcolor5" value="{{this.authApi.helpNumbersColor}}"></p></h1>      
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע הרקע:<p><input type="color" (input)="favcolor1($event.target.value)" name="favcolor1" value="{{this.authApi.getSessionColorBackgroundColor()}}"></p></h1>
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע הכותרות:<p><input type="color" (input)="favcolor2($event.target.value)" name="favcolor2" value="{{this.authApi.getSessionColorheadersColor()}}"></p></h1>
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע רקע הלוח:<p><input type="color" (input)="favcolor3($event.target.value)" name="favcolor3" value="{{this.authApi.getSessionColorBackgroundBoardColor()}}"></p></h1>
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע המספרים בלוח:<p><input type="color" (input)="favcolor4($event.target.value)" name="favcolor4" value="{{this.authApi.getSessionColornumbersColor()}}"></p></h1>
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צבע מספרי העזרה בלוח:<p><input type="color" (input)="favcolor5($event.target.value)" name="favcolor5" value="{{this.authApi.getSessionColorhelpNumbersColor()}}"></p></h1>      
     </form>
 
     <div class="pos">

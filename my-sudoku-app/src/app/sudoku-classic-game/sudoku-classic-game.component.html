@@ -4,8 +4,8 @@
       <meta charset="utf-8">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body [style.background]="this.authApi.BackgroundColor">
-    <h1 [style.color]="this.authApi.headersColor">משחק סודוקו קלאסי</h1>
+  <body [style.background]="this.authApi.getSessionColorBackgroundColor()" >
+    <h1 [style.color]="this.authApi.getSessionColorheadersColor()">משחק סודוקו קלאסי</h1>
     
     <div id="myModal" class="modal">
       
@@ -62,11 +62,11 @@
       
       </div>
       
-      <table class="table table-bordered" [style.background]="this.authApi.BackgroundBoardColor">   
+      <table class="table table-bordered" [style.background]="this.authApi.getSessionColorBackgroundBoardColor()">   
         <tbody>
             <tr  class={{index}} *ngFor="let sudoko of sudokoClassic let row=index" >                
               <td  *ngFor="let j of sudoko let col=index">
-                <input [style.background]="this.authApi.BackgroundBoardColor" type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])"
+                <input [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokoClassic[row][8-col])"
                  value={{sudokoClassic[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
               </td>
               <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->

@@ -4,10 +4,10 @@
       <meta charset="UTF-8">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body [style.background]="this.authApi.BackgroundColor">
+  <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
         <div *ngIf="this.dbDtails.length!==0">
                 <!-- <h1>{{this.dbDtails[0]["from"]}} ו {{this.dbDtails[0]["to"]}}שיתוף פעולה </h1> -->
-                <h1 [style.color]="this.authApi.headersColor">שיתוף פעולה בין {{this.dbDtails[0]["from"]}} ל{{this.dbDtails[0]["to"]}}</h1>
+                <h1 [style.color]="this.authApi.getSessionColorheadersColor()">שיתוף פעולה בין {{this.dbDtails[0]["from"]}} ל{{this.dbDtails[0]["to"]}}</h1>
         </div>
 
             <!-- -------------------technical loss------------- -->
@@ -80,11 +80,11 @@
 
           <!-- -------------------------------------------- -->
 
-        <table [style.background]="this.authApi.BackgroundBoardColor" class="table table-bordered">    
+        <table [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" class="table table-bordered">    
             <tbody >
                     <tr class={{index}} *ngFor="let sudoko of sudokuBoard let row=index" >                
                       <td *ngFor="let j of sudoko let col=index">
-                        <input [style.background]="this.authApi.BackgroundBoardColor" (keyup)="onKey($event,row,8-col)" type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokuBoard[row][8-col])" 
+                        <input [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" (keyup)="onKey($event,row,8-col)" type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokuBoard[row][8-col])" 
                         value={{sudokuBoard[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
                       </td>
                       <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
@@ -109,7 +109,7 @@
         <div class="chat-popup" id="myForm">
                 <span class="close1" (click)="closeForm()">&times;</span>
               <form action="/action_page.php" class="form-container">
-                <h1 [style.color]="this.authApi.headersColor">צ'אט</h1>
+                <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צ'אט</h1>
                 <div  class="frame">
                   <ul>
                     <div *ngIf="this.dbDtails.length!==0">

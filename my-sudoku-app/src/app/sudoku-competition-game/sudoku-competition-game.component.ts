@@ -100,7 +100,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
         if(this.difficulty==="קל" || this.difficulty==="בינוני"||this.difficulty==="קשה")
         {
           let root = document.documentElement;
-          root.style.setProperty('--numbersColor',this.authApi.numbersColor)     
+          root.style.setProperty('--numbersColor',this.authApi.getSessionColornumbersColor())     
           this.authApi.GetUsersList().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
             this.User = [];
             data.forEach(item => {
@@ -360,7 +360,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
     else
     {
       let root = document.documentElement;
-      root.style.setProperty('--helpNumbersColor',this.authApi.helpNumbersColor)
+      root.style.setProperty('--helpNumbersColor',this.authApi.getSessionColorhelpNumbersColor())
       return true;
     }
   }
