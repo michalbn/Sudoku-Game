@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class CollaborationGradePageComponent implements OnInit {
 
-  flagGrade2=false;
-  gradeInfo2: string[]=[];//My friend list - status approved
+  flagGrade2=false;//flag -If there are no grades
+  gradeInfo2: string[]=[];//My grade list
 
   constructor(private messageService: MessageService,
     private router : Router,
@@ -35,18 +35,19 @@ export class CollaborationGradePageComponent implements OnInit {
             {
               if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
-                this.authApi.valid=collection[i].key
+                this.authApi.valid=collection[i].key//user id
                 if(collection[i].payload.val().gradeCollaboration[0]["boardName"]!=="")
                 {
                   this.flagGrade2=true;
                   for (var j = 0; j < collection[i].payload.val().gradeCollaboration.length; j++)
                   {
+                    //My grade list
                    this.gradeInfo2.push(collection[i].payload.val().gradeCollaboration[j]) 
-                  console.log(this.gradeInfo2)
                   } 
                 }
                 else
                 {
+                  //There are no grades
                   this.flagGrade2=false;
                 }
               }

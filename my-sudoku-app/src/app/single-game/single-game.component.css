@@ -1,18 +1,14 @@
+/* logo css */
 .logoimg{
-    width: 20%;
-    height: 30%;
-    /* -ms-transform: rotate(30deg); /* IE 9 */
-    /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
-    /* transform: rotate(15deg);  */
-   position: fixed; 
-    left: 0; 
-    bottom: 0;
-    /* position: relative; */
- /*   top: 0px;
-    right: 0px;
-   */
+	width: 20%;
+	height: 30%;
+ 	position: fixed; 
+	left: 0; 
+	bottom: 0;
+
 }
 
+/* nav bar  */
 a
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -26,6 +22,7 @@ body
     
 }
 
+/* nav bar glyphicon color  */
 .glyphicon.glyphicon-education
 {
     color:black;
@@ -41,6 +38,7 @@ body
     margin-left: 6%;
     margin-right: 3%;
     font-size: 120%; 
+    color: black;
     /* font-family:"Comic Sans MS", cursive, sans-serif; */
 }
 
@@ -50,11 +48,10 @@ body
    font-size: 95%; 
 }
 
+/* color of the star-rating */
 .checked {
     color: orange;
 }
-
-
 
 select 
 {
@@ -115,7 +112,6 @@ select
     margin-left: 20%; 
   
   }
-  
   
   /* ***************End Alert Request********************* */
   

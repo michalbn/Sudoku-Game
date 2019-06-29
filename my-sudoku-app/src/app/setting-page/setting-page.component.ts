@@ -12,8 +12,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class SettingPageComponent implements OnInit {
   
-  User: User[];
-  id: string;
+  User: User[];//my user
+  id: string;//user id
 
   constructor(private messageService: MessageService,
               public authApi: AuthService,
@@ -34,7 +34,7 @@ export class SettingPageComponent implements OnInit {
           this.id = item.key;
           this.authApi.valid=this.id
           a['$key'] = item.key;
-          this.User.push(a as User);
+          this.User.push(a as User);//my user list
         }
       })
     })
@@ -42,8 +42,9 @@ export class SettingPageComponent implements OnInit {
     
   }
 
-  defult()
+  defult()//Change colors by default
   {
+    //Updated change in session and in db
     this.authApi.BackgroundColor="#FFFFFF";
     this.authApi.updateSessionColorBackgroundColor("#FFFFFF")
     this.db.object('users-list/'+this.id+'/color/BackgroundColor').set("#FFFFFF")
@@ -66,10 +67,9 @@ export class SettingPageComponent implements OnInit {
 
   }
 
-
+  //Change and update the background color (also in db)
   favcolor1(event: any)
   {
-    console.log(event)
     // [style.style.backgroundcolor]="this.authApi.BackgroundBoardColor"
     this.authApi.BackgroundColor=event;
     this.authApi.updateSessionColorBackgroundColor(event)
@@ -77,36 +77,35 @@ export class SettingPageComponent implements OnInit {
 
   }
 
-
+  //Change and update the title color (also in db)
   favcolor2(event: any)
   {
-    console.log(event)
     this.authApi.headersColor=event;
     this.authApi.updateSessionColorheadersColor(event)
     this.db.object('users-list/'+this.id+'/color/headersColor').set(event)
 
   }
 
+  //Change and update the background color of the clipboard (also in db)
   favcolor3(event: any)
   {
-    console.log(event)
     this.authApi.BackgroundBoardColor=event;
     this.authApi.updateSessionColorBackgroundBoardColor(event)
     this.db.object('users-list/'+this.id+'/color/BackgroundBoardColor').set(event)
 
   }
 
+  //Change and update the color of the numbers in the panel (also in db)
   favcolor4(event: any)
   {
-    console.log(event)
     this.authApi.numbersColor=event;
     this.authApi.updateSessionColornumbersColor(event)
     this.db.object('users-list/'+this.id+'/color/numbersColor').set(event)
   }
 
+  //Change and update the color of the help numbers on the panel (also in db)
   favcolor5(event: any)
   {
-    console.log(event)
     this.authApi.helpNumbersColor=event;
     this.authApi.updateSessionColorhelpNumbersColor(event)
     this.db.object('users-list/'+this.id+'/color/helpNumbersColor').set(event)

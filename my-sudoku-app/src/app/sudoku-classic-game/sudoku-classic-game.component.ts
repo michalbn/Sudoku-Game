@@ -105,10 +105,6 @@ export class SudokuClassicGameComponent implements OnInit {
     }
 
   }
-  // onKey(event: any)
-  // {
-  //   console.log(event)
-  // }
 
   feedbacForm()//Terms for entering feedback
   {

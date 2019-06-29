@@ -9,21 +9,17 @@ import { Location } from '@angular/common';
   providedIn: 'root'
 })
 export class MessageService {
-  messagesRef: AngularFireList<any>;    // Reference to Student data list, its an Observable
-  messageRef: AngularFireObject<any>;   // Reference to Student object, its an Observable too
+  messagesRef: AngularFireList<any>;    
+  messageRef: AngularFireObject<any>;   
 
-  Message: message[]
-  msgid
-  confirmFlag
-  count=0
-
-
+  Message: message[]//Message request
+  msgid//message id
 
   constructor(private db: AngularFireDatabase,public authApi: AuthService,
     private router: Router,private af: AngularFireDatabase, private _location : Location) { }
 
 
-    // Create Message
+    // Add Message
     AddMessage(message: message) {
       this.messagesRef.push({
         from:message.from,
@@ -55,53 +51,49 @@ export class MessageService {
       this.messageRef.remove();
     }
 
+    //Send an invitation to the game
     alertMsg(component)
     {
-      console.log(component)
-      console.log(this.router.url);
       this.Message = [];
       if(component===this.router.url)
       {
         this.GetMessagesList().snapshotChanges().subscribe(collection => {
           if(component!== null && component===this.router.url)
           {
-            console.log(component)
-            console.log(this.router.url);
             this.Message = [];
-            collection.forEach(item => {
+              collection.forEach(item => {
               let a = item.payload.toJSON();
               if (a["to"] === this.authApi.getSessionStorage() && a["status"] === "hold")
               {
-                this.msgid = item.key
-               // this.count++
-                this.Message.push(a as message);
+                this.msgid = item.key//צmessage id
+                this.Message.push(a as message);//Messages list
                 return;
               }
             })
-            console.log(this.Message)
+            //If there are no messages
             if(this.Message.length===0)
             {
               var modal5 = document.getElementById("myModal5");
               if(modal5!=null)
               {
                 modal5.style.display = "none";
-                
               }
               return;
             }
+            //If there is more than one message
             else if(this.Message.length>1)
             {
-              console.log("error")
               this.DeleteMessage(this.msgid)
               return;
             }
+            //If there is one message
             else if(this.Message.length===1) 
             {
+              //Display it to the user
               var modal5 = document.getElementById("myModal5");
               if(modal5!=null)
               {
                 modal5.style.display = "block";
-                
               }
               return;
             }
@@ -110,30 +102,30 @@ export class MessageService {
           component=null;
           return;
         })
-
       }
     }
 
     conf()
     {
-      console.log("koko")
+      //If the user has accepted the invitation
       var modal5 = document.getElementById("myModal5");
       if(modal5!=null)
       {
         modal5.style.display = "none";
         
       }
+      //Go to the desired game
       this.db.database.ref("messages-list/" + this.msgid + "/status").set("approved")
       if(this.Message[0].game==="תחרות")
       {
-        this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+        this.router.navigate(['/competition-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);
         this.DeleteMessage(this.msgid)
         this.Message=[];
         return; 
       }
       else
       {
-        this.router.navigate(['/collaboration-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);//go to new-user
+        this.router.navigate(['/collaboration-game',this.Message[0].game,this.Message[0].from,this.Message[0].to,this.Message[0].difficulty,this.Message[0].boradName]);
         this.DeleteMessage(this.msgid)
         this.Message=[];
         return;
@@ -142,6 +134,7 @@ export class MessageService {
     }
 
     cencel()
+    //If the player has refused the request
     {
       var modal5 = document.getElementById("myModal5");
       if(modal5!=null)

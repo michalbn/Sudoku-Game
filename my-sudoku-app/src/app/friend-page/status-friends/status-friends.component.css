@@ -1,18 +1,13 @@
+/* logo css */
 .logoimg{
     width: 20%;
     height: 30%;
-    /* -ms-transform: rotate(30deg); /* IE 9 */
-    /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
-    /* transform: rotate(15deg);  */
-   position: fixed; 
+    position: fixed; 
     left: 0; 
     bottom: 0;
-    /* position: relative; */
- /*   top: 0px;
-    right: 0px;
-   */
 }
 
+/* title */
 h1
 {
     vertical-align: middle;
@@ -24,6 +19,7 @@ h1
     color: #87CEFA;
 }
 
+/* friends list */
 .status
 {
     text-align: center;
@@ -40,7 +36,6 @@ h1
 
 body
 {
-    height: 100vh;
     overflow: auto;
 }
 
@@ -68,6 +63,7 @@ body
     width: 50%; /* Could be more or less, depending on screen size */
   }
   
+  /* title */
   h6
   {
     vertical-align: middle;
@@ -79,6 +75,7 @@ body
     color: #87CEFA;
   }
   
+  /* OK button */
   .approve
   {
     font-size: 140%;
@@ -88,6 +85,7 @@ body
   
   }
   
+  /* Cancel button */
   .cancelation
   {
     font-size: 140%;

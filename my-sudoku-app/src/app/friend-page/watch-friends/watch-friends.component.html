@@ -6,36 +6,33 @@
   </head>
   <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
 
-
     <h1  [style.color]="this.authApi.getSessionColorheadersColor()">החברים שלי:</h1>
-    <!------------------------------------------------  -->
-<div id="myModal5" class="modal5">
-
+    <!---------Invitation to the game------------>
+    <div id="myModal5" class="modal5">
     <!-- Modal content -->
-    <div class="modal5-content">
+      <div class="modal5-content">
         <div *ngIf="this.messageService.Message.length!==0">
-            <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
-            <br><br>
-            <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
-            <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
-            <br><br><br>
+          <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+          <br><br>
+          <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+          <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+          <br><br><br>
         </div>
+      </div>
     </div>
-  
-  </div>
-<!-- ------------------------------------------------- -->
+<!-- ------------View my friends list--------------->
     <div class ="status">
-            <div *ngFor="let friend_status of status_approved" >
-                <div class ="space">
-                     {{friend_status}}&nbsp;&nbsp;&nbsp;
-                       <button class="btn btn-link" (click)="delete_friend(friend_status)" ><span class="glyphicon glyphicon-trash"></span></button>
-                </div>
-             
-           </div>
+      <div *ngFor="let friend_status of status_approved" >
+        <div class ="space">
+            {{friend_status}}&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-link" (click)="delete_friend(friend_status)" ><span class="glyphicon glyphicon-trash"></span></button>
+        </div>      
+      </div>
     </div>
 
+  <!----------- logo part------------------>
     <div class="logopart">
-        <img class=logoimg src="assets\Sudoku.png"/>
+      <img class=logoimg src="assets\Sudoku.png"/>
     </div>
-</body>
+  </body>
 </html>

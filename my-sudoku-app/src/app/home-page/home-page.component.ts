@@ -16,18 +16,18 @@ import { message } from '../shared/message';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  userName: string;
-  today: number = Date.now();
-  User: User[];
+  userName: string;//username
+  today: number = Date.now();//date
+  User: User[];//my user
 
-  // BackgroundColor;//צבע הרקע
+  id: string;//my user id
+  point: number;//my point
+
+    // BackgroundColor;//צבע הרקע
   // headersColor;//צבע הכותרות
   // BackgroundBoardColor;//צבע רקע הלוח
   // helpNumbersColor;//צבע מספרי העזרה
   // numbersColor;
-
-  id: string;
-  point: number;
 
   constructor(public authApi: AuthService,
     private router: Router,
@@ -45,22 +45,14 @@ export class HomePageComponent implements OnInit {
         let a = item.payload.toJSON();
 
         if (a["nickName"] === this.userName) {
-          this.id = item.key;
+          this.id = item.key;//user id
           this.authApi.valid=this.id
           a['$key'] = item.key;
           this.User.push(a as User);
           this.point = this.User[0].point;
-
         }
       })
-      // if(this.User.length>0)
-      // {
-      //   this.BackgroundColor=this.User[0].color.BackgroundBoardColor
-      //   this.headersColor=this.User[0].color.headersColor
-      //   this.BackgroundBoardColor=this.User[0].color.BackgroundBoardColor
-      //   this.helpNumbersColor=this.User[0].color.helpNumbersColor
-      //   this.numbersColor=this.User[0].color.numbersColor
-      // }
+
       if (data.length === 1)//add sudoku boards
       {
         ////////////////////Classic///////////////////////////
@@ -246,11 +238,10 @@ export class HomePageComponent implements OnInit {
       }
       else return;
     })
-    //////message alert
-    
+
+    //Check if my friends have called me to play
     this.messageService.alertMsg(this.router.url)
    
-
     this.today = Date.now();//showing the date
     this.userName = this.authApi.userLogin;//enter the global nickName to variable
     if (this.userName != null)//if global variable not null

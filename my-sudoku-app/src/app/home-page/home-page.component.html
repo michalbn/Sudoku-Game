@@ -5,9 +5,7 @@
   </head>
   <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
       
-
-
-
+     <!-- ---------------Nav bar------------ -->
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation" class="active"><a><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
       <li role="presentation"><a routerLink="/single-game"><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
@@ -22,7 +20,7 @@
  
     <h1 [style.color]="this.authApi.getSessionColorheadersColor()"> ברוכים הבאים {{userName}} </h1>
 
-<!------------------------------------------------  -->
+<!---------Invitation to the game------------>
 <div id="myModal5" class="modal5">
 
     <!-- Modal content -->
@@ -37,7 +35,7 @@
     </div>
   
   </div>
-<!-- ------------------------------------------------- -->
+<!-- -------------------Status points------------------ -->
     <h3  [style.color]="this.authApi.getSessionColorheadersColor()"><div class="coin">
         <div class="front"></div>
         <div class="front_b"></div>
@@ -46,7 +44,7 @@
       </div><br> מצב נקודות: {{point}}    </h3>
 
 
-
+<!----------- logo part------------------>
         <div class="logopart">
             <img class=logoimg src="assets\Sudoku.png"/>
         </div>

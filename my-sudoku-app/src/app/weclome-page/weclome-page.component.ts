@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class WeclomePageComponent implements OnInit {
   public userForm: FormGroup;
-  public count=0;
+  public count=0;//flag
  
   
 
@@ -50,7 +50,6 @@ export class WeclomePageComponent implements OnInit {
 
   Continue_to_home_page()//when you click on the button
   {
-    console.log(this.authApi.GetUsersList())
     this.authApi.GetUsersList().snapshotChanges().subscribe(collection => {
       if(collection.length==0 && this.authApi.disconnect==undefined)//if nothing in the firebase
       {
@@ -67,20 +66,13 @@ export class WeclomePageComponent implements OnInit {
           {
             if(collection[i].payload.val().password===this.userForm.value.password)
           {
-            
-
-           // console.log(JSON.stringify(collection[i]))
-           //this.db.database.ref("users-list/"+collection[i].key+"/login").set(true)
-           console.log(collection[i].payload.val().color)
             this.authApi.userLogin=this.userForm.value.nickName//user exist
             this.authApi.BackgroundColor=collection[i].payload.val().color.BackgroundColor
             this.authApi.headersColor=collection[i].payload.val().color.headersColor
             this.authApi.BackgroundBoardColor=collection[i].payload.val().color.BackgroundBoardColor
             this.authApi.helpNumbersColor=collection[i].payload.val().color.helpNumbersColor
             this.authApi.numbersColor=collection[i].payload.val().color.numbersColor
-            console.log(this.authApi.numbersColor)
-           // this.authApi.DeleteUser(collection[i].key)
-            //this.authApi.AddUser(collection[i].payload.val(),true)
+
             this.authApi.UpdateUserLogin(collection[i].key,collection[i].payload.val(),true)
             this.ResetForm();  // // reset input text
             this.router.navigate(['/home-page']);//go to home-page
@@ -113,11 +105,5 @@ export class WeclomePageComponent implements OnInit {
   {
     this.router.navigate(['/new-user']);//go to new-user
   }
-
-
-
-
-
-  
 
 }

@@ -10,12 +10,11 @@ import { MessageService } from '../shared/message.service';
   styleUrls: ['./grade-page.component.css']
 })
 export class GradePageComponent implements OnInit,DoCheck {
-  gradePage = false;
-  path : string;
-  flagGrade=false;
+  gradePage = false;//flag for url path
+  path : string;//url path
+  flagGrade=false;//flag -If there are no grades
 
-  gradeInfo: string[]=[];//My friend list - status approved
-
+  gradeInfo: string[]=[];//My grade list
 
   constructor(private router : Router,
               private route: ActivatedRoute,public authApi: AuthService,
@@ -38,18 +37,19 @@ export class GradePageComponent implements OnInit,DoCheck {
             {
               if(collection[i].payload.val().nickName===this.authApi.getSessionStorage())
               {
-                this.authApi.valid=collection[i].key
+                this.authApi.valid=collection[i].key//user id
                 if(collection[i].payload.val().grade[0]["boardName"]!=="")
                 {
                   this.flagGrade=true;
                   for (var j = 0; j < collection[i].payload.val().grade.length; j++)
                   {
+                    //My grade list
                    this.gradeInfo.push(collection[i].payload.val().grade[j]) 
-                   console.log(this.gradeInfo)
                   } 
                 }
                 else
                 {
+                  //There are no grades
                   this.flagGrade=false;
                   break;
                 }
@@ -61,15 +61,14 @@ export class GradePageComponent implements OnInit,DoCheck {
             }
           }
         })
+        //Check if my friends have called me to play
         this.messageService.alertMsg(this.router.url)
       }
     }
-    console.log(this.gradeInfo)
   }
 
-  ngDoCheck()//after any change meybe subscribe video 11
+  ngDoCheck()//check if i'm in the path "/grade-page"
   {
-    
     this.path = this.router.routerState.snapshot.url
     if (this.path == "/grade-page")
     {
@@ -80,5 +79,4 @@ export class GradePageComponent implements OnInit,DoCheck {
       this.gradePage=false;
     }
   }
-
 }

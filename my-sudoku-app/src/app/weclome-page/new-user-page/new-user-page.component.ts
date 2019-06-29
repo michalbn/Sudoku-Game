@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewUserPageComponent implements OnInit {
   public userForm: FormGroup;
-  count=0;
+  count=0;//flag
   friendName='';
   status='';
   
@@ -74,7 +74,6 @@ export class NewUserPageComponent implements OnInit {
           this.authApi.BackgroundBoardColor="#FFFFFF"
           this.authApi.helpNumbersColor="#BCE0F7"
           this.authApi.numbersColor="#000000"
-          //console.log(this.userForm.value)
           this.authApi.AddUser(this.userForm.value,true,this.friendName,this.status,1000); // Submit user data using auth service
           this.ResetForm();  // reset input text
           this.router.navigate(['/home-page']);  

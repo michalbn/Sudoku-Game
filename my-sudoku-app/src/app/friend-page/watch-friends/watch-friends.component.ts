@@ -19,14 +19,15 @@ export class WatchFriendsComponent implements OnInit {
 
   constructor(public authApi: AuthService, private router : Router,private messageService: MessageService) { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     if(this.authApi.getSessionStorage()==null)///if session not null
     {
       this.router.navigate(['/']);//go to new-user
     }
     else
     {
-      this.status_approved=[];
+      this.status_approved=[];//init
       let s = this.authApi.GetUsersList(); //find my user
       s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
         this.User = [];
@@ -35,10 +36,10 @@ export class WatchFriendsComponent implements OnInit {
           let a = item.payload.toJSON();
           if(a["nickName"]===this.authApi.getSessionStorage()&& this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/watch-friends")
           {
-            this.id=item.key ;
+            this.id=item.key ;//user id
             this.authApi.valid=this.id
             a['$key'] = item.key;
-            this.User.push(a as User);
+            this.User.push(a as User);//user details
             this.friend = Object.assign(this.friend,this.User[0].friendList);
             this.status_approved=[];
           }
@@ -55,9 +56,8 @@ export class WatchFriendsComponent implements OnInit {
         }
       })
     }
+    //Check if my friends have called me to play
     this.messageService.alertMsg(this.router.url)
-    
-
   }
 
   delete_friend(name)//delete my friend
@@ -107,7 +107,8 @@ export class WatchFriendsComponent implements OnInit {
             {
               if(collection[i].payload.val().friendList[j].friendName===this.authApi.getSessionStorage())
               {
-                if(collection[i].payload.val().friendList.length===1)//If he has one friend
+                //If he has one friend
+                if(collection[i].payload.val().friendList.length===1)
                 {
                   delFriend["friendName"]="";
                   delFriend["status"]="";

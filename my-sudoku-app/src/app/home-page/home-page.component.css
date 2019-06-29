@@ -1,18 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Ek+Mukta:400,300,500,700,800");
 
+/* logo css */
 .logoimg{
   width: 20%;
   height: 30%;
-  /* -ms-transform: rotate(30deg); /* IE 9 */
-  /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
-  /* transform: rotate(15deg);  */
- position: fixed; 
+  position: fixed; 
   left: 0; 
   bottom: 0;
-  /* position: relative; */
-/*   top: 0px;
-  right: 0px;
- */
 }
 
 
@@ -21,13 +15,14 @@ body {
   overflow: auto;
 }
 
-
+/* tiitle */
 a
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     font-size : 124%; 
 }
 
+/* nav bar glyphicon color  */
 .glyphicon.glyphicon-education
 {
     color:black;
@@ -38,17 +33,19 @@ a
     color: #5353db;
 }
 
-
+/* tiitle */
 h1
 {
     vertical-align: middle;
     text-align: center;
     margin-top: 5%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	font-size : 500%; 
+	  font-size : 500%; 
     text-shadow: 2px 2px gray;
     color: #87CEFA;
 }
+
+/* point */
 h3
 {
     vertical-align: middle;
@@ -60,6 +57,7 @@ h3
     color: #87CEFA;
 }
 
+/* date */
 h2
 {
     vertical-align: middle;
@@ -78,6 +76,7 @@ h2
     font-size: 105%
 }
 
+/* ******************Rotating coin****************** */
 .coin {
      display: inline-block;
   width: 45px;

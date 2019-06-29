@@ -1,24 +1,27 @@
+/* logo css */
 .logoimg{
     width: 20%;
     height: 30%;
+    position: fixed; 
+    left: 0; 
+    bottom: 0;
     /* -ms-transform: rotate(30deg); /* IE 9 */
     /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
     /* transform: rotate(15deg);  */
-   position: fixed; 
-    left: 0; 
-    bottom: 0;
     /* position: relative; */
- /*   top: 0px;
+    /*   top: 0px;
     right: 0px;
    */
 }
 
+/* nav bar  */
 a
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     font-size : 140%; 
 }
 
+/* nav bar glyphicon color  */
 .glyphicon.glyphicon-education
 {
     color:black;
@@ -29,6 +32,7 @@ a
     color: #5353db;
 }
 
+/* title */
 h1
 {
     vertical-align: middle;
@@ -54,6 +58,7 @@ body {
     overflow: auto;
   }
 
+  /* button position + size */
   .size
 {
     font-size: 140%;

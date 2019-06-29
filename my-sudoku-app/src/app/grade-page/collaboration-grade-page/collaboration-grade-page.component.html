@@ -1,65 +1,65 @@
-
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
-  <head>
-      <meta charset="utf-8">
-  </head>
-  <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
 
+<head>
+  <meta charset="utf-8">
+</head>
 
-    <h1 [style.color]="this.authApi.getSessionColorheadersColor()">ציוני שיתופי פעולה:</h1>
+<body [style.background]="this.authApi.getSessionColorBackgroundColor()">
 
-    <!------------------------------------------------  -->
-<div id="myModal5" class="modal5">
+  <h1 [style.color]="this.authApi.getSessionColorheadersColor()">ציוני שיתופי פעולה:</h1>
+  <!---------Invitation to the game------------>
+  <div id="myModal5" class="modal5">
 
     <!-- Modal content -->
     <div class="modal5-content">
-        <div *ngIf="this.messageService.Message.length!==0">
-            <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
-            <br><br>
-            <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
-            <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
-            <br><br><br>
-        </div>
+      <div *ngIf="this.messageService.Message.length!==0">
+        <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+        <br><br>
+        <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+        <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+        <br><br><br>
+      </div>
     </div>
-  
+
   </div>
-<!-- ------------------------------------------------- -->
 
-          <div *ngIf = "flagGrade2">
-              <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">שם הלוח</th>
-                      <th scope="col">דרגת קושי</th>
-                      <th scope="col">זמן</th>
-                      <th scope="col">שם השותף</th>
-                      <th scope="col">ציון</th>
-                    </tr>
-                  </thead>
-                 
-                  <tbody>
-                    <tr *ngFor="let grade of gradeInfo2 let i=index">       
-                      <th scope="row">{{i+1}}</th>
-                      <td>{{gradeInfo2[i].boardName}}</td>
-                      <td>{{gradeInfo2[i].difficulty}}</td>
-                      <td>{{gradeInfo2[i].time}}</td>
-                      <td>{{gradeInfo2[i].collaborator}}</td>
-                      <td>{{gradeInfo2[i].score}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-          </div>
-      
-          <div *ngIf = "!flagGrade2">
-              <h2>לא קיימים ציונים</h2>
-          </div>
+   <!-- ---------Table of scores------------- -->
+  <div *ngIf="flagGrade2">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">שם הלוח</th>
+          <th scope="col">דרגת קושי</th>
+          <th scope="col">זמן</th>
+          <th scope="col">שם השותף</th>
+          <th scope="col">ציון</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let grade of gradeInfo2 let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{gradeInfo2[i].boardName}}</td>
+          <td>{{gradeInfo2[i].difficulty}}</td>
+          <td>{{gradeInfo2[i].time}}</td>
+          <td>{{gradeInfo2[i].collaborator}}</td>
+          <td>{{gradeInfo2[i].score}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!flagGrade2">
+    <h2>לא קיימים ציונים</h2>
+  </div>
 
 
-
-    <div class="logopart">
-        <img class=logoimg src="assets\Sudoku.png"/>
-    </div>
+<!----------- logo part------------------>
+  <div class="logopart">
+    <img class=logoimg src="assets\Sudoku.png" />
+  </div>
 </body>
+
 </html>

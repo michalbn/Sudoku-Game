@@ -1,29 +1,24 @@
+/* logo css */
 .logoimg{
     width: 20%;
     height: 30%;
-    /* -ms-transform: rotate(30deg); /* IE 9 */
-    /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
-    /* transform: rotate(15deg);  */
-   position: fixed; 
+    position: fixed; 
     left: 0; 
     bottom: 0;
-    /* position: relative; */
- /*   top: 0px;
-    right: 0px;
-   */
 }
 
-a
+/* nav bar  */
+a   
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     font-size : 140%; 
 }
 
-
-
+/* user enter */
 .form-group
 {
-    margin-top: 5%;
+    margin-top: 10%;
+    
 }
 
 .form-control
@@ -31,17 +26,19 @@ a
     font-size : 170%;
 }
 
+/* title */
 h1
 {
     vertical-align: middle;
     text-align: center;
     margin-top: 8%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	font-size : 500%; 
+	font-size : 450%; 
     text-shadow: 2px 2px gray;
     color: #87CEFA;
 }
 
+/* button position + size */
 .pos
 {
     display: flex;
@@ -55,7 +52,7 @@ h1
     font-size: 200%
 }
 
-
+/* nav bar glyphicon color  */
 .glyphicon.glyphicon-education
 {
     color:black;
@@ -71,6 +68,7 @@ h1
     color:#550a55d5;
 }
 
+/* Layout on the entire page */
 body
 {
     height: 100vh;
@@ -101,6 +99,7 @@ body
     width: 50%; /* Could be more or less, depending on screen size */
   }
   
+  /* title */
   h6
   {
     vertical-align: middle;
@@ -112,6 +111,7 @@ body
     color: #87CEFA;
   }
   
+  /* OK button */
   .approve
   {
     font-size: 140%;
@@ -121,6 +121,7 @@ body
   
   }
   
+  /* Cancel button */
   .cancelation
   {
     font-size: 140%;
@@ -129,6 +130,5 @@ body
     margin-left: 20%; 
   
   }
-  
   
   /* ***************End Alert Request********************* */

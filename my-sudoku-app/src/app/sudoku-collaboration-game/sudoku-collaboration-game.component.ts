@@ -16,6 +16,8 @@ import { CollaborationService } from '../shared/collaboration.service';
   styleUrls: ['./sudoku-collaboration-game.component.css']
 })
 export class SudokuCollaborationGameComponent implements OnInit {
+
+  //doard details
   from: string;
   to:string;
   difficulty:string;
@@ -25,7 +27,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
   chat;
   gameId;
 
-
+//timer
   sec: number = 0;
   min: number = 0;
   hour: number = 0;
@@ -38,9 +40,10 @@ export class SudokuCollaborationGameComponent implements OnInit {
   midTimes:number=45;
   hardTimes:number=55;
 
-  flag=0;//if alerdy exsist un db
+  flag=0;//if alerdy exsist in db
   flagChangeBoard=0
 
+  //boards
   dbDtails:string[]=[]
   userChoice:string[][]=[]
 
@@ -73,6 +76,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
       var path =  this.router.url.substr(1,this.router.url.indexOf('/',1))
       if(path=="collaboration-game/")
       {
+        //init
         this.feedbackForm=null;
         this.feedbacForm();
         this.flagChangeBoard=0;
@@ -90,7 +94,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
         this.chat=""
         if(this.difficulty==="קל" || this.difficulty==="בינוני"||this.difficulty==="קשה")
         {
-          let root = document.documentElement;
+          let root = document.documentElement;//change color - setting
           root.style.setProperty('--numbersColor',this.authApi.getSessionColornumbersColor())     
           this.authApi.GetUsersList().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
             this.User = [];
@@ -99,15 +103,16 @@ export class SudokuCollaborationGameComponent implements OnInit {
               
               if(a["nickName"]===this.authApi.getSessionStorage())
               {
-                this.id=item.key ;
+                this.id=item.key ;//user id
                 this.authApi.valid=this.id
                 this.gradeCollaboration=(item.payload.val().gradeCollaboration).slice()//copy the grade from DB
                 a['$key'] = item.key;
-                this.User.push(a as User);
+                this.User.push(a as User);//my user
                 this.point=this.User[0].point;//copy the point from DB
               }
             })
           })
+          //init timer
           this.hour=0;
           this.min=0;
           this.sec=0;
@@ -118,23 +123,36 @@ export class SudokuCollaborationGameComponent implements OnInit {
             var path =  this.router.url.substr(1,this.router.url.indexOf('/',1))
             if(path=="collaboration-game/")
             {
+              //init variables
+              var path1 = this.router.url.substr(("/collaboration-game/").length,this.router.url.indexOf('/Level'))
+              var path2=decodeURI(path1)
+              var re = /[.,\/-]/
+                var nameList = path2.split(re);
+                this.from = nameList[1];
+                this.to = nameList[2];
+                this.difficulty = nameList[3];
+                this.boradName = nameList[4];
+
+              //if db empty
               if(collection.length===0 && this.from===this.authApi.getSessionStorage()&& this.details!==null )
               {
-                this.collaborationSe.AddCollaboration(this.details)
-                this.flag=1
+                this.collaborationSe.AddCollaboration(this.details)//add game
                 this.details=null
               }
-              else if( collection.length!==0 && this.flagChangeBoard===0)
+              //if db not empty
+              else if( this.from===this.authApi.getSessionStorage() && collection.length!==0 && this.flagChangeBoard===0)
               {
                 for(var i=0;i<collection.length;i++)
                 {
+                  //If this game already exists
                   if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to && this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName)
                   {
-                    this.flag=1;
+                    
                     break;
                   }
                 }
-                if(this.flag===0 && this.details!=null)
+                //If this game not exists
+                if(i===collection.length)
                 {
                   this.collaborationSe.AddCollaboration(this.details)
                   this.details=null
@@ -142,7 +160,6 @@ export class SudokuCollaborationGameComponent implements OnInit {
                 }
                 else
                 {
-                  this.flag=0;
                   return;
                 }
               }
@@ -156,38 +173,36 @@ export class SudokuCollaborationGameComponent implements OnInit {
               this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName
               && collection[i].payload.val().done==="no" && collection[i].payload.val().win==="")
              {
-               console.log("1")
+               //take detail from db - start game
                this.gameId=collection[i].key
                this.dbDtails=[]
                this.dbDtails.push(collection[i].payload.val());
                this.sudokuBoard=this.dbDtails[0]["sudokuBoard"].slice()
                this.userChoice=this.dbDtails[0]["shareBoard"].slice()
-               console.log(this.sudokuBoard)
                break;
              }
              else if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to &&
              this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName
              && collection[i].payload.val().done==="yes" && collection[i].payload.val().win==="")
              {
-               console.log("someone exit from the game")
+               //someone exit from the game
+               //console.log("someone exit from the game")
+               clearInterval(this.interval);
                this.exitGame()
+               break;
              }
              else if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to &&
              this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName
              && collection[i].payload.val().done==="yes" && collection[i].payload.val().win!=="")
              {
-               console.log("win!!!!")
-              this.winGame()
-             }
-             else
-             {
-               return;
+               //if someone win
+                this.winGame()
+                break
              }
             }
-            console.log(this.dbDtails)
             return;
           })
-          this.timeInterval();
+          this.timeInterval();//start timer
         }
         else
         {
@@ -244,7 +259,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
     },1000)
   }
 
-  randonBoard()
+  randonBoard()//create random board each game
   {
     if(this.difficulty==="קל")
     {
@@ -299,7 +314,6 @@ export class SudokuCollaborationGameComponent implements OnInit {
     // this.sudokoClassic=[]
     this.sudokuBoard= new Array(9).fill("").map(() => new Array(9).fill(""));//user choice
     this.sudokuBoard=dbInfo.slice()
-    console.log(this.sudokuBoard)
     while(times>0)
     {
       var random_row= parseInt((Math.random()*10).toString());//1-9
@@ -319,6 +333,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
         times--
       }
     }
+    //init - insert data to db
     this.details=null
     this.details={
       from:this.from,
@@ -348,6 +363,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
   }
 
   onKey(event: any,row,col)
+  //If one of the players recorded a number
   {
     if(event!=null)
     {
@@ -365,29 +381,8 @@ export class SudokuCollaborationGameComponent implements OnInit {
     }
   }
 
-  // scanBoeard()//Saving the player's selections
-  // {
-  //   this.userChoice= new Array(9).fill("").map(() => new Array(9).fill(""));
-  //   for(var i=0; i<9 ; i++)
-  //   {
-  //    for(var j=0; j<9; j++)
-  //    {
-  //      var cellId= i.toString()+j.toString();
-      
-  //      var cellChoice=(document.getElementById(cellId) as HTMLInputElement).value
-  //      if(this.sudokuBoard[i][j]==="")
-  //      {
-  //        this.userChoice[i][j]=cellChoice;
-  //      }
-  //      else
-  //      {
-  //        this.userChoice[i][j]="";
-  //      }
-  //    }
-  //  }
-  // }
 
-  openForm()
+  openForm()//open chat
   {
     var openf=document.getElementById("myForm")
     if(openf!=null)
@@ -396,7 +391,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
     } 
   }
 
-  closeForm()
+  closeForm()//close chat
    {
      var closef=document.getElementById("myForm")
      if(closef!=null)
@@ -405,7 +400,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
      }    
   }
 
-  addMsg()
+  addMsg()//add message to the chat
   {
    this.dbDtails[0]["chat"].push({name:this.authApi.getSessionStorage(),massage:(document.getElementById("textarea") as HTMLInputElement).value})
    this.dbDtails[0]["chat"];
@@ -420,7 +415,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
     this.db.database.ref("collaboration-game/"+this.gameId+"/shareBoard").set(this.userChoice);   
   }
 
-  help()
+  help()//Press the Help button
   {
     if(this.point>=100)
     {
@@ -453,26 +448,25 @@ export class SudokuCollaborationGameComponent implements OnInit {
     }    
   }
 
-  find_empty_pos()
+  find_empty_pos()//find empty pos for the help button
   {
-    console.log(this.temp)
-  for(var i=0; i<9 ; i++)
-  {
-   for(var j=0; j<9; j++)
-   {
-      if(this.sudokuBoard[i][j]==""&& this.userChoice[i][j]=="")
+    for(var i=0; i<9 ; i++)
+    {
+      for(var j=0; j<9; j++)
       {
-        this.db.database.ref("collaboration-game/"+this.gameId+"/sudokuBoard/"+i+"/"+j).set(this.temp[i][j]);     
-        return true
+        if(this.sudokuBoard[i][j]==""&& this.userChoice[i][j]=="")
+        {
+          this.db.database.ref("collaboration-game/"+this.gameId+"/sudokuBoard/"+i+"/"+j).set(this.temp[i][j]);     
+          return true
+        }
       }
     }
-   }
-   return false;
+    return false;
   }
 
-  home()
+  home()//exit button
   {
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
     var r = confirm("לצאת מהמשחק?");
     if (r == true) //exit
     {
@@ -485,7 +479,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
 
   }
 
-  exitGame()
+  exitGame()//technical loss
   {
     this.closeForm()
     var modal3 = document.getElementById("myModal3");
@@ -496,9 +490,8 @@ export class SudokuCollaborationGameComponent implements OnInit {
 
   }
 
-  close_box3()
+  close_box3()//technical loss -close_box
   {
-    console.log(this.gameId)
     var modal3 = document.getElementById("myModal3");
     if(modal3!=null)
     {
@@ -512,7 +505,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
     this.router.navigate(['/home-page']);
   }
 
-  EndGame()
+  EndGame()//Clicking the Done button
   {
     for(var i=0; i<9 ; i++)
     {
@@ -533,7 +526,6 @@ export class SudokuCollaborationGameComponent implements OnInit {
       }
      }
     }
-    console.log("yesssssssssssssssssssssss")
     this.db.database.ref("collaboration-game/"+this.gameId+"/done").set("yes");
     this.db.database.ref("collaboration-game/"+this.gameId+"/win").set(this.authApi.getSessionStorage());
 
@@ -549,11 +541,13 @@ export class SudokuCollaborationGameComponent implements OnInit {
     {
       if(this.from===this.authApi.getSessionStorage())
       {
+        //add garede to the db
         this.gradeCollaboration=[{boardName:this.boradName,difficulty:this.difficulty,score:this.winning,time:this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString(),collaborator:this.to}];
         this.db.database.ref("users-list/"+this.id+"/gradeCollaboration").set(this.gradeCollaboration);    
       }
       else if(this.to===this.authApi.getSessionStorage())
       {
+        //add garede to the db
         this.gradeCollaboration=[{boardName:this.boradName,difficulty:this.difficulty,score:this.winning,time:this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString(),collaborator:this.from}];
         this.db.database.ref("users-list/"+this.id+"/gradeCollaboration").set(this.gradeCollaboration);  
       
@@ -567,7 +561,6 @@ export class SudokuCollaborationGameComponent implements OnInit {
         {
           if((this.authApi.getSessionStorage()===this.from && this.gradeCollaboration[i]["collaborator"] === this.to)|| (this.authApi.getSessionStorage()===this.to && this.gradeCollaboration[i]["collaborator"] === this.from))
           {
-            console.log("")
             if(this.winning===this.gradeCollaboration[i]["score"])//If I win the same number of points
             {
               this.gradeCollaboration.splice(i, 1);//Take out the previous one
@@ -617,11 +610,9 @@ export class SudokuCollaborationGameComponent implements OnInit {
             break;
           }
         }
-      
-      console.log(this.gradeCollaboration)
       this.db.database.ref("users-list/"+this.id+"/gradeCollaboration").set(this.gradeCollaboration);    
     }
-    var modal4 = document.getElementById("myModal4");
+    var modal4 = document.getElementById("myModal4");//you win
     if(modal4!=null)
     {
       modal4.style.display = "block";
@@ -631,7 +622,7 @@ export class SudokuCollaborationGameComponent implements OnInit {
     this.db.database.ref("users-list/"+this.id+"/point").set(this.point);
   }
 
-  close_box()
+  close_box()//close you win box
   {
     var modal4 = document.getElementById("myModal4");
     if(modal4!=null)
@@ -648,7 +639,6 @@ export class SudokuCollaborationGameComponent implements OnInit {
 
   save_feedback()//Save feedback in DB
   {
-    console.log(this.feedbackForm.value.rate)
     this.closeForm()
     if(this.difficulty==="קל")
     {

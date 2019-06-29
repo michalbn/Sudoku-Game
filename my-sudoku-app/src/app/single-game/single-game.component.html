@@ -5,6 +5,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
+       <!-- ---------------Nav bar------------ -->
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation"><a routerLink="/home-page"><span class="glyphicon glyphicon-home "></span> דף הבית </a></li>
       <li role="presentation" class="active"><a><span class="glyphicon glyphicon-play text-success"></span> התחל משחק </a></li>
@@ -14,9 +15,8 @@
       <li role="presentation" ><a routerLink="/setting"><span class="glyphicon glyphicon-cog "></span> הגדרות </a></li>
     </ul>
 
-    <!------------------------------------------------  -->
+ <!-- --------Submit a game request----------------->
 <div id="myModal5" class="modal5">
-
         <!-- Modal content -->
         <div class="modal5-content">
             <div *ngIf="this.messageService.Message.length!==0">
@@ -26,14 +26,11 @@
                 <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
                 <br><br><br>
             </div>
-        </div>
-      
+        </div> 
       </div>
-    <!-- ------------------------------------------------- -->
-
+   <!-- --------Submit a game request----------------->
     <form class="form-inline">
-        <div class="form-group col">
-             
+        <div class="form-group col">       
             <label for="selectid"> בחר דרגת קושי: </label>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <select (change)="modo($event.target.value)" size="1" class="form-control" id="selectid">  
@@ -44,11 +41,11 @@
             </select>
         </div>    
         
-     
           <div class="form-group col-md-7">
             <label for="board">בחר לוח:</label>
                 <div *ngFor="let easyBoard of easyBoard">
                     <details id={{easyBoard.boardName}}>
+            <!-- -----easy = The tables + their rank + feedback------- -->
                     <summary (click)= mark(easyBoard.boardName) >{{easyBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(easyBoard.boardName,'קל')" >התחל לשחק</button></summary>
                           <div *ngIf = "easyBoard.rate.rating>=0 && 1> easyBoard.rate.rating">
                               <p> דירוג: 
@@ -119,7 +116,7 @@
                         </div>
                     </details>
                 </div>
-                <!--medium-->
+                <!--medium == The tables + their rank + feedback -->
                 <div *ngFor="let mediumBoard of mediumBoard">
                     <details id={{mediumBoard.boardName}}>
                     <summary (click)= mark(mediumBoard.boardName) >{{mediumBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(mediumBoard.boardName,'בינוני')" >התחל לשחק</button></summary>
@@ -191,7 +188,7 @@
                          </div>
                     </details>
                 </div>
-                <!--Hard-->
+                <!--Hard = The tables + their rank + feedback-->
                 <div *ngFor="let hardBoard of hardBoard">
                     <details id={{hardBoard.boardName}}>
                     <summary (click)= mark(hardBoard.boardName) >{{hardBoard.boardName}}<button type="submit" class="btn btn-link" (click)="play(hardBoard.boardName,'קשה')" >התחל לשחק</button></summary>
@@ -262,13 +259,11 @@
                                 </div>
                          </div>
                     </details>
-                </div>
-                
+                </div>     
           </div>
-          
-
       </form>
 
+      <!----------- logo part------------------>
     <div class="logopart">
         <img class=logoimg src="assets\Sudoku.png"/>
     </div>

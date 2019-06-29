@@ -1,52 +1,45 @@
 
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
-  <head>
+    <head>
       <meta charset="utf-8">
-  </head>
-  <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
+    </head>
+    <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
 
-
-    <h1  [style.color]="this.authApi.getSessionColorheadersColor()">מצב בקשות:</h1>
-
-    <!------------------------------------------------  -->
-<div id="myModal5" class="modal5">
-
+        <h1  [style.color]="this.authApi.getSessionColorheadersColor()">מצב בקשות:</h1>
+        <!---------Invitation to the game------------>
+        <div id="myModal5" class="modal5">
         <!-- Modal content -->
-        <div class="modal5-content">
-            <div *ngIf="this.messageService.Message.length!==0">
-                <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
-                <br><br>
-                <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
-                <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
-                <br><br><br>
+            <div class="modal5-content">
+                <div *ngIf="this.messageService.Message.length!==0">
+                    <h6 [style.color]="this.authApi.getSessionColorheadersColor()">{{this.messageService.Message[0].massage}}</h6>
+                    <br><br>
+                    <button type="button" class="btn approve btn-info" (click)="this.messageService.conf()">אישור</button>
+                    <button type="button" class="btn cancelation btn-info" (click)="this.messageService.cencel()">ביטול</button>
+                    <br><br><br>
+                </div>
             </div>
         </div>
-      
-      </div>
-    <!-- ------------------------------------------------- -->
-    
-    <div class ="status">
-        <div *ngFor="let friend_status of friend_status_hold" >
+        <!-- ------------List of Membership Requests--------------->
+        <div class ="status">
+            <div *ngFor="let friend_status of friend_status_hold" >
                 <div class ="space">
             נשלחה בקשת חברות ל{{friend_status}}
-        </div>
-       </div>
-    </div>
-
-    <div class ="status">
-            <div *ngFor="let Request of friendRequest" >
-                    <div class ="space">
-                בקשת חברות נשלחה מ{{Request}}
-                 <button type="button" class="btn btn-success" (click)="confirm(Request)"> לאשר</button>
-                 <button type="button" class="btn btn-danger" (click)="cancel(Request)">לבטל</button>
+                </div>
             </div>
-           </div>
         </div>
-
-
-    <div class="logopart">
-        <img class=logoimg src="assets\Sudoku.png"/>
-    </div>
-</body>
+        <div class ="status">
+            <div *ngFor="let Request of friendRequest" >
+                <div class ="space">
+                בקשת חברות נשלחה מ{{Request}}
+                    <button type="button" class="btn btn-success" (click)="confirm(Request)"> לאשר</button>
+                    <button type="button" class="btn btn-danger" (click)="cancel(Request)">לבטל</button>
+                </div>
+            </div>
+        </div>
+    <!----------- logo part------------------>
+        <div class="logopart">
+            <img class=logoimg src="assets\Sudoku.png"/>
+        </div>
+    </body>
 </html>

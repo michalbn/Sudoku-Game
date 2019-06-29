@@ -1,24 +1,18 @@
+/* logo css */
 .logoimg{
     width: 20%;
     height: 30%;
-    /* -ms-transform: rotate(30deg); /* IE 9 */
-    /* -webkit-transform: rotate(20deg); /* Safari 3-8 */
-    /* transform: rotate(15deg);  */
-   position: fixed; 
+    position: fixed; 
     left: 0; 
     bottom: 0;
-    /* position: relative; */
- /*   top: 0px;
-    right: 0px;
-   */
 }
 
+/* nav bar  */
 a
 {
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     font-size : 140%; 
 }
-
 
 .form-group
 {
@@ -30,6 +24,7 @@ a
     font-size : 170%;
 }
 
+/* title */
 h1
 {
     vertical-align: middle;
@@ -41,6 +36,7 @@ h1
     color: #87CEFA;
 }
 
+/* button position + size */
 .pos
 {
     display: flex;
@@ -54,6 +50,7 @@ h1
     font-size: 120%
 }
 
+/* nav bar glyphicon color  */
 .glyphicon.glyphicon-star
 {
     color:rgb(224, 247, 20);
@@ -100,15 +97,15 @@ th{
     text-align:center;
 }
 
+/* There are no grades */
 h2
 {
     vertical-align: middle;
     text-align: center;
     margin-top: 6%;
     font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	font-size : 150%; 
-
-
+    font-size : 150%; 
+    color: black;
 }
 
 body {

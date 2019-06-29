@@ -34,7 +34,7 @@ export class StatusFriendsComponent implements OnInit {
         {     
           if(collection[i].payload.val().nickName===this.authApi.getSessionStorage() && this.authApi.getSessionStorage()!=="" && this.router.routerState.snapshot.url ==="/friends-page/status-friends")
           {
-            this.authApi.valid=collection[i].key
+            this.authApi.valid=collection[i].key//save user id
             if(collection[i].payload.val().friendList.friendName!=="")//friends Exist
             {
               for (var j = 0; j < collection[i].payload.val().friendList.length; j++)
@@ -71,6 +71,7 @@ export class StatusFriendsComponent implements OnInit {
         return;
       })
      }
+     //Check if my friends have called me to play
      this.messageService.alertMsg(this.router.url)
 
   }

@@ -1,151 +1,169 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
-  <head>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  </head>
-  <body [style.background]="this.authApi.getSessionColorBackgroundColor()">
-        <div *ngIf="this.dbDtails.length!==0">
-                <!-- <h1>{{this.dbDtails[0]["from"]}} ו {{this.dbDtails[0]["to"]}}שיתוף פעולה </h1> -->
-                <h1 [style.color]="this.authApi.getSessionColorheadersColor()">שיתוף פעולה בין {{this.dbDtails[0]["from"]}} ל{{this.dbDtails[0]["to"]}}</h1>
-        </div>
 
-            <!-- -------------------technical loss------------- -->
-    <div id="myModal3" class="modal3">
-      
-            <!-- Modal content -->
-            <div class="modal-content3">
-              <span class="close3" (click)="close_box3()">&times;</span>
-              <h5>אופס! הפסד טכני  <span>&#9785;</span></h5>   
-              
-             
-              
-            </div>    
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body [style.background]="this.authApi.getSessionColorBackgroundColor()">
+  <div *ngIf="this.dbDtails.length!==0">
+    <!-- <h1>{{this.dbDtails[0]["from"]}} ו {{this.dbDtails[0]["to"]}}שיתוף פעולה </h1> -->
+    <h1 [style.color]="this.authApi.getSessionColorheadersColor()">שיתוף פעולה בין {{this.dbDtails[0]["from"]}}
+      ל{{this.dbDtails[0]["to"]}}</h1>
+  </div>
+
+  <!-- -------------------technical loss------------- -->
+  <div id="myModal3" class="modal3">
+
+    <!-- Modal content -->
+    <div class="modal-content3">
+      <span class="close3" (click)="close_box3()">&times;</span>
+      <h5>אופס! הפסד טכני <span>&#9785;</span></h5>
+
+
+
+    </div>
+  </div>
+  <!---------you win modal------------>
+  <div id="myModal4" class="modal4">
+
+    <!-- Modal content -->
+    <div class="modal-content4">
+      <span class="close" (click)="close_box()">&times;</span>
+
+      <h2>!YOU WIN</h2>
+      <div *ngIf="winning!==0">
+        <h4>זכית ב {{winning}} נקודות</h4>
+      </div>
+
+
+      <form [formGroup]="feedbackForm" (ngSubmit)="save_feedback()" novalidate>
+        <div class="container">
+          <div class="form-group">
+            בבקשה תדרג/י את לוח המשחק
+            <br>
+            <div class="rate">
+              <input type="radio" id="star5" name="rate" value="5" formControlName="rate" />
+              <label for="star5" title="text">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" formControlName="rate" />
+              <label for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" formControlName="rate" />
+              <label for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" formControlName="rate" />
+              <label for="star2" title="text">2 stars</label>
+              <input type="radio" id="star1" name="rate" value="1" formControlName="rate" />
+              <label for="star1" title="text">1 star</label>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            בבקשה הכנס/י משוב על לוח המשחק:
+            <br>
+            <br>
+            <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3"
+              required></textarea>
+            <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 50 תווים</p>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-info" [disabled]="!feedbackForm.valid">שמור</button>
+
           </div>
-    <!-- --------------win!!---------------------------- -->
-    <div id="myModal4" class="modal4">
-      
-            <!-- Modal content -->
-            <div class="modal-content4">
-              <span class="close" (click)="close_box()">&times;</span>
-              
-                <h2>!YOU WIN</h2>
-                <div *ngIf = "winning!==0">
-                    <h4>זכית ב {{winning}} נקודות</h4>
+        </div>
+      </form>
+      <!-- fireworks -->
+      <div class="pyro">
+        <div class="before"></div>
+        <div class="after"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- -------The Sudoku Table---------- -->
+  <table [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" class="table table-bordered">
+    <tbody>
+      <tr class={{index}} *ngFor="let sudoko of sudokuBoard let row=index">
+        <td *ngFor="let j of sudoko let col=index">
+          <input [style.background]="this.authApi.getSessionColorBackgroundBoardColor()"
+            (keyup)="onKey($event,row,8-col)" type="text" id="{{row}}{{8-col}}"
+            [disabled]="isDisabled(sudokuBoard[row][8-col])" value={{sudokuBoard[row][8-col]+userChoice[row][8-col]}}
+            oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"
+            autocomplete="off">
+        </td>
+        <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
+
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- -----Dashboard on the side---------------- -->
+  <div class="info">
+    <button type="submit" class="btn btn-link press" (click)="help()"> <span class="fa fa-life-ring"></span>
+      עזרה</button>
+    <h3 class="btn-link"> מצב נקודות: {{point}} </h3>
+    <h3 class="btn-link"> <span class="fa fa-clock-o"></span> &nbsp;&nbsp;{{this.sec}} : {{this.min}} : {{this.hour}}
+    </h3>
+    <br>
+    <div class="pos">
+      <button type="button" class="nav-bar btn btn-info" (click)="clearBoard()">נקה לוח</button>
+      <button type="button" class="nav-bar btn btn-info" (click)="EndGame()">סיימתי!</button>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-link press stop" (click)="home()"> <span class="fa fa-share"></span>
+      יציאה</button>
+  </div>
+  <!-- --------chat------------------ -->
+  <button class="open-button" (click)="openForm()">צ'אט</button>
+  <div class="chat-popup" id="myForm">
+    <span class="close1" (click)="closeForm()">&times;</span>
+    <form action="/action_page.php" class="form-container">
+      <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צ'אט</h1>
+      <div class="frame">
+        <ul>
+          <div *ngIf="this.dbDtails.length!==0">
+            <div *ngFor="let chat of this.dbDtails[0].chat let i=index">
+              <div *ngIf="chat.name!=''&& chat.massage!='' ">
+                <br />
+                <div *ngIf="chat.name==from; else templateName">
+                  <br />
+                  <p>
+                    <span>{{chat.name}} : {{chat.massage}}</span>
+                  </p>
+                  <br />
                 </div>
-               
-    
-                <form [formGroup]="feedbackForm" (ngSubmit)="save_feedback()" novalidate>
-                    <div class="container">
-                      <div class="form-group">
-                          בבקשה תדרג/י את לוח המשחק
-                <br>
-                <div class="rate">
-                    <input type="radio" id="star5" name="rate" value="5" formControlName="rate"/>
-                    <label for="star5" title="text">5 stars</label>
-                    <input type="radio" id="star4" name="rate" value="4" formControlName="rate"/>
-                    <label for="star4" title="text">4 stars</label>
-                    <input type="radio" id="star3" name="rate" value="3" formControlName="rate"/>
-                    <label for="star3" title="text">3 stars</label>
-                    <input type="radio" id="star2" name="rate" value="2" formControlName="rate"/>
-                    <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star1" name="rate" value="1" formControlName="rate"/>
-                    <label for="star1" title="text">1 star</label>
-                    
+                <ng-template #templateName>
+                  <br />
+                  <div class="p1">
+                    <span> {{chat.name}} : {{chat.massage}} </span><br />
+
+
                   </div>
-                  <br>
-                  <br>
-                  <br>
-                  בבקשה הכנס/י משוב על לוח המשחק:
-                  <br>
-                  <br>
-                  <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3" required></textarea> 
-                  <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 50 תווים</p>
-                  <br>
-                  <br>
-                  <button type="submit" class="btn btn-info" [disabled]="!feedbackForm.valid">שמור</button>
-    
-                      </div>
-                    </div>
-                </form>
-                 
-                <div class="pyro">
-                    <div class="before"></div>
-                    <div class="after"></div>
-                </div>
-              
+                  <br />
+                </ng-template>
+
+              </div>
+
             </div>
-          
           </div>
+        </ul>
+      </div>
+      <label for="msg"><b>הודעה</b></label>
+      <textarea id="textarea" placeholder="לרשום הודעה..." name="msg" maxlength="25" required></textarea>
 
-          <!-- -------------------------------------------- -->
+      <button type="submit" (click)=addMsg() class="btn">שלח</button>
 
-        <table [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" class="table table-bordered">    
-            <tbody >
-                    <tr class={{index}} *ngFor="let sudoko of sudokuBoard let row=index" >                
-                      <td *ngFor="let j of sudoko let col=index">
-                        <input [style.background]="this.authApi.getSessionColorBackgroundBoardColor()" (keyup)="onKey($event,row,8-col)" type="text" id="{{row}}{{8-col}}" [disabled]="isDisabled(sudokuBoard[row][8-col])" 
-                        value={{sudokuBoard[row][8-col]+userChoice[row][8-col]}} oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1" autocomplete="off">
-                      </td>
-                      <!-- <td><input type="text" [disabled]="isDisabled(ref.value)" value=""#ref oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\.*)\./g, '$1');" size="1" maxlength="1"></td> -->
-        
-                    </tr>
-                  </tbody>
-        </table>
+    </form>
+  </div>
 
-        <div class="info">
-                <button type="submit" class="btn btn-link press" (click)="help()"> <span class="fa fa-life-ring"></span> עזרה</button>
-                <h3 class="btn-link" > מצב נקודות: {{point}}   </h3>
-                <h3 class="btn-link"> <span class="fa fa-clock-o"></span> &nbsp;&nbsp;{{this.sec}} : {{this.min}} : {{this.hour}}  </h3>
-                <br>
-                <div class="pos"> 
-                    <button type="button" class="nav-bar btn btn-info" (click)="clearBoard()">נקה לוח</button>
-                    <button type="button" class="nav-bar btn btn-info" (click)="EndGame()">סיימתי!</button> 
-                </div>
-                <br>
-                <button type="submit" class="btn btn-link press stop" (click)="home()"> <span class="fa fa-share"></span> יציאה</button>
-        </div>
-        <button class="open-button" (click)="openForm()">צ'אט</button>
-        <div class="chat-popup" id="myForm">
-                <span class="close1" (click)="closeForm()">&times;</span>
-              <form action="/action_page.php" class="form-container">
-                <h1 [style.color]="this.authApi.getSessionColorheadersColor()">צ'אט</h1>
-                <div  class="frame">
-                  <ul>
-                    <div *ngIf="this.dbDtails.length!==0">
-                        <div *ngFor="let chat of this.dbDtails[0].chat let i=index" >
-                          <div  *ngIf="chat.name!=''&& chat.massage!='' ">
-                              <br/>
-                            <div  *ngIf="chat.name==from; else templateName">
-                                <br/>   
-                              <p>
-                                    <span>{{chat.name}} : {{chat.massage}}</span>
-                                  </p> 
-                                  <br/>
-                        </div>
-                        <ng-template #templateName>
-                            <br/>
-                          <div class="p1">
-                              <span> {{chat.name}} : {{chat.massage}} </span><br/>
-                                 
-                                  
-                          </div>
-                          <br/>
-                        </ng-template>
-                            
-                          </div>   
-                  
-                      </div>
-                    </div>
-                  </ul>
-                </div>
-                <label for="msg"><b>הודעה</b></label>
-                <textarea id="textarea" placeholder="לרשום הודעה..." name="msg" maxlength="25" required></textarea>
-            
-                <button type="submit"  (click)=addMsg() class="btn">שלח</button>
-            
-              </form>
-            </div>
+  <!----------- logo part------------------>
+  <div class="logopart">
+    <img class=logoimg src="assets\Sudoku.png" />
 
-  </body>
-  </html>
+  </div>
+
+</body>
+
+</html>

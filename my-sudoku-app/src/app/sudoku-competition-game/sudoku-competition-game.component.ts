@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 })
 export class SudokuCompetitionGameComponent implements OnInit {
 
+  //doard details
   from: string;
   to:string;
   difficulty:string;
@@ -25,6 +26,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
   chat;
   gameId;
 
+  //timer
   sec: number = 0;
   min: number = 0;
   hour: number = 0;
@@ -37,11 +39,13 @@ export class SudokuCompetitionGameComponent implements OnInit {
   midTimes:number=45;
   hardTimes:number=55;
 
-  flag=0
+  flag=0;//if alerdy exsist in db
 
+   //boards
   dbDtails:string[]=[]
   userChoice:string[][]=[]
 
+  //my user
   User: User[];
   id:string;
 
@@ -50,7 +54,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
   winning:number;//score
   point:number;//The number of points you earned
 
-  winner:string;
+  winner:string;//the winner
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -73,6 +77,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
       var path =  this.router.url.substr(1,this.router.url.indexOf('/',1))
       if(path=="competition-game/")
       {
+        //init values
         this.feedbacForm();
         this.details=null
         this.gameId=null;
@@ -99,7 +104,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
         }
         if(this.difficulty==="קל" || this.difficulty==="בינוני"||this.difficulty==="קשה")
         {
-          let root = document.documentElement;
+          let root = document.documentElement;//change color - setting
           root.style.setProperty('--numbersColor',this.authApi.getSessionColornumbersColor())     
           this.authApi.GetUsersList().snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
             this.User = [];
@@ -108,47 +113,62 @@ export class SudokuCompetitionGameComponent implements OnInit {
               
               if(a["nickName"]===this.authApi.getSessionStorage())
               {
-                this.id=item.key ;
+                this.id=item.key ;//User id
                 this.authApi.valid=this.id
                 this.gradeCompetition=(item.payload.val().gradeCompetition).slice()//copy the grade from DB
                 a['$key'] = item.key;
-                this.User.push(a as User);
+                this.User.push(a as User);//my user details
                 this.point=this.User[0].point;//copy the point from DB
               }
             })
           })
 
-
+          //init timer
           this.hour=0;
           this.min=0;
           this.sec=0;
           this.interval=0;
-          this.randonBoard();
-          console.log(this.sudokuBoard)
+          if(this.authApi.getSessionStorage()===this.from)
+          {
+            this.randonBoard();//show sudoku board
+          }
+          
 
           this.competitionSe.GetAllCompetitioncList().snapshotChanges().subscribe(collection => {
             var path =  this.router.url.substr(1,this.router.url.indexOf('/',1))
             if(path=="competition-game/")
             {
-              console.log(this.details)
+              //init variables
+              var path1 = this.router.url.substr(("/competition-game/").length,this.router.url.indexOf('/Level'))
+              var path2=decodeURI(path1)
+              var re = /[.,\/-]/
+              var nameList = path2.split(re);
+              console.log(nameList)
+              this.from = nameList[1];
+              this.to = nameList[2];
+              this.difficulty = nameList[3];
+              this.boradName = nameList[4];
+
+              //if db empty
               if(collection.length===0 && this.from===this.authApi.getSessionStorage()&& this.details!==null )
               {
                 this.competitionSe.AddCompetition(this.details)
-                this.flag=1
                 this.details=null
               }
-              else if( collection.length!==0 )
+              //if db not empty
+              else if( this.from===this.authApi.getSessionStorage() && collection.length!==0)
               {
                 for(var i=0;i<collection.length;i++)
                 {
+                  //If this game already exists
                   if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to && this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName)
                   {
-                    this.flag=1;
                     break;
                   }
                 }
-                if(this.flag===0 && this.details!=null)
-                {
+                 //If this game not exists
+                 if(i===collection.length)
+                 {
                   this.competitionSe.AddCompetition(this.details)
                   this.details=null
                   return;
@@ -156,7 +176,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
                 }
                 else
                 {
-                  this.flag=0;
                   return;
                 }
               }
@@ -165,54 +184,40 @@ export class SudokuCompetitionGameComponent implements OnInit {
             return;
           })
           this.competitionSe.GetAllCompetitioncList().snapshotChanges().subscribe(collection => {
-            
+            console.log("koko")
             for (var i = 0; i < collection.length; i++) 
             {
-              if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to &&
+              if((this.authApi.getSessionStorage()===collection[i].payload.val().from || this.authApi.getSessionStorage()===collection[i].payload.val().to) &&
                this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName
                && collection[i].payload.val().done==="no" && collection[i].payload.val().win==="")
               {
-                console.log("1")
                 this.gameId=collection[i].key
                 this.dbDtails=[]
                 this.dbDtails.push(collection[i].payload.val());
+                console.log(this.dbDtails)
                 this.sudokuBoard=this.dbDtails[0]["sudokuBoard"].slice()
-                console.log(this.sudokuBoard)
                 break;
               }
               else if(this.from===collection[i].payload.val().from && this.to===collection[i].payload.val().to &&
               this.difficulty===collection[i].payload.val().difficulty && this.boradName===collection[i].payload.val().boradName
               && collection[i].payload.val().done==="yes" && collection[i].payload.val().win!=="")
               {
-                console.log("2")
-                console.log("some one win")
+                //someone exit from the game or win
+                clearInterval(this.interval);
+                //console.log("some one win")
                 this.winner=collection[i].payload.val().win
-                console.log(this.gameId)
-                console.log(collection[i].payload.val())
                 this.winGame(collection[i].payload.val().win)
                 break;
               }
-              else
-              {
-                console.log("3")
-                break;
-              }
             }
-            console.log(this.dbDtails)
             return;
-  
           })
-          this.timeInterval();
-          
-
-          
+          this.timeInterval();//start timer
         }
         else
         {
           this.router.navigate(['/home-page']);
         }
-
-       
       }
     }
   }
@@ -266,7 +271,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
   }
 
 
-  randonBoard()
+  randonBoard()//create random board each game
   {
     if(this.difficulty==="קל")
     {
@@ -290,6 +295,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
          {    
            if(collection[i].payload.val().boardName===this.boradName)
            {
+            this.temp=collection[i].payload.val().sudoku.slice()
              this.createGame(this.midTimes,collection[i].payload.val().sudoku.slice())
              break
            }     
@@ -304,6 +310,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
          {
            if(collection[i].payload.val().boardName===this.boradName)
            {
+            this.temp=collection[i].payload.val().sudoku.slice()
              this.createGame(this.hardTimes,collection[i].payload.val().sudoku.slice()) 
              break
            }     
@@ -319,7 +326,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
     // this.sudokoClassic=[]
     this.sudokuBoard= new Array(9).fill("").map(() => new Array(9).fill(""));//user choice
     this.sudokuBoard=dbInfo.slice()
-    console.log(this.sudokuBoard)
     while(times>0)
     {
       var random_row= parseInt((Math.random()*10).toString());//1-9
@@ -339,6 +345,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
         times--
       }
     }
+    //init - insert data to db
     this.details=null
     this.details={
       from:this.from,
@@ -387,7 +394,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
    }
   }
 
-  help()
+  help()//Press the Help button
   {
     this.scanBoeard();//fill user choice
     if(this.point>=100)
@@ -421,7 +428,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
     }    
   }
 
-  find_empty_pos()
+  find_empty_pos()////find empty pos for the help button
   {
   this.scanBoeard()//fill user choice
   for(var i=0; i<9 ; i++)
@@ -457,13 +464,12 @@ export class SudokuCompetitionGameComponent implements OnInit {
     
   }
 
-  home()
+  home()//exit button
   {
     clearInterval(this.interval);
     var r = confirm("לצאת מהמשחק?");
     if (r == true) //exit
     {
-      console.log(this.gameId)
       this.db.database.ref("competition-game/"+this.gameId+"/done").set("yes");
       if(this.authApi.getSessionStorage()===this.from)
       {
@@ -476,12 +482,11 @@ export class SudokuCompetitionGameComponent implements OnInit {
     }
     else
     { 
-      console.log(this.gameId)
       this.timeInterval()
     }  
   }
 
-  EndGame()
+  EndGame()//Clicking the Done button
   {
     for(var i=0; i<9 ; i++)
     {
@@ -503,14 +508,13 @@ export class SudokuCompetitionGameComponent implements OnInit {
      }
     }
     //If there is no error in the board
-    console.log("yesssssssssssssssssssssss")
     this.db.database.ref("competition-game/"+this.gameId+"/done").set("yes");
     this.db.database.ref("competition-game/"+this.gameId+"/win").set(this.authApi.getSessionStorage());
    // this.winning=this.boardSe.calculatePoints(this.difficulty,this.sec,this.min)//Calculate points
 
   }
 
-  openForm()
+  openForm()//open chat
   {
     var openf=document.getElementById("myForm")
     if(openf!=null)
@@ -519,7 +523,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
     } 
   }
 
-  closeForm()
+  closeForm()//close chat
    {
      var closef=document.getElementById("myForm")
      if(closef!=null)
@@ -528,7 +532,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
      }    
   }
 
-  addMsg()
+  addMsg()//add message to the chat
   {
    this.dbDtails[0]["chat"].push({name:this.authApi.getSessionStorage(),massage:(document.getElementById("textarea") as HTMLInputElement).value})
    this.dbDtails[0]["chat"];
@@ -543,11 +547,9 @@ export class SudokuCompetitionGameComponent implements OnInit {
     if(theWinner!=null)
     {
       clearInterval(this.interval);//Stop the timer
-      console.log("whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
       if(this.authApi.getSessionStorage()===theWinner && this.gameId!=null)
       {
         this.winning=this.competitionSe.calculatePoints(this.difficulty,this.sec,this.min)
-        console.log(this.gradeCompetition[0]["boardName"])
         if(this.gradeCompetition[0]["boardName"]=="")//If there are no grades in DB
         {
           this.gradeCompetition=[{boardName:this.boradName,difficulty:this.difficulty,score:this.winning,time:this.hour.toString()+":"+this.min.toString()+":"+this.sec.toString(),rival:this.to}];
@@ -591,10 +593,8 @@ export class SudokuCompetitionGameComponent implements OnInit {
         var modal2 = document.getElementById("myModal2");
         if(modal2!=null)
         {
-          console.log("4")
           modal2.style.display = "block";
-          this.point+=this.winning;
-         
+          this.point+=this.winning;        
         }
         this.db.database.ref("users-list/"+this.id+"/point").set(this.point);
       }
@@ -605,7 +605,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
         {
           modal1.style.display = "block";
         }
-        console.log("5")
       }
   
       theWinner=null;
@@ -616,10 +615,10 @@ export class SudokuCompetitionGameComponent implements OnInit {
   close_box()//If the player has not registered feedback and win
   {
     var modal2 = document.getElementById("myModal2");
-    console.log(modal2)
     if(modal2!=null)
     {
       modal2.style.display = "none";
+      this.dbDtails=[]
       this.competitionSe.DeleteCompetitione(this.gameId)
      
     }
@@ -630,7 +629,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
   close_box1()//If the player has not registered feedback
   {
     var modal1 = document.getElementById("myModal1");
-    console.log(modal1)
     if(modal1!=null)
     {
       modal1.style.display = "none";
@@ -644,7 +642,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
   {
 
     this.closeForm()
-    console.log("saveeeeeee")
     if(this.difficulty==="קל")
     {
       this.boardSe.GetBoardsList_CompetitionEasy().snapshotChanges().subscribe(collection => {
@@ -821,8 +818,6 @@ export class SudokuCompetitionGameComponent implements OnInit {
   {
     this.close_box1()
   }
- 
- 
  // this.router.navigate(['/home-page']);//go to single-game
  }
 
