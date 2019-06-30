@@ -45,7 +45,7 @@
             &nbsp;&nbsp;
             <label for="selectid">בחר/י צורת משחק:</label>
             &nbsp;&nbsp;
-            <select (change)="check_fields()" size="1" class="form-control" id="selectid">
+            <select (change)="check_fields(undefined)" size="1" class="form-control" id="selectid">
                 <option value="" selected hidden>בחר כאן</option>
                 <option>תחרות</option>
                 <option>שיתוף פעולה</option>
@@ -56,7 +56,7 @@
             &nbsp;&nbsp;
             <label for="selectid1">בחר/י דרגת קושי:</label>
             &nbsp;&nbsp;
-            <select (change)="check_fields()" size="1" class="form-control" id="selectid1">
+            <select (change)="check_fields(undefined)" size="1" class="form-control" id="selectid1">
                 <option value="" selected disabled hidden>בחר כאן</option>
                 <option>קל</option>
                 <option>בינוני</option>
@@ -68,7 +68,7 @@
             &nbsp;&nbsp;
             <label for="selectid2">בחר/י חבר מחובר:</label>
             &nbsp;&nbsp;
-            <select (change)="check_fields()" (focus)="check_fields()" size="1" class="form-control" id="selectid2">
+            <select (change)="check_fields(undefined)" (focus)="check_fields(undefined)" size="1" class="form-control" id="selectid2">
                 <option value="" selected hidden>בחר כאן</option>
                 <option *ngIf="friends_login.length == 0">לא קיימים</option>
                 <option *ngFor="let friends_login of friends_login">{{friends_login}}</option>

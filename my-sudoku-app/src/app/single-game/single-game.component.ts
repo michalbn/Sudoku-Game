@@ -17,7 +17,7 @@ export class SingleGameComponent implements OnInit {
 
   User: User[];// My user   
 
-  constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService,private messageService: MessageService) { }
+  constructor(private router: Router,public boardSe : SudokuBoardsService, public authApi: AuthService,public messageService: MessageService) { }
 
   ngOnInit() {
     if(this.authApi.getSessionStorage()==null)///if session not null

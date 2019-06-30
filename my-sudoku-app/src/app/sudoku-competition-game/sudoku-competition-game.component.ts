@@ -226,7 +226,7 @@ export class SudokuCompetitionGameComponent implements OnInit {
   feedbacForm()//Terms for entering feedback
   {
     this.feedbackForm= this.fb.group({
-      feedback: ['', [Validators.required, ,Validators.maxLength(50)]],
+      feedback: ['', [Validators.required, ,Validators.maxLength(100)]],
       rate: ['', []]
     })  
   }

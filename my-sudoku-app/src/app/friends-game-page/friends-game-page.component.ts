@@ -283,7 +283,8 @@ export class FriendsGamePageComponent implements OnInit {
             for (var i = 0; i < collection.length; i++) {
 
               this.easyBoard.push(collection[i].payload.val());
-            }
+              
+                      }
           })
           break;
         }

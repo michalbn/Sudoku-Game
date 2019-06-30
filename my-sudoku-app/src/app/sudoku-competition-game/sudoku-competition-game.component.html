@@ -51,7 +51,7 @@
             <br>
             <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3"
               required></textarea>
-            <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>הכינוי צריך להכיל עד 50 תווים</p>
+            <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>המשוב צריך להכיל עד 100 תווים</p>
             <br>
             <br>
             <button type="submit" class="btn btn-info" [disabled]="!feedbackForm.valid">שמור</button>
@@ -99,7 +99,7 @@
             <br><br>
             <textarea type="text" placeholder="הכנס לכאן" formControlName="feedback" class="form-control size" rows="3"
               required></textarea>
-            <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>המשוב מכיל עד 50 תוו</p>
+            <p *ngIf="feedback.errors?.maxlength" class="error"><sup>*</sup>המשוב מכיל עד 100 תווים</p>
             <br>
             <br>
             <button type="submit" class="btn btn-info" [disabled]="!feedbackForm.valid">שמור</button>

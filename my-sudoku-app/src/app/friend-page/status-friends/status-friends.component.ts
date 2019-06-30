@@ -18,7 +18,7 @@ export class StatusFriendsComponent implements OnInit {
   friend_status_hold: string[]=[];//contain a list of names that this user has sent membership request
   friendRequest: string[]=[];//Contains a list of names that have sent to this user membership request
 
-  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase,private messageService: MessageService) { }
+  constructor(public authApi: AuthService, private router : Router,private db: AngularFireDatabase,public messageService: MessageService) { }
 
   ngOnInit() { 
      //Sending a friend request

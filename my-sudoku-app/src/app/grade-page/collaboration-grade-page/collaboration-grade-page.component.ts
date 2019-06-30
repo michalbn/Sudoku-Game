@@ -13,7 +13,7 @@ export class CollaborationGradePageComponent implements OnInit {
   flagGrade2=false;//flag -If there are no grades
   gradeInfo2: string[]=[];//My grade list
 
-  constructor(private messageService: MessageService,
+  constructor(public messageService: MessageService,
     private router : Router,
     public authApi: AuthService) { }
 

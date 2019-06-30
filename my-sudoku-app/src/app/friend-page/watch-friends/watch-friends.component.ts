@@ -17,7 +17,7 @@ export class WatchFriendsComponent implements OnInit {
   status_approved: string[]=[];//My friend list - status approved
   id:string;//My user id
 
-  constructor(public authApi: AuthService, private router : Router,private messageService: MessageService) { }
+  constructor(public authApi: AuthService, private router : Router,public messageService: MessageService) { }
 
   ngOnInit()
   {

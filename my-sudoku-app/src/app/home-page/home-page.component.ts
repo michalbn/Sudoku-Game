@@ -32,7 +32,7 @@ export class HomePageComponent implements OnInit {
   constructor(public authApi: AuthService,
     private router: Router,
     public boardSe: SudokuBoardsService,
-    private messageService: MessageService
+    public messageService: MessageService
   ) { }
 
   ngOnInit() {

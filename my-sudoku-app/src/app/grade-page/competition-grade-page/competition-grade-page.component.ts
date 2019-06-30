@@ -15,7 +15,7 @@ export class CompetitionGradePageComponent implements OnInit {
   gradeInfo1: string[]=[];//My grade list
 
 
-  constructor(private messageService: MessageService,
+  constructor(public messageService: MessageService,
               private router : Router,
               public authApi: AuthService
     ) { }

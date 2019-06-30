@@ -15,7 +15,7 @@ export class SettingPageComponent implements OnInit {
   User: User[];//my user
   id: string;//user id
 
-  constructor(private messageService: MessageService,
+  constructor(public messageService: MessageService,
               public authApi: AuthService,
               private router: Router,
               private db: AngularFireDatabase) { }

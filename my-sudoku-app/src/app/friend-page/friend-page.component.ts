@@ -28,7 +28,7 @@ export class FriendPageComponent implements OnInit,DoCheck {
               public authApi:AuthService ,  // API services
               public fb: FormBuilder,       // Form Builder service for Reactive forms
               public toastr: ToastrService,
-              private messageService: MessageService
+              public messageService: MessageService
               
   ) { }
 

@@ -18,7 +18,7 @@ export class GradePageComponent implements OnInit,DoCheck {
 
   constructor(private router : Router,
               private route: ActivatedRoute,public authApi: AuthService,
-              private messageService: MessageService) { }
+              public messageService: MessageService) { }
 
   ngOnInit() {
     if(this.authApi.getSessionStorage()==null)///if session not null
