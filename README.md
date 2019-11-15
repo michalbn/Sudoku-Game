@@ -15,6 +15,9 @@ My role as application developer, is to create a convenient, easy and simple env
 ![project logo (this one for is taken from basecamp - a project management service)](https://i.imgur.com/0zowoQW.png)
 
 
+[Click here to play](https://my-sudoku-app.firebaseapp.com/)
+
+
 ## Tools & Practices
 
 |Category|Status|
