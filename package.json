@@ -22,7 +22,7 @@
     "@angular/router": "~7.1.0",
     "angular-web-storage": "^4.1.0",
     "angular-webstorage-service": "^1.0.2",
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^3.4.1",
     "core-js": "^2.5.4",
     "firebase": "^5.8.2",
     "ngx-pagination": "^3.2.1",
